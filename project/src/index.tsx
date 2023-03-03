@@ -2,12 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
+const FlatObj = {
+  numOfFlat: 115,
+} as const;
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
 root.render(
   <React.StrictMode>
-    <App />
+    <App numOfFlat={FlatObj.numOfFlat}/>
   </React.StrictMode>,
 );
