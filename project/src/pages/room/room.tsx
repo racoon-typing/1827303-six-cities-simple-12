@@ -5,22 +5,22 @@ function Room() {
         <div className="property__gallery-container container">
           <div className="property__gallery">
             <div className="property__image-wrapper">
-              <img className="property__image" src="img/room.jpg" alt="Photo studio" />
+              <img className="property__image" src="img/room.jpg" alt="Studio-1" />
             </div>
             <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
+              <img className="property__image" src="img/apartment-01.jpg" alt="Studio-2" />
             </div>
             <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
+              <img className="property__image" src="img/apartment-02.jpg" alt="Studio-3" />
             </div>
             <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
+              <img className="property__image" src="img/apartment-03.jpg" alt="Studio-4" />
             </div>
             <div className="property__image-wrapper">
-              <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
+              <img className="property__image" src="img/studio-01.jpg" alt="Studio-5" />
             </div>
             <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
+              <img className="property__image" src="img/apartment-01.jpg" alt="Studio-6" />
             </div>
           </div>
         </div>
@@ -198,7 +198,7 @@ function Room() {
             <article className="near-places__card place-card">
               <div className="near-places__image-wrapper place-card__image-wrapper">
                 <a href="#">
-                  <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
+                  <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place apartment" />
                 </a>
               </div>
               <div className="place-card__info">
@@ -210,7 +210,7 @@ function Room() {
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={{width: '80%'}}></span>
+                    <span style={{ width: '80%' }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
@@ -224,7 +224,7 @@ function Room() {
             <article className="near-places__card place-card">
               <div className="near-places__image-wrapper place-card__image-wrapper">
                 <a href="#">
-                  <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image" />
+                  <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place apartment" />
                 </a>
               </div>
               <div className="place-card__info">
@@ -236,7 +236,7 @@ function Room() {
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={{width: '80%'}}></span>
+                    <span style={{ width: '80%' }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
@@ -253,7 +253,7 @@ function Room() {
               </div>
               <div className="near-places__image-wrapper place-card__image-wrapper">
                 <a href="#">
-                  <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image" />
+                  <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place apartment" />
                 </a>
               </div>
               <div className="place-card__info">
@@ -265,7 +265,7 @@ function Room() {
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={{width: '100%'}}></span>
+                    <span style={{ width: '100%' }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>

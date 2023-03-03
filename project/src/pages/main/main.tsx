@@ -2,7 +2,7 @@ import CitiesCard from '../../components/cities-card/cities-card';
 
 type MainScreenProps = {
   numOfFlat: number;
-}
+};
 
 function Main({ numOfFlat }: MainScreenProps): JSX.Element {
   return (
