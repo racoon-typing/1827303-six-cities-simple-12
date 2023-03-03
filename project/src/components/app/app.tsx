@@ -1,4 +1,5 @@
 import Main from '../../pages/main/main';
+// import Login from '../../pages/login//login';
 
 type AppScreenProps = {
   numOfFlat: number;
