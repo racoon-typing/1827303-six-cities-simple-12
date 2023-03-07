@@ -3,14 +3,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
-type FlatPops = {
+type indexProps = {
   numOfFlat: number;
 }
 
-
-const FlatObj: FlatPops = {
+const Setiings: indexProps = {
   numOfFlat: 115,
-};
+} as const;
 
 
 const root = ReactDOM.createRoot(
@@ -19,6 +18,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App numOfFlat={FlatObj.numOfFlat}/>
+    <App numOfFlat={Setiings.numOfFlat}/>
   </React.StrictMode>,
 );
