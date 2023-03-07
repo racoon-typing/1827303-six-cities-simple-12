@@ -1,10 +1,16 @@
+// import { type } from 'os';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
-const FlatObj = {
+type FlatPops = {
+  numOfFlat: number;
+}
+
+
+const FlatObj: FlatPops = {
   numOfFlat: 115,
-} as const;
+};
 
 
 const root = ReactDOM.createRoot(
