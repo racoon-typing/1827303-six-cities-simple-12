@@ -1,8 +1,13 @@
+// import { type } from 'os';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
-const FlatObj = {
+type indexProps = {
+  numOfFlat: number;
+}
+
+const Setiings: indexProps = {
   numOfFlat: 115,
 } as const;
 
@@ -13,6 +18,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App numOfFlat={FlatObj.numOfFlat}/>
+    <App numOfFlat={Setiings.numOfFlat}/>
   </React.StrictMode>,
 );
