@@ -1,115 +1,72 @@
-// export type DataObj = {
-//   id: number;
-//   main: MainInfo;
-//   generalGrade: number;
-//   bedrooms: number;
-//   adults: number;
-//   option: string[];
-//   infoHost: Host;
-//   reviews: Review[];
-// };
-
-// export type MainInfo = {
-//   class: string;
-//   roomName: string;
-//   price: string;
-//   type: string;
-// };
-
-// export type Host = {
-//   owner: string;
-//   statusOwner: string;
-//   room: string;
-// };
-
-// export type Review = {
-//   id: number;
-//   userName: string;
-//   grade: number;
-//   text: string;
-//   date: string;
-// };
-
-// export const Data: DataObj = {
-//   id: 1,
-//   main: {
-//     class: 'Premium',
-//     roomName: 'Beautiful & luxurious studio at great location',
-//     price: '€120',
-//     type: 'Apartment',
-//   },
-//   generalGrade: 4.8,
-//   bedrooms: 3,
-//   adults: 4,
-//   option: [
-//     'Wi-Fi',
-//     'Heating',
-//     'Kitchen',
-//     'Fridge',
-//     'Washing machine',
-//     'Coffee machine',
-//     'Dishwasher',
-//     'Towels',
-//     'Baby seat',
-//     'Cabel TV',
-//   ],
-//   infoHost: {
-//     owner: 'Angelina',
-//     statusOwner: 'pro',
-//     room: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century. An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
-//   },
-//   reviews: [
-//     {
-//       id: 1,
-//       userName: 'Max',
-//       grade: 4,
-//       text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-//       date: 'April 2019',
-//     }
-//   ]
-// };
-
-
-export type TypeRoom = {
-  id: number;
-  class: string;
-  roomName: string;
-  price: string;
-  type: string;
-  grade: number;
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
-export const DataRoom: TypeRoom[] = [
+export type ConstructorRoom = {
+  bedrooms: number;
+  city: {
+    location: Location;
+    name: string;
+  };
+  description: string;
+  goods: string[];
+  host: {
+    avatarUrl: string;
+    id: number;
+    isPro: boolean;
+    name: string;
+  };
+  id: number;
+  images: string[];
+  isPremium: boolean;
+  location: Location;
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
+};
+
+export const Data: ConstructorRoom[] = [
   {
-    id: 1,
-    class: 'Premium',
-    roomName: 'Beautiful & luxurious studio at great location',
-    price: '€120',
-    type: 'Apartment',
-    grade: 4,
-  },
-  {
-    id: 2,
-    class: 'Comfort',
-    roomName: 'Beautiful & luxurious studio at great location',
-    price: '€50',
-    type: 'Apartment',
-    grade: 3,
-  },
-  {
-    id: 3,
-    class: 'Premium',
-    roomName: 'Beautiful & luxurious studio at great location',
-    price: '€150',
-    type: 'Apartment',
-    grade: 5,
-  },
-  {
-    id: 4,
-    class: 'Business',
-    roomName: 'Beautiful & luxurious studio at great location',
-    price: '€100',
-    type: 'Apartment',
-    grade: 4.4,
-  },
+    'bedrooms': 3,
+    'city': {
+      'location': {
+        'latitude': 52.370216,
+        'longitude': 4.895168,
+        'zoom': 10
+      },
+      'name': 'Amsterdam'
+    },
+    'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    'goods': [
+      'Heating'
+    ],
+    'host': {
+      'avatarUrl': 'img/1.png',
+      'id': 3,
+      'isPro': true,
+      'name': 'Angelina'
+    },
+    'id': 1,
+    'images': [
+      'img/1.png'
+    ],
+    'isPremium': false,
+    'location': {
+      'latitude': 52.35514938496378,
+      'longitude': 4.673877537499948,
+      'zoom': 8
+    },
+    'maxAdults': 4,
+    'previewImage': 'img/1.png',
+    'price': 120,
+    'rating': 4.8,
+    'title': 'Beautiful & luxurious studio at great location',
+    'type': 'apartment'
+  }
 ];
+

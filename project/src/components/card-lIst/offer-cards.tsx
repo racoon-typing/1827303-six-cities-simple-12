@@ -1,3 +1,4 @@
+// import { useState } from 'react';
 import CitiesCard from '../cities-card/cities-card';
 import { TypeRoom } from '../../mocks/offers';
 
@@ -9,11 +10,11 @@ function OfferCards({ rooms }: OfferCardsProps): JSX.Element {
   // console.log(rooms);
 
   return (
-    <ul>
-      {rooms.map((room) =>
-        <CitiesCard key={room.id} value={room}/>
+    <>
+      {rooms.map((room, id) =>
+        <CitiesCard key={room.id} value={room} />
       )}
-    </ul>
+    </>
   );
 }
 

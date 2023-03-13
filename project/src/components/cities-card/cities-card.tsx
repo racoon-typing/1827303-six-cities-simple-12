@@ -1,16 +1,17 @@
 import { TypeRoom } from '../../mocks/offers';
 
 type CitiesCardProps = {
-  rooms: TypeRoom;
+  value: TypeRoom;
 };
 
 function CitiesCard({value}: CitiesCardProps): JSX.Element {
-  const {class, roomName, price, type, grade} = value;
+  const {roomName, price, type, level} = value;
+  // console.log(value);
 
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
-        <span>{class}</span>
+        <span>{level}</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="/">

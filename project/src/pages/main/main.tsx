@@ -1,4 +1,4 @@
-import OfferCards from '../../components/offer-cards/offer-cards';
+import OfferCards from '../../components/card-lIst/offer-cards';
 import { Helmet } from 'react-helmet-async';
 import { TypeRoom } from '../../mocks/offers';
 

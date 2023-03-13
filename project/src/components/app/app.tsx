@@ -21,7 +21,7 @@ function App({ numOfFlat, rooms }: AppScreenProps): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layuot />}>
-            <Route index element={<Main numOfFlat={numOfFlat} rooms={rooms}/>} />
+            <Route index element={<Main numOfFlat={numOfFlat} rooms={rooms} />} />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer} element={<Room />} />
             <Route path={AppRoute.OfferId} element={<Room />} />
