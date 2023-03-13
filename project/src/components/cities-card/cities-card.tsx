@@ -1,8 +1,16 @@
-function CitiesCard(): JSX.Element {
+import { TypeRoom } from '../../mocks/offers';
+
+type CitiesCardProps = {
+  rooms: TypeRoom;
+};
+
+function CitiesCard({value}: CitiesCardProps): JSX.Element {
+  const {class, roomName, price, type, grade} = value;
+
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
-        <span>Premium</span>
+        <span>{class}</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="/">
@@ -12,7 +20,7 @@ function CitiesCard(): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;120</b>
+            <b className="place-card__price-value">{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
 
@@ -24,9 +32,9 @@ function CitiesCard(): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">Beautiful &amp; luxurious apartment at great location</a>
+          <a href="/">{roomName}</a>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

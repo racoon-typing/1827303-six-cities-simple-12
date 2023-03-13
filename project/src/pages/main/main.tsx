@@ -1,11 +1,13 @@
-import CitiesCard from '../../components/cities-card/cities-card';
+import OfferCards from '../../components/offer-cards/offer-cards';
 import { Helmet } from 'react-helmet-async';
+import { TypeRoom } from '../../mocks/offers';
 
 type MainScreenProps = {
   numOfFlat: number;
+  rooms: TypeRoom[];
 };
 
-function Main({ numOfFlat }: MainScreenProps): JSX.Element {
+function Main({ numOfFlat, rooms }: MainScreenProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -71,20 +73,7 @@ function Main({ numOfFlat }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {/* 1 */}
-                <CitiesCard />
-
-                {/* 2 */}
-                <CitiesCard />
-
-                {/* 3 */}
-                <CitiesCard />
-
-                {/* 4 */}
-                <CitiesCard />
-
-                {/* 5 */}
-                <CitiesCard />
+                <OfferCards rooms={rooms} />
               </div>
             </section>
             <div className="cities__right-section">
