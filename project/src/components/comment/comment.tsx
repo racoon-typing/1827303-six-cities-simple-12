@@ -1,10 +1,12 @@
-// import React from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { ConstructorRoom } from '../../mocks/offers';
 
 type CommentScreenProps = {
   offer: ConstructorRoom;
 };
+
+type FieldChangeHandle = React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>;
 
 function Comment({ offer }: CommentScreenProps): JSX.Element {
   const { images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
@@ -15,7 +17,7 @@ function Comment({ offer }: CommentScreenProps): JSX.Element {
     review: ''
   });
 
-  const fieldChangeHandle = (evt: any): void => {
+  const fieldChangeHandle = (evt: FieldChangeHandle): void => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
