@@ -32,7 +32,7 @@ export type ConstructorRoom = {
 
 export const Data: ConstructorRoom[] = [
   {
-    'bedrooms': 3,
+    'bedrooms': 4,
     'city': {
       'location': {
         'latitude': 52.370216,
@@ -43,7 +43,9 @@ export const Data: ConstructorRoom[] = [
     },
     'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     'goods': [
-      'Heating'
+      'Heating',
+      'Wifi',
+      'Water'
     ],
     'host': {
       'avatarUrl': 'img/1.png',
@@ -53,7 +55,10 @@ export const Data: ConstructorRoom[] = [
     },
     'id': 1,
     'images': [
-      'img/1.png'
+      'img/1.png',
+      'img/2.png',
+      'img/3.png',
+      'img/4.png'
     ],
     'isPremium': false,
     'location': {
@@ -61,10 +66,10 @@ export const Data: ConstructorRoom[] = [
       'longitude': 4.673877537499948,
       'zoom': 8
     },
-    'maxAdults': 4,
+    'maxAdults': 10,
     'previewImage': 'img/1.png',
-    'price': 120,
-    'rating': 4.8,
+    'price': 130,
+    'rating': 4.1,
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment'
   },
@@ -90,7 +95,10 @@ export const Data: ConstructorRoom[] = [
     },
     'id': 2,
     'images': [
-      'img/1.png'
+      'img/1.png',
+      'img/2.png',
+      'img/3.png',
+      'img/4.png'
     ],
     'isPremium': true,
     'location': {
