@@ -109,7 +109,7 @@ export const Data: ConstructorRoom[] = [
     'maxAdults': 4,
     'previewImage': 'img/1.png',
     'price': 120,
-    'rating': 3.5,
+    'rating': 2.5,
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment'
   },

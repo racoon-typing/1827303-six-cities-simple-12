@@ -10,7 +10,7 @@ type CitiesCardProps = {
 
 function CardItem({ value, onMouseOverHandler, activeId }: CitiesCardProps): JSX.Element {
   const { isPremium, price, title, type, rating, id, previewImage } = value;
-  const starWidth = `${rating / 5 * 100}%`;
+  const starWidth = `${Math.round(rating) / 5 * 100}%`;
 
   return (
     <article className={`cities__card place-card ${activeId === id ? 'active-card' : ''}`}
