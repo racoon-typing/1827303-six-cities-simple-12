@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { useState } from 'react';
 import { ConstructorRoom } from '../../mocks/offers';
 
@@ -11,15 +11,16 @@ function Comment({ offer }: CommentScreenProps): JSX.Element {
   const { avatarUrl, name, isPro } = host;
 
   const [formData, setFormData] = useState({
-    stars: '',
+    rating: '',
     review: ''
   });
 
-  const fieldChangeHandle = (evt: ChangeEventHandler<HTMLTextAreaElement>): void => {
-    evt.preventDefault();
+  const fieldChangeHandle = (evt: any): void => {
+    const {name, value} = evt.target;
+    setFormData({...formData, [name]: value});
+  };
 
-    console.log('Обновление');
-  }
+  // console.log(formData);
 
   return (
     <main className="page__main page__main--property">
@@ -139,28 +140,28 @@ function Comment({ offer }: CommentScreenProps): JSX.Element {
                     </svg>
                   </label>
 
-                  <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" />
+                  <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" onChange={fieldChangeHandle} />
                   <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
                     <svg className="form__star-image" width="37" height="33">
                       <use xlinkHref="#icon-star"></use>
                     </svg>
                   </label>
 
-                  <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" />
+                  <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" onChange={fieldChangeHandle} />
                   <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
                     <svg className="form__star-image" width="37" height="33">
                       <use xlinkHref="#icon-star"></use>
                     </svg>
                   </label>
 
-                  <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" />
+                  <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" onChange={fieldChangeHandle} />
                   <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
                     <svg className="form__star-image" width="37" height="33">
                       <use xlinkHref="#icon-star"></use>
                     </svg>
                   </label>
 
-                  <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" />
+                  <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" onChange={fieldChangeHandle} />
                   <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
                     <svg className="form__star-image" width="37" height="33">
                       <use xlinkHref="#icon-star"></use>
