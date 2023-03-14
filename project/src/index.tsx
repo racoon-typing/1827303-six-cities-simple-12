@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { DataRoom } from './mocks/offers';
+import { Data } from './mocks/offers';
 
 type indexProps = {
   numOfFlat: number;
@@ -18,6 +18,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App numOfFlat={Setiings.numOfFlat} rooms={DataRoom} />
+    <App numOfFlat={Setiings.numOfFlat} offers={Data} />
   </React.StrictMode>,
 );

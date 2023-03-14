@@ -1,18 +1,27 @@
-import { TypeRoom } from '../../mocks/offers';
+import { ConstructorRoom } from '../../mocks/offers';
+import './style.css';
 
 type CitiesCardProps = {
-  value: TypeRoom;
+  activeId: number;
+  value: ConstructorRoom;
+  onMouseOverHandler: (id: number) => void;
 };
 
-function CitiesCard({value}: CitiesCardProps): JSX.Element {
-  const {roomName, price, type, level} = value;
-  // console.log(value);
+function CardItem({ value, onMouseOverHandler, activeId }: CitiesCardProps): JSX.Element {
+  const { isPremium, price, title, type, rating, id } = value;
+  const starWidth = `${rating / 5 * 100}%`;
 
   return (
-    <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>{level}</span>
-      </div>
+    <article className={`cities__card place-card ${activeId === id ? 'active-card' : ''}`}
+      onMouseOver={() => onMouseOverHandler(id)}
+    >
+      {isPremium ? (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      ) : (
+        ''
+      )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="/">
           <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place apartment" />
@@ -28,12 +37,12 @@ function CitiesCard({value}: CitiesCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: starWidth }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{roomName}</a>
+          <a href="/">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -41,4 +50,4 @@ function CitiesCard({value}: CitiesCardProps): JSX.Element {
   );
 }
 
-export default CitiesCard;
+export default CardItem;

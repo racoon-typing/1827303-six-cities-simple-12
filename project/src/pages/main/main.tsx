@@ -1,13 +1,13 @@
-import OfferCards from '../../components/card-lIst/offer-cards';
+import CardList from '../../components/card-lIst/card-list';
 import { Helmet } from 'react-helmet-async';
-import { TypeRoom } from '../../mocks/offers';
+import { ConstructorRoom } from '../../mocks/offers';
 
 type MainScreenProps = {
   numOfFlat: number;
-  rooms: TypeRoom[];
+  offers: ConstructorRoom[];
 };
 
-function Main({ numOfFlat, rooms }: MainScreenProps): JSX.Element {
+function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -73,7 +73,7 @@ function Main({ numOfFlat, rooms }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferCards rooms={rooms} />
+                <CardList offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">
