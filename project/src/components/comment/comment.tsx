@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { useState } from 'react';
 import { ConstructorRoom } from '../../mocks/offers';
 
@@ -6,11 +6,20 @@ type CommentScreenProps = {
   offer: ConstructorRoom;
 };
 
+type ChangeKey = {
+  nameHost: string;
+}
+
 type FieldChangeHandle = React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>;
 
 function Comment({ offer }: CommentScreenProps): JSX.Element {
   const { images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
-  const { avatarUrl, name, isPro } = host;
+
+  const { avatarUrl, isPro } = host;
+  const changeKey: ChangeKey = {
+    nameHost: host.name,
+  };
+  const {nameHost} = changeKey;
 
   const [formData, setFormData] = useState({
     rating: '',
@@ -18,11 +27,9 @@ function Comment({ offer }: CommentScreenProps): JSX.Element {
   });
 
   const fieldChangeHandle = (evt: FieldChangeHandle): void => {
-    const {name, value} = evt.target;
-    setFormData({...formData, [name]: value});
+    const { name, value } = evt.target;
+    setFormData({ ...formData, [name]: value });
   };
-
-  // console.log(formData);
 
   return (
     <main className="page__main page__main--property">
@@ -91,7 +98,7 @@ function Comment({ offer }: CommentScreenProps): JSX.Element {
                   <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
-                  {name}
+                  {nameHost}
                 </span>
                 <span className="property__user-status">
                   {isPro ? 'Pro' : ''}
