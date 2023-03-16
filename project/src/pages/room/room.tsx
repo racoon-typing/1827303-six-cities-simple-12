@@ -9,7 +9,18 @@ type RoomScreenProps = {
 
 function Room({ offers }: RoomScreenProps): JSX.Element {
   const { id } = useParams();
-  const offerNumber = Number(id) - 1;
+
+  const currentOffer = offers.find((item) => {
+    const itemId = item.id;
+    let result;
+
+    if (itemId === Number(id)) {
+      result = itemId;
+      return result;
+    }
+
+    return result;
+  });
 
   return (
     <>
@@ -17,7 +28,7 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
         <title>Старница с предложением номера</title>
       </Helmet>
 
-      <Comment offer={offers[offerNumber]}/>
+      <Comment offer={currentOffer as ConstructorRoom}/>
     </>
   );
 }
