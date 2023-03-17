@@ -7,25 +7,25 @@ import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import NotFound from '../../pages/not-found/not-found';
 import Layuot from '../../components/layuot/layuot';
+import { ConstructorRoom } from '../../mocks/offers';
+
 
 type AppScreenProps = {
   numOfFlat: number;
+  offers: ConstructorRoom[];
 }
 
-function App({ numOfFlat }: AppScreenProps): JSX.Element {
+function App({ numOfFlat, offers }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layuot />}>
-            <Route index element={<Main numOfFlat={numOfFlat} />} />
+            <Route index element={<Main numOfFlat={numOfFlat} offers={offers} />} />
             <Route path={AppRoute.Login} element={<Login />} />
-            <Route path={AppRoute.Offer}>
-              <Route index element={<Room />} />
-              <Route path=':id' element={<Room />} />
-            </Route>
+            <Route path={AppRoute.OfferId} element={<Room offers={offers}/>} />
+            <Route path='*' element={<NotFound />} />
           </Route>
-          <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
