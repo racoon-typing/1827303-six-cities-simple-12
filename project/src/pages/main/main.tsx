@@ -1,4 +1,5 @@
 import CardList from '../../components/card-lIst/card-list';
+import Map from '../../components/map/map';
 import { Helmet } from 'react-helmet-async';
 import { ConstructorRoom } from '../../mocks/offers';
 
@@ -77,7 +78,7 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers}/>
             </div>
           </div>
         </div>
