@@ -9,7 +9,7 @@ function Reviews() {
     review: ''
   });
 
-  const handleInputChange = (data: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (data: HTMLInputElement) => {
     const {name, value} = data;
 
     setFormData({...formData, [name]: value});
