@@ -1,7 +1,9 @@
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
+import NavMain from '../../components/nav-main/nav-main';
 import { Helmet } from 'react-helmet-async';
 import { ConstructorRoom } from '../../mocks/offers';
+import { useState } from 'react';
 
 type MainScreenProps = {
   numOfFlat: number;
@@ -9,6 +11,15 @@ type MainScreenProps = {
 };
 
 function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
+  const [activeLink, setActiveLink] = useState[false, false, false, false, false, false];
+  const [city, setCity] = useState('Amsterdam');
+
+  function onClickHandler(name: string) {
+    setCity(name);
+  }
+
+  console.log(activeLink);
+
   return (
     <>
       <Helmet>
@@ -20,6 +31,9 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
+              <NavMain value={'Paris'} onClickHandler={onClickHandler} isActive={activeLink} id={0}/>
+              <NavMain value={'Cologne'} onClickHandler={onClickHandler} isActive={activeLink} id={1}/>
+
               <li className="locations__item">
                 <a className="locations__item-link tabs__item" href="/">
                   <span>Paris</span>
@@ -78,7 +92,7 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers}/>
+              <Map offers={offers} city={city}/>
             </div>
           </div>
         </div>

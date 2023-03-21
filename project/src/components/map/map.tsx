@@ -1,13 +1,16 @@
-// import leaflet from 'leaflet';
-// import 'leaflet/dist/leaflet.css';
-import { useRef } from 'react';
+import leaflet from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useEffect, useRef } from 'react';
 import { ConstructorRoom } from '../../mocks/offers';
 import useMap from './useMap';
-// import classes from './map.module.css';
+import { URL_MARKER_DEFAULT,
+  // URL_MARKER_CURRENT
+} from '../../consts';
 
 
 type MapProps = {
   offers: ConstructorRoom[];
+  city: string;
 };
 
 export type Apartment = {
@@ -21,56 +24,73 @@ export type OfferArr = {
   latitude: number;
   longitude: number;
   zoom: number;
-  apartments?: Apartment[];
 }
 
-const GET_CITY = 'Amsterdam';
 
-function Map({ offers }: MapProps) {
-  // Создает массив объект с данными для отрисовки карты
-  let offer = {};
-  const getNewObj = offers.forEach((i)=> {
-    if (GET_CITY !== i.city.name) {
-      return;
-    }
+function Map({ offers, city }: MapProps) {
+  const mapRef = useRef(null);
 
-    const nameCity = i.city.name;
-    const locationCiti = i.city.location;
-    const { latitude, longitude, zoom } = locationCiti;
+  // Фильтрует исходный массив для отрисовки карты
+  const newOffers = offers.filter((offer) => offer.city.name === city);
 
-    offer = {
-      name: nameCity,
-      latitude: latitude,
-      longitude: longitude,
-      zoom: zoom,
-      apartments: [],
+  // Определяет город в виде массива
+  const offerCity = newOffers.map((offer) => {
+    const obj = {
+      name: offer.city.name,
+      latitude: offer.city.location.latitude,
+      longitude: offer.city.location.longitude,
+      zoom: offer.city.location.zoom,
     };
 
-    const item = offers.map((el, index) => {
-      const { location } = el;
-
-      const itemObj = {
-        id: index,
-        latitude: location.latitude,
-        longitude: location.longitude,
-      };
-
-      return itemObj;
-    });
-
-    offer.apartments.push(item);
+    return obj;
   });
 
-  console.log(offer);
+  // Создает массив пинов для опредленного города
+  const offerPins = newOffers.map((offer, index) => {
+    const obj = {
+      id: index,
+      lat: offer.location.latitude,
+      lng: offer.location.longitude,
+    };
 
-  const mapRef = useRef(null);
-  const map = useMap(mapRef, offer);
+    return obj;
+  });
 
+  // Берет первый объект из массива
+  const offerCityFirst = offerCity[0];
+
+  const map = useMap(mapRef, offerCityFirst);
+
+  const defaultCustomIcon = leaflet.icon({
+    iconUrl: URL_MARKER_DEFAULT,
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+
+  // const currentCustomIcon = leaflet.icon({
+  //   iconUrl: URL_MARKER_CURRENT,
+  //   iconSize: [40, 40],
+  //   iconAnchor: [20, 40],
+  // });
+
+
+  useEffect(() => {
+    if (map) {
+      offerPins.forEach((point) => {
+        leaflet
+          .marker({
+            lat: point.lat,
+            lng: point.lng,
+          }, {
+            icon: defaultCustomIcon,
+          })
+          .addTo(map);
+      });
+    }
+  }, [map, offerPins, defaultCustomIcon]);
 
   return (
-    <section className='cities__map map' ref={mapRef}>
-      <p>Text</p>
-      <p>Text</p>
+    <section className='cities__map map' ref={mapRef} style={{height: '500px'}}>
     </section>
   );
 }

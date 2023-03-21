@@ -13,14 +13,12 @@ function Reviews() {
     const {name, value} = data;
 
     setFormData({...formData, [name]: value});
-    // console.log(formData);
   };
 
   const handleTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {value} = evt.target;
 
     setFormData({...formData, review: value});
-    // console.log(formData);
   };
 
   return (
