@@ -11,14 +11,12 @@ type MainScreenProps = {
 };
 
 function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
-  const [activeLink, setActiveLink] = useState[false, false, false, false, false, false];
+  // const [activeLink, setActiveLink] = useState[false, false, false, false, false, false];
   const [city, setCity] = useState('Amsterdam');
 
   function onClickHandler(name: string) {
     setCity(name);
   }
-
-  console.log(activeLink);
 
   return (
     <>
@@ -31,8 +29,8 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <NavMain value={'Paris'} onClickHandler={onClickHandler} isActive={activeLink} id={0}/>
-              <NavMain value={'Cologne'} onClickHandler={onClickHandler} isActive={activeLink} id={1}/>
+              <NavMain value={'Paris'} onClickHandler={onClickHandler} id={0}/>
+              <NavMain value={'Cologne'} onClickHandler={onClickHandler} id={1}/>
 
               <li className="locations__item">
                 <a className="locations__item-link tabs__item" href="/">
