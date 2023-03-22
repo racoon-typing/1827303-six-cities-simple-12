@@ -1,12 +1,14 @@
 // import React from 'react';
-import Reviews from '../reviews/reviews';
-import { ConstructorRoom } from '../../mocks/offers';
+import ReviewRoom from '../review-room/review-room';
+import { ConstructorRoom } from '../../types/offer';
+import { Review } from '../../types/review';
 
 type CommentScreenProps = {
   offer: ConstructorRoom;
+  reviews: Review[];
 };
 
-function Comment({ offer }: CommentScreenProps): JSX.Element {
+function Comment({ offer, reviews }: CommentScreenProps): JSX.Element {
   const { images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
   const { avatarUrl, name: hostName, isPro } = host;
   const starWidth = `${Math.round(rating) / 5 * 100}%`;
@@ -93,7 +95,7 @@ function Comment({ offer }: CommentScreenProps): JSX.Element {
                 </p> */}
               </div>
             </div>
-            <Reviews />
+            <ReviewRoom reviews={reviews}/>
           </div>
         </div>
         <section className="property__map map"></section>

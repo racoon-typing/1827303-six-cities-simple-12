@@ -1,13 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import Comment from '../../components/comment/comment';
-import { ConstructorRoom } from '../../mocks/offers';
+import { ConstructorRoom } from '../../types/offer';
+import { Review } from '../../types/review';
 
 type RoomScreenProps = {
   offers: ConstructorRoom[];
+  reviews: Review[];
 };
 
-function Room({ offers }: RoomScreenProps): JSX.Element {
+function Room({ offers, reviews }: RoomScreenProps): JSX.Element {
   const { id } = useParams();
 
   const currentOffer = offers.find((item) => {
@@ -28,7 +30,7 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
         <title>Старница с предложением номера</title>
       </Helmet>
 
-      <Comment offer={currentOffer as ConstructorRoom}/>
+      <Comment offer={currentOffer as ConstructorRoom} reviews={reviews}/>
     </>
   );
 }

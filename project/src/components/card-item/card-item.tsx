@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ConstructorRoom } from '../../mocks/offers';
+import { ConstructorRoom } from '../../types/offer';
 import './style.css';
 
 type CitiesCardProps = {

@@ -2,7 +2,7 @@ import {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
-import { ConstructorRoom } from '../../mocks/offers';
+import { ConstructorRoom } from '../../types/offer';
 import { URL_MARKER_DEFAULT,
   // URL_MARKER_CURRENT
 } from '../../consts';
