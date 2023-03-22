@@ -10,12 +10,17 @@ type MainScreenProps = {
   offers: ConstructorRoom[];
 };
 
+
+const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+
 function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
-  // const [activeLink, setActiveLink] = useState[false, false, false, false, false, false];
-  const [city, setCity] = useState('Amsterdam');
+  // const [activeLink, setActiveLink] = useState([false, false, false, true, false, false]);
+  const [activeCity, setActiveCity] = useState('Amsterdam');
+  // {/* tabs__item--active */}
 
   function onClickHandler(name: string) {
-    setCity(name);
+    setActiveCity(name);
   }
 
   return (
@@ -29,39 +34,11 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <NavMain value={'Paris'} onClickHandler={onClickHandler} id={0}/>
-              <NavMain value={'Cologne'} onClickHandler={onClickHandler} id={1}/>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href='/'>
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {Cities.map((city, id) => (
+                <li className="locations__item" key={`${id * 10}-city`}>
+                  <NavMain value={city} onClickHandler={onClickHandler} />
+                </li>
+              ))}
             </ul>
           </section>
         </div>
@@ -90,7 +67,7 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} city={city}/>
+              <Map offers={offers} city={activeCity} />
             </div>
           </div>
         </div>

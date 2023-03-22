@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState, MutableRefObject } from 'react';
-import {OfferArr} from './map';
 import leaflet from 'leaflet';
+import { Map } from 'leaflet';
+import {OfferArr} from '../components/map/map';
 
-function useMap(mapRef: MutableRefObject<null>, offerCityFirst: OfferArr) {
+
+function useMap(mapRef: MutableRefObject<HTMLElement | null>, offerCityFirst: OfferArr): Map | null {
   const [map, setMap] = useState(null);
   const isRenderedRef = useRef(false);
 

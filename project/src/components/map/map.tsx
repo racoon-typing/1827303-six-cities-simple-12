@@ -1,8 +1,7 @@
+import {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from 'react';
+import useMap from '../../hooks/useMap';
 import { ConstructorRoom } from '../../mocks/offers';
-import useMap from './useMap';
 import { URL_MARKER_DEFAULT,
   // URL_MARKER_CURRENT
 } from '../../consts';
@@ -28,8 +27,6 @@ export type OfferArr = {
 
 
 function Map({ offers, city }: MapProps) {
-  const mapRef = useRef(null);
-
   // Фильтрует исходный массив для отрисовки карты
   const newOffers = offers.filter((offer) => offer.city.name === city);
 
@@ -59,6 +56,8 @@ function Map({ offers, city }: MapProps) {
   // Берет первый объект из массива
   const offerCityFirst = offerCity[0];
 
+  // Пины на карте
+  const mapRef = useRef(null);
   const map = useMap(mapRef, offerCityFirst);
 
   const defaultCustomIcon = leaflet.icon({
@@ -72,7 +71,6 @@ function Map({ offers, city }: MapProps) {
   //   iconSize: [40, 40],
   //   iconAnchor: [20, 40],
   // });
-
 
   useEffect(() => {
     if (map) {
@@ -90,7 +88,7 @@ function Map({ offers, city }: MapProps) {
   }, [map, offerPins, defaultCustomIcon]);
 
   return (
-    <section className='cities__map map' ref={mapRef} style={{height: '500px'}}>
+    <section className='cities__map map' ref={mapRef} style={{height: '866px'}}>
     </section>
   );
 }
