@@ -1,7 +1,7 @@
 import Rating from '../rating/rating';
 import { useState } from 'react';
 
-// type FieldChangeHandle = React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>;
+const ratings = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
 function Reviews() {
   const [formData, setFormData] = useState({
@@ -51,11 +51,9 @@ function Reviews() {
       <form className="reviews__form form" action="#" method="post">
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
-          <Rating onChange={handleInputChange} value={'5'} starId={'5'} title={'perfect'} />
-          <Rating onChange={handleInputChange} value={'4'} starId={'4'} title={'good'} />
-          <Rating onChange={handleInputChange} value={'3'} starId={'3'} title={'not bad'} />
-          <Rating onChange={handleInputChange} value={'2'} starId={'2'} title={'badly'} />
-          <Rating onChange={handleInputChange} value={'1'} starId={'1'} title={'terribly'} />
+          {ratings.map((rating, id) => (
+            <Rating onChange={handleInputChange} key={`${id * 10}`} value={rating} id={id}/>
+          ))}
         </div>
         <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleTextareaChange}></textarea>
         <div className="reviews__button-wrapper">
