@@ -1,13 +1,28 @@
 import CardList from '../../components/card-lIst/card-list';
+import Map from '../../components/map/map';
+import NavMain from '../../components/nav-main/nav-main';
 import { Helmet } from 'react-helmet-async';
 import { ConstructorRoom } from '../../mocks/offers';
+import { useState } from 'react';
 
 type MainScreenProps = {
   numOfFlat: number;
   offers: ConstructorRoom[];
 };
 
+
+const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+
 function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
+  // const [activeLink, setActiveLink] = useState([false, false, false, true, false, false]);
+  const [activeCity, setActiveCity] = useState('Amsterdam');
+  // {/* tabs__item--active */}
+
+  function onClickHandler(name: string) {
+    setActiveCity(name);
+  }
+
   return (
     <>
       <Helmet>
@@ -19,36 +34,11 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href='/'>
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {Cities.map((city, id) => (
+                <li className="locations__item" key={`${id * 10}-city`}>
+                  <NavMain value={city} onClickHandler={onClickHandler} />
+                </li>
+              ))}
             </ul>
           </section>
         </div>
@@ -76,8 +66,10 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
                 <CardList offers={offers} />
               </div>
             </section>
-            <div className="cities__right-section">
-              <section className="cities__map map"></section>
+            <div className='cities__right-section'>
+              <section className='cities__map map'>
+                <Map offers={offers} city={activeCity} />
+              </section>
             </div>
           </div>
         </div>
