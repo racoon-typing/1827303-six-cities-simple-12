@@ -79,7 +79,7 @@ export const Data = [
     'price': 120,
     'rating': 2.5,
     'title': 'Beautiful & luxurious studio at great location',
-    'type': 'apartment'
+    'type': 'Private room'
   },
   {
     'bedrooms': 3,
