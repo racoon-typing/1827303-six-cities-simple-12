@@ -12,19 +12,6 @@ type MapProps = {
   city: string;
 };
 
-export type Apartment = {
-  id: number;
-  latitude: number;
-  longitude: number;
-}
-
-export type OfferArr = {
-  name: string;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
-
 
 function Map({ offers, city }: MapProps) {
   // Фильтрует исходный массив для отрисовки карты
@@ -94,3 +81,4 @@ function Map({ offers, city }: MapProps) {
 }
 
 export default Map;
+
