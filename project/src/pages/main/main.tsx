@@ -66,8 +66,10 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
                 <CardList offers={offers} />
               </div>
             </section>
-            <div className="cities__right-section">
-              <Map offers={offers} city={activeCity} />
+            <div className='cities__right-section'>
+              <section className='cities__map map'>
+                <Map offers={offers} city={activeCity} />
+              </section>
             </div>
           </div>
         </div>

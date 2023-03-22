@@ -1,5 +1,6 @@
 import {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { ConstructorRoom } from '../../mocks/offers';
 import { URL_MARKER_DEFAULT,
@@ -75,8 +76,11 @@ function Map({ offers, city }: MapProps) {
   }, [map, offerPins, defaultCustomIcon]);
 
   return (
-    <section className='cities__map map' ref={mapRef} style={{height: '866px'}}>
-    </section>
+    <div
+      style={{width: '100%', height: '603px'}}
+      ref={mapRef}
+    >
+    </div>
   );
 }
 

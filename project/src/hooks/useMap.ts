@@ -4,7 +4,7 @@ import { Map } from 'leaflet';
 import { City } from '../types/map';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, offerCityFirst: City): Map | null {
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
   useEffect(() => {

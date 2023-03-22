@@ -1,3 +1,3 @@
-// const Reviews = {
-
-// };
+export const Reviews = {
+  id: 1,
+};
