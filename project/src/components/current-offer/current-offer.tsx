@@ -1,16 +1,6 @@
-// import React from 'react';
-import leaflet from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import useMap from '../../hooks/useMap';
-import { useRef, useEffect } from 'react';
 import ReviewRoom from '../review-room/review-room';
 import { ConstructorRoom } from '../../types/offer';
 import { Review } from '../../types/review';
-import {
-  URL_MARKER_DEFAULT,
-  // URL_MARKER_CURRENT
-} from '../../consts';
-import { city, points } from '../../mocks/current-offer';
 
 type CurrentOfferScreenProps = {
   offer: ConstructorRoom;
@@ -22,33 +12,8 @@ function CurrentOffer({ offer, reviews }: CurrentOfferScreenProps): JSX.Element 
   const { avatarUrl, name: hostName, isPro } = host;
   const starWidth = `${Math.round(rating) / 5 * 100}%`;
 
-  // Пины на карте
-  const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
-
-  const defaultCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  useEffect(() => {
-    if (map) {
-      points.forEach((point) => {
-        leaflet
-          .marker({
-            lat: point.latitude,
-            lng: point.longitude,
-          }, {
-            icon: defaultCustomIcon,
-          })
-          .addTo(map);
-      });
-    }
-  }, [map, defaultCustomIcon]);
-
   return (
-    <section className="property">
+    <>
       <div className="property__gallery-container container">
         <div className="property__gallery">
           {
@@ -131,14 +96,7 @@ function CurrentOffer({ offer, reviews }: CurrentOfferScreenProps): JSX.Element 
           <ReviewRoom reviews={reviews} />
         </div>
       </div>
-      <section className="property__map map">
-        <div
-          style={{ width: '100%', height: '603px' }}
-          ref={mapRef}
-        >
-        </div>
-      </section>
-    </section>
+    </>
   );
 }
 
