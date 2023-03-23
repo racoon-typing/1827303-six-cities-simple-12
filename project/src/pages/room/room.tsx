@@ -1,13 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import Comment from '../../components/comment/comment';
-import { ConstructorRoom } from '../../mocks/offers';
+import CurrentOffer from '../../components/current-offer/current-offer';
+import CardList from '../../components/card-lIst/card-list';
+import Map from '../../components/map/map';
+import { ConstructorRoom } from '../../types/offer';
+import { Review } from '../../types/review';
 
 type RoomScreenProps = {
   offers: ConstructorRoom[];
+  reviews: Review[];
 };
 
-function Room({ offers }: RoomScreenProps): JSX.Element {
+function Room({ offers, reviews }: RoomScreenProps): JSX.Element {
   const { id } = useParams();
 
   const currentOffer = offers.find((item) => {
@@ -22,13 +26,30 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
     return result;
   });
 
+  const nearOffer = offers.filter((item) => item.id !== Number(id));
+
   return (
     <>
       <Helmet>
         <title>Старница с предложением номера</title>
       </Helmet>
 
-      <Comment offer={currentOffer as ConstructorRoom}/>
+      <main className="page__main page__main--property">
+        <section className="property">
+          <CurrentOffer offer={currentOffer as ConstructorRoom} reviews={reviews} />
+          <section className="property__map map">
+            <Map offers={nearOffer} city={'Amsterdam'} />
+          </section>
+        </section>
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <div className="near-places__list places__list">
+              <CardList offers={nearOffer} />
+            </div>
+          </section>
+        </div>
+      </main>
     </>
   );
 }

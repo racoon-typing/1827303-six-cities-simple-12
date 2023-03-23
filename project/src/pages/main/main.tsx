@@ -2,7 +2,7 @@ import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
 import NavMain from '../../components/nav-main/nav-main';
 import { Helmet } from 'react-helmet-async';
-import { ConstructorRoom } from '../../mocks/offers';
+import { ConstructorRoom } from '../../types/offer';
 import { useState } from 'react';
 
 type MainScreenProps = {
