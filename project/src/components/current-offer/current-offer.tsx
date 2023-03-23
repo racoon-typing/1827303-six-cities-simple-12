@@ -17,7 +17,6 @@ type CurrentOfferScreenProps = {
   reviews: Review[];
 };
 
-
 function CurrentOffer({ offer, reviews }: CurrentOfferScreenProps): JSX.Element {
   const { images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
   const { avatarUrl, name: hostName, isPro } = host;

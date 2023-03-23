@@ -36,7 +36,7 @@ export const Data = [
     },
     'maxAdults': 10,
     'previewImage': 'img/1.png',
-    'price': 130,
+    'price': 10,
     'rating': 4.1,
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment'
@@ -76,7 +76,7 @@ export const Data = [
     },
     'maxAdults': 4,
     'previewImage': 'img/1.png',
-    'price': 120,
+    'price': 50,
     'rating': 2.5,
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'Private room'
@@ -113,7 +113,7 @@ export const Data = [
     },
     'maxAdults': 4,
     'previewImage': 'img/1.png',
-    'price': 120,
+    'price': 90,
     'rating': 4.8,
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment'
