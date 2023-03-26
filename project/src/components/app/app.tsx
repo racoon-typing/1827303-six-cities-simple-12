@@ -11,18 +11,17 @@ import { ConstructorRoom } from '../../types/offer';
 import { Review } from '../../types/review';
 
 type AppScreenProps = {
-  numOfFlat: number;
   offers: ConstructorRoom[];
   reviews: Review[];
 }
 
-function App({ numOfFlat, offers, reviews }: AppScreenProps): JSX.Element {
+function App({ offers, reviews }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layuot />}>
-            <Route index element={<Main numOfFlat={numOfFlat} offers={offers} />} />
+            <Route index element={<Main offers={offers} />} />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.OfferId} element={<Room offers={offers} reviews={reviews}/>} />
             <Route path='*' element={<NotFound />} />

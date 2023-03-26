@@ -1,20 +1,21 @@
-import {useRef, useEffect} from 'react';
+import React, {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { ConstructorRoom } from '../../types/offer';
-import { URL_MARKER_DEFAULT,
-  // URL_MARKER_CURRENT
-} from '../../consts';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../consts';
 
 
 type MapProps = {
   offers: ConstructorRoom[];
   city: string;
+  selectedPoint: number;
 };
 
 
-function Map({ offers, city }: MapProps) {
+function Map({ offers, city, selectedPoint}: MapProps) {
+  const selectedPointId = selectedPoint - 1;
+
   // Фильтрует исходный массив для отрисовки карты
   const newOffers = offers.filter((offer) => offer.city.name === city);
 
@@ -54,26 +55,28 @@ function Map({ offers, city }: MapProps) {
     iconAnchor: [20, 40],
   });
 
-  // const currentCustomIcon = leaflet.icon({
-  //   iconUrl: URL_MARKER_CURRENT,
-  //   iconSize: [40, 40],
-  //   iconAnchor: [20, 40],
-  // });
+  const currentCustomIcon = leaflet.icon({
+    iconUrl: URL_MARKER_CURRENT,
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
 
   useEffect(() => {
     if (map) {
-      offerPins.forEach((point) => {
+      offerPins.forEach((point, id) => {
         leaflet
           .marker({
             lat: point.lat,
             lng: point.lng,
           }, {
-            icon: defaultCustomIcon,
+            icon: (id === selectedPointId)
+              ? currentCustomIcon
+              : defaultCustomIcon,
           })
           .addTo(map);
       });
     }
-  }, [map, offerPins, defaultCustomIcon]);
+  }, [map, offerPins, currentCustomIcon, defaultCustomIcon, selectedPointId]);
 
   return (
     <div

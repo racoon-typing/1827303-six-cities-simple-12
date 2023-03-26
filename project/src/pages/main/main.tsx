@@ -6,7 +6,6 @@ import { ConstructorRoom } from '../../types/offer';
 import { useState } from 'react';
 
 type MainScreenProps = {
-  numOfFlat: number;
   offers: ConstructorRoom[];
 };
 
@@ -14,13 +13,16 @@ type MainScreenProps = {
 const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 
-function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
-  // const [activeLink, setActiveLink] = useState([false, false, false, true, false, false]);
+function Main({ offers }: MainScreenProps): JSX.Element {
+  const [activeId, setActiveId] = useState(0);
   const [activeCity, setActiveCity] = useState('Amsterdam');
-  // {/* tabs__item--active */}
 
-  function onClickHandler(name: string) {
-    setActiveCity(name);
+  function onMouseOverHandler(id: number) {
+    setActiveId(id);
+  }
+
+  function onClickHandler(city: string) {
+    setActiveCity(city);
   }
 
   return (
@@ -36,7 +38,7 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
             <ul className="locations__list tabs__list">
               {Cities.map((city, id) => (
                 <li className="locations__item" key={`${id * 10}-city`}>
-                  <NavMain value={city} onClickHandler={onClickHandler} />
+                  <NavMain value={city} onClickHandler={onClickHandler} activeCity={activeCity} />
                 </li>
               ))}
             </ul>
@@ -46,7 +48,7 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numOfFlat} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -63,12 +65,12 @@ function Main({ numOfFlat, offers }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={offers} />
+                <CardList offers={offers} onMouseOverHandler={onMouseOverHandler} activeId={activeId}/>
               </div>
             </section>
             <div className='cities__right-section'>
               <section className='cities__map map'>
-                <Map offers={offers} city={activeCity} />
+                <Map offers={offers} city={activeCity} selectedPoint={activeId}/>
               </section>
             </div>
           </div>

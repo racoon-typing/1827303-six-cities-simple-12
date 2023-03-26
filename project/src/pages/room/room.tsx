@@ -38,14 +38,14 @@ function Room({ offers, reviews }: RoomScreenProps): JSX.Element {
         <section className="property">
           <CurrentOffer offer={currentOffer as ConstructorRoom} reviews={reviews} />
           <section className="property__map map">
-            <Map offers={nearOffer} city={'Amsterdam'} />
+            {/* <Map offers={nearOffer} city={'Amsterdam'} /> */}
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardList offers={nearOffer} />
+              {/* <CardList offers={nearOffer} /> */}
             </div>
           </section>
         </div>
