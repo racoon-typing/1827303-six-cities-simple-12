@@ -24,6 +24,11 @@ function Main({ offers }: MainScreenProps): JSX.Element {
   // console.log(activeCity);
   // const dispatch = useAppDispatch();
 
+  // console.log(needOffers);
+  // dispatch(filterCities(needOffers, activeCity));
+  // const someOffers = useAppSelector((state) => state.offers);
+  // console.log(someoffers);
+
 
   function onMouseOverHandler(id: number) {
     setActiveId(id);
@@ -69,12 +74,12 @@ function Main({ offers }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={offers} onMouseOverHandler={onMouseOverHandler} activeId={activeId}/>
+                {/* <CardList offers={someOffers} onMouseOverHandler={onMouseOverHandler} activeId={activeId}/> */}
               </div>
             </section>
             <div className='cities__right-section'>
               <section className='cities__map map'>
-                <Map offers={offers} activeCity={activeCity} selectedPoint={activeId}/>
+                {/* <Map offers={someOffers} activeCity={activeCity} selectedPoint={activeId}/> */}
               </section>
             </div>
           </div>
