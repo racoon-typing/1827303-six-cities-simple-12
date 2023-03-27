@@ -154,6 +154,43 @@ export const Data = [
     'rating': 4.8,
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment'
+  },
+  {
+    'bedrooms': 3,
+    'city': {
+      'location': {
+        'latitude': 48.85589714603453,
+        'longitude': 2.3511529582695143,
+        'zoom': 10
+      },
+      'name': 'Paris'
+    },
+    'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    'goods': [
+      'Heating'
+    ],
+    'host': {
+      'avatarUrl': 'img/1.png',
+      'id': 3,
+      'isPro': true,
+      'name': 'Angelina'
+    },
+    'id': 5,
+    'images': [
+      'img/1.png'
+    ],
+    'isPremium': false,
+    'location': {
+      'latitude': 48.85928539564419,
+      'longitude': 2.2955346776841075,
+      'zoom': 8
+    },
+    'maxAdults': 4,
+    'previewImage': 'img/1.png',
+    'price': 120,
+    'rating': 4.8,
+    'title': 'Beautiful & luxurious studio at great location',
+    'type': 'apartment'
   }
 ];
 

@@ -4,6 +4,10 @@ import NavMain from '../../components/nav-main/nav-main';
 import { Helmet } from 'react-helmet-async';
 import { ConstructorRoom } from '../../types/offer';
 import { useState } from 'react';
+// Redux
+import {
+  // useAppDispatch,
+  useAppSelector} from '../../hooks';
 
 type MainScreenProps = {
   offers: ConstructorRoom[];
@@ -15,14 +19,14 @@ const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseld
 
 function Main({ offers }: MainScreenProps): JSX.Element {
   const [activeId, setActiveId] = useState(0);
-  const [activeCity, setActiveCity] = useState('Amsterdam');
+  // Замена
+  const activeCity = useAppSelector((state) => state.city);
+  // console.log(activeCity);
+  // const dispatch = useAppDispatch();
+
 
   function onMouseOverHandler(id: number) {
     setActiveId(id);
-  }
-
-  function onClickHandler(city: string) {
-    setActiveCity(city);
   }
 
   return (
@@ -38,7 +42,7 @@ function Main({ offers }: MainScreenProps): JSX.Element {
             <ul className="locations__list tabs__list">
               {Cities.map((city, id) => (
                 <li className="locations__item" key={`${id * 10}-city`}>
-                  <NavMain value={city} onClickHandler={onClickHandler} activeCity={activeCity} />
+                  <NavMain value={city} activeCity={activeCity} />
                 </li>
               ))}
             </ul>
@@ -70,7 +74,7 @@ function Main({ offers }: MainScreenProps): JSX.Element {
             </section>
             <div className='cities__right-section'>
               <section className='cities__map map'>
-                <Map offers={offers} city={activeCity} selectedPoint={activeId}/>
+                <Map offers={offers} activeCity={activeCity} selectedPoint={activeId}/>
               </section>
             </div>
           </div>

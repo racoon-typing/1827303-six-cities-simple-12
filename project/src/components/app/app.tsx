@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from '../../consts';
+import { AppRoute } from '../../consts/consts';
 
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';

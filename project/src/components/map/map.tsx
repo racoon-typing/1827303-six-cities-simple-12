@@ -1,23 +1,24 @@
-import React, {useRef, useEffect} from 'react';
+import {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { ConstructorRoom } from '../../types/offer';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../consts';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../consts/consts';
+import './style.css';
 
 
 type MapProps = {
   offers: ConstructorRoom[];
-  city: string;
+  activeCity: string;
   selectedPoint: number;
 };
 
 
-function Map({ offers, city, selectedPoint}: MapProps) {
+function Map({ offers, activeCity, selectedPoint}: MapProps) {
   const selectedPointId = selectedPoint - 1;
 
   // Фильтрует исходный массив для отрисовки карты
-  const newOffers = offers.filter((offer) => offer.city.name === city);
+  const newOffers = offers.filter((offer) => offer.city.name === activeCity);
 
   // Определяет город в виде массива
   const offerCity = newOffers.map((offer) => {
@@ -48,6 +49,7 @@ function Map({ offers, city, selectedPoint}: MapProps) {
   // Пины на карте
   const mapRef = useRef(null);
   const map = useMap(mapRef, offerCityFirst);
+
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
@@ -80,7 +82,7 @@ function Map({ offers, city, selectedPoint}: MapProps) {
 
   return (
     <div
-      style={{width: '100%', height: '603px'}}
+      style={{width: '100%', height: 'inherit'}}
       ref={mapRef}
     >
     </div>
