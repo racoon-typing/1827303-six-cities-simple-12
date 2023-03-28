@@ -7,18 +7,27 @@ import Map from '../../components/map/map';
 import { ConstructorRoom } from '../../types/offer';
 import { Review } from '../../types/review';
 
+// Redux
+import {
+  // useAppDispatch,
+  useAppSelector
+} from '../../hooks';
+
+
 type RoomScreenProps = {
-  offers: ConstructorRoom[];
   reviews: Review[];
 };
 
-function Room({ offers, reviews }: RoomScreenProps): JSX.Element {
+function Room({ reviews }: RoomScreenProps): JSX.Element {
   const { id } = useParams();
   const [activeId, setActiveId] = useState(0);
 
   function onMouseOverHandler(cityId: number) {
     setActiveId(cityId);
   }
+
+  const offers = useAppSelector((state) => state.offers);
+
 
   const currentOffer = offers.find((item) => {
     const itemId = item.id;
