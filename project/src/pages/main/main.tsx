@@ -4,10 +4,13 @@ import NavMain from '../../components/nav-main/nav-main';
 import { Helmet } from 'react-helmet-async';
 import { ConstructorRoom } from '../../types/offer';
 import { useState } from 'react';
+// import { Data } from '../../mocks/offers';
+
 // Redux
 import {
   // useAppDispatch,
-  useAppSelector} from '../../hooks';
+  useAppSelector
+} from '../../hooks';
 
 type MainScreenProps = {
   offers: ConstructorRoom[];
@@ -19,15 +22,24 @@ const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseld
 
 function Main({ offers }: MainScreenProps): JSX.Element {
   const [activeId, setActiveId] = useState(0);
-  // Замена
-  const activeCity = useAppSelector((state) => state.city);
-  // console.log(activeCity);
+  console.log(offers);
+
   // const dispatch = useAppDispatch();
 
-  // console.log(needOffers);
-  // dispatch(filterCities(needOffers, activeCity));
   // const someOffers = useAppSelector((state) => state.offers);
-  // console.log(someoffers);
+  // console.log(someOffers);
+
+
+  // // Смена города
+  // const activeCity = useAppSelector((state) => state.city);
+
+  // const filterOffers = Data.filter((оffer) => {
+  //   const newOffers = оffer.city.name === activeCity;
+  //   return newOffers;
+  // });
+
+  // Смена города
+  const activeCity = useAppSelector((state) => state.city);
 
 
   function onMouseOverHandler(id: number) {
@@ -47,7 +59,9 @@ function Main({ offers }: MainScreenProps): JSX.Element {
             <ul className="locations__list tabs__list">
               {Cities.map((city, id) => (
                 <li className="locations__item" key={`${id * 10}-city`}>
-                  <NavMain value={city} activeCity={activeCity} />
+                  <NavMain value={city} activeCity={activeCity}
+                  //  needOffers={someOffers}
+                  />
                 </li>
               ))}
             </ul>
@@ -74,12 +88,12 @@ function Main({ offers }: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {/* <CardList offers={someOffers} onMouseOverHandler={onMouseOverHandler} activeId={activeId}/> */}
+                <CardList offers={offers} onMouseOverHandler={onMouseOverHandler} activeId={activeId} />
               </div>
             </section>
             <div className='cities__right-section'>
               <section className='cities__map map'>
-                {/* <Map offers={someOffers} activeCity={activeCity} selectedPoint={activeId}/> */}
+                <Map offers={offers} selectedPoint={activeId} />
               </section>
             </div>
           </div>

@@ -9,19 +9,14 @@ import './style.css';
 
 type MapProps = {
   offers: ConstructorRoom[];
-  activeCity: string;
   selectedPoint: number;
 };
 
-
-function Map({ offers, activeCity, selectedPoint}: MapProps) {
+function Map({ offers, selectedPoint}: MapProps) {
   const selectedPointId = selectedPoint - 1;
 
-  // Фильтрует исходный массив для отрисовки карты
-  const newOffers = offers.filter((offer) => offer.city.name === activeCity);
-
   // Определяет город в виде массива
-  const offerCity = newOffers.map((offer) => {
+  const offerCity = offers.map((offer) => {
     const obj = {
       name: offer.city.name,
       latitude: offer.city.location.latitude,
@@ -33,7 +28,7 @@ function Map({ offers, activeCity, selectedPoint}: MapProps) {
   });
 
   // Создает массив пинов для опредленного города
-  const offerPins = newOffers.map((offer, index) => {
+  const offerPins = offers.map((offer, index) => {
     const obj = {
       id: index,
       lat: offer.location.latitude,
