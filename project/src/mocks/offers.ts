@@ -218,8 +218,8 @@ export const Data = [
     ],
     'isPremium': false,
     'location': {
-      'latitude': 48.85928539564419,
-      'longitude': 2.2955346776841075,
+      'latitude': 48.87832658370396,
+      'longitude': 2.3540763550434547,
       'zoom': 8
     },
     'maxAdults': 4,

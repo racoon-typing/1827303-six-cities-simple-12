@@ -9,16 +9,15 @@ type OfferCardsProps = {
 };
 
 function CardList({ offers, onMouseOverHandler, activeId }: OfferCardsProps): JSX.Element {
-  // const [activeId, setActiveId] = useState(0);
 
   return (
     <>
-      {offers.map((offer) => (
+      {offers.map((offer, id) => (
         <CardItem
           activeId={activeId}
           key={`${offer.id}`}
           value={offer}
-          // onMouseOverHandler={(id: number) => setActiveId(id)}
+          itemId={id}
           onMouseOverHandler={onMouseOverHandler}
         />
       )

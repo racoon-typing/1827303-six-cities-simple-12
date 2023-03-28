@@ -13,7 +13,6 @@ type MapProps = {
 };
 
 function Map({ offers, selectedPoint}: MapProps) {
-  const selectedPointId = selectedPoint - 1;
 
   // Определяет город в виде массива
   const offerCity = offers.map((offer) => {
@@ -37,6 +36,7 @@ function Map({ offers, selectedPoint}: MapProps) {
 
     return obj;
   });
+
 
   // Берет первый объект из массива
   const offerCityFirst = offerCity[0];
@@ -66,14 +66,14 @@ function Map({ offers, selectedPoint}: MapProps) {
             lat: point.lat,
             lng: point.lng,
           }, {
-            icon: (id === selectedPointId)
+            icon: (id === selectedPoint)
               ? currentCustomIcon
               : defaultCustomIcon,
           })
           .addTo(map);
       });
     }
-  }, [map, offerPins, currentCustomIcon, defaultCustomIcon, selectedPointId]);
+  }, [map, offerPins, currentCustomIcon, defaultCustomIcon, selectedPoint]);
 
   return (
     <div

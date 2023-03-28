@@ -6,9 +6,6 @@ import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
 import { ConstructorRoom } from '../../types/offer';
 import { Review } from '../../types/review';
-// import {
-//   // useAppDispatch,
-//   useAppSelector} from '../../hooks';
 
 type RoomScreenProps = {
   offers: ConstructorRoom[];
@@ -19,15 +16,10 @@ function Room({ offers, reviews }: RoomScreenProps): JSX.Element {
   const { id } = useParams();
   const [activeId, setActiveId] = useState(0);
 
-  // const activeCity = useAppSelector((state) => state.city);
-
-
   function onMouseOverHandler(cityId: number) {
     setActiveId(cityId);
   }
 
-  console.log(offers);
-  console.log(id);
   const currentOffer = offers.find((item) => {
     const itemId = item.id;
     let result;
@@ -36,9 +28,6 @@ function Room({ offers, reviews }: RoomScreenProps): JSX.Element {
       result = itemId;
       return result;
     }
-
-    console.log(item);
-    console.log(result);
 
     return result;
   });
@@ -55,15 +44,13 @@ function Room({ offers, reviews }: RoomScreenProps): JSX.Element {
         <section className="property">
           <CurrentOffer offer={currentOffer as ConstructorRoom} reviews={reviews} />
           <section className="property__map map">
-            {/* <Map offers={nearOffer} city={'Amsterdam'} /> */}
-            {/* <Map offers={nearOffer} selectedPoint={activeId}/> */}
+            <Map offers={nearOffer} selectedPoint={activeId}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {/* <CardList offers={nearOffer} /> */}
               <CardList offers={nearOffer} onMouseOverHandler={onMouseOverHandler} activeId={activeId} />
             </div>
           </section>

@@ -22,7 +22,7 @@ const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseld
 
 function Main({ offers }: MainScreenProps): JSX.Element {
   const [activeId, setActiveId] = useState(0);
-  console.log(offers);
+  // console.log(offers);
 
   // const dispatch = useAppDispatch();
 
@@ -41,7 +41,7 @@ function Main({ offers }: MainScreenProps): JSX.Element {
   // Смена города
   const activeCity = useAppSelector((state) => state.city);
 
-
+  // Поучает id оффера на который наведена мышка
   function onMouseOverHandler(id: number) {
     setActiveId(id);
   }
@@ -59,9 +59,7 @@ function Main({ offers }: MainScreenProps): JSX.Element {
             <ul className="locations__list tabs__list">
               {Cities.map((city, id) => (
                 <li className="locations__item" key={`${id * 10}-city`}>
-                  <NavMain value={city} activeCity={activeCity}
-                  //  needOffers={someOffers}
-                  />
+                  <NavMain value={city} activeCity={activeCity} />
                 </li>
               ))}
             </ul>

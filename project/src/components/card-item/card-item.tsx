@@ -4,17 +4,18 @@ import './style.css';
 
 type CitiesCardProps = {
   activeId: number;
+  itemId: number;
   value: ConstructorRoom;
   onMouseOverHandler: (id: number) => void;
 };
 
-function CardItem({ value, onMouseOverHandler, activeId }: CitiesCardProps): JSX.Element {
+function CardItem({ value, itemId, onMouseOverHandler, activeId }: CitiesCardProps): JSX.Element {
   const { isPremium, price, title, type, rating, id, previewImage } = value;
   const starWidth = `${Math.round(rating) / 5 * 100}%`;
 
   return (
-    <article className={`cities__card place-card ${activeId === id ? 'active-card' : ''}`}
-      onMouseOver={() => onMouseOverHandler(id)}
+    <article className={`cities__card place-card ${activeId === itemId ? 'active-card' : ''}`}
+      onMouseOver={() => onMouseOverHandler(itemId)}
     >
       {isPremium ? (
         <div className="place-card__mark">
