@@ -19,13 +19,13 @@ function Main(
 ): JSX.Element {
   const [activeId, setActiveId] = useState(0);
 
-  // useEffect(() => {
-  //   const offersArr = useAppSelector((state) => state.offers);
-  // }, []);
-
   // Смена города
   const activeCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+
+  // useEffect(() => {
+  //   offers = useAppSelector((state) => state.offers);
+  // }, []);
 
   // Поучает id оффера на который наведена мышка
   function onMouseOverHandler(id: number) {
