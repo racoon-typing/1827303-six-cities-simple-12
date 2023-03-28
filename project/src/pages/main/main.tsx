@@ -1,31 +1,30 @@
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
 import NavMain from '../../components/nav-main/nav-main';
+import { changeOfferList } from '../../store/action';
 import { Helmet } from 'react-helmet-async';
-import { useState,
-  // useEffect
-} from 'react';
+import { useState, useEffect } from 'react';
 
 // Redux
 import {
-  // useAppDispatch,
+  useAppDispatch,
   useAppSelector
 } from '../../hooks';
 
 const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-function Main(
-// { offers }: MainScreenProps
-): JSX.Element {
+function Main(): JSX.Element {
   const [activeId, setActiveId] = useState(0);
 
   // Смена города
   const activeCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
 
-  // useEffect(() => {
-  //   offers = useAppSelector((state) => state.offers);
-  // }, []);
+  // Начальная фильтрация: город Париж
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(changeOfferList({ cityName: 'Paris' }));
+  }, []);
 
   // Поучает id оффера на который наведена мышка
   function onMouseOverHandler(id: number) {

@@ -1,35 +1,26 @@
 import { Link } from 'react-router-dom';
 import { changeCity } from '../../store/action';
 import { changeOfferList } from '../../store/action';
-import { useAppDispatch,
-  // useAppSelector
-} from '../../hooks/index';
+import { useAppDispatch } from '../../hooks/index';
 // import { ConstructorRoom } from '../../types/offer';
 
 type NavMainProps = {
   value: string;
   activeCity: string;
-  // needOffers: ConstructorRoom[];
 };
 
 
-function NavMain({ value, activeCity,
-  //  needOffers
-}: NavMainProps) {
+function NavMain({ value, activeCity }: NavMainProps) {
 
   const dispatch = useAppDispatch();
 
-  // const needOffers = useAppSelector((state) => state.offers);
-
   const onUserClick = (): void => {
     dispatch(changeCity({ activeCity: value }));
-    dispatch(changeOfferList({cityName: value}));
+    dispatch(changeOfferList({ cityName: value }));
   };
 
   return (
     <Link to={'/'} className={`locations__item-link tabs__item ${activeCity === value ? 'tabs__item--active' : ''}`}
-      // onClick={() => dispatch(changeCity({ activeCity: value }))}
-      // onClick={() => dispatch(changeCity({ activeCity: value }))}
       onClick={onUserClick}
     >
       <span>{value}</span>

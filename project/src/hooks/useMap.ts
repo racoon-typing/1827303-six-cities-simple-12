@@ -31,7 +31,9 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, offerCityFirst: Ci
     }
   }, [mapRef, offerCityFirst]);
 
+  // map.setView(new leaflet.LatLng(offerCityFirst.latitude, offerCityFirst.longitude), offerCityFirst.zoom);
   return map;
 }
+
 
 export default useMap;
