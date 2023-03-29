@@ -37,13 +37,12 @@ function Map({ offers, selectedPoint}: MapProps) {
     return obj;
   });
 
-
   // Берет первый объект из массива
-  const offerCityFirst = offerCity[0];
+  const center = offerCity[0];
 
   // Пины на карте
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offerCityFirst);
+  const map = useMap(mapRef, center);
 
 
   const defaultCustomIcon = leaflet.icon({
@@ -60,6 +59,10 @@ function Map({ offers, selectedPoint}: MapProps) {
 
   useEffect(() => {
     if (map) {
+      map.setView({
+        lat: center.latitude,
+        lng: center.longitude,
+      });
       offerPins.forEach((point, id) => {
         leaflet
           .marker({
@@ -73,7 +76,7 @@ function Map({ offers, selectedPoint}: MapProps) {
           .addTo(map);
       });
     }
-  }, [map, offerPins, currentCustomIcon, defaultCustomIcon, selectedPoint]);
+  }, [map, offerPins, currentCustomIcon, defaultCustomIcon, selectedPoint, center]);
 
   return (
     <div
