@@ -1,18 +1,23 @@
-import {useRef, useEffect} from 'react';
+import { useRef, useEffect } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { ConstructorRoom } from '../../types/offer';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../consts/consts';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/consts';
 import './style.css';
 
+// Redux
+import {
+  useAppSelector,
+} from '../../hooks';
 
 type MapProps = {
   offers: ConstructorRoom[];
-  selectedPoint: number;
 };
 
-function Map({ offers, selectedPoint}: MapProps) {
+function Map({ offers }: MapProps) {
+  // Получает id города на который навели
+  const hoveredCity = useAppSelector((state) => state.hoverCity);
 
   // Определяет город в виде массива
   const offerCity = offers.map((offer) => {
@@ -27,9 +32,9 @@ function Map({ offers, selectedPoint}: MapProps) {
   });
 
   // Создает массив пинов для опредленного города
-  const offerPins = offers.map((offer, index) => {
+  const offerPins = offers.map((offer) => {
     const obj = {
-      id: index,
+      id: offer.id,
       lat: offer.location.latitude,
       lng: offer.location.longitude,
     };
@@ -63,24 +68,24 @@ function Map({ offers, selectedPoint}: MapProps) {
         lat: center.latitude,
         lng: center.longitude,
       });
-      offerPins.forEach((point, id) => {
+      offerPins.forEach((point) => {
         leaflet
           .marker({
             lat: point.lat,
             lng: point.lng,
           }, {
-            icon: (id === selectedPoint)
+            icon: (point.id === hoveredCity)
               ? currentCustomIcon
               : defaultCustomIcon,
           })
           .addTo(map);
       });
     }
-  }, [map, offerPins, currentCustomIcon, defaultCustomIcon, selectedPoint, center]);
+  }, [map, offerPins, currentCustomIcon, defaultCustomIcon, hoveredCity, center]);
 
   return (
     <div
-      style={{width: '100%', height: 'inherit'}}
+      style={{ width: '100%', height: 'inherit' }}
       ref={mapRef}
     >
     </div>

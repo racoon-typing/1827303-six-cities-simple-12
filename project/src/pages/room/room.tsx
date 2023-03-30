@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import CurrentOffer from '../../components/current-offer/current-offer';
@@ -20,14 +19,9 @@ type RoomScreenProps = {
 
 function Room({ reviews }: RoomScreenProps): JSX.Element {
   const { id } = useParams();
-  const [activeId, setActiveId] = useState(0);
 
-  function onMouseOverHandler(cityId: number) {
-    setActiveId(cityId);
-  }
-
+  // Получает предложения
   const offers = useAppSelector((state) => state.offers);
-
 
   const currentOffer = offers.find((item) => {
     const itemId = item.id;
@@ -53,14 +47,14 @@ function Room({ reviews }: RoomScreenProps): JSX.Element {
         <section className="property">
           <CurrentOffer offer={currentOffer as ConstructorRoom} reviews={reviews} />
           <section className="property__map map">
-            <Map offers={nearOffer} selectedPoint={activeId}/>
+            <Map offers={nearOffer} />
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardList offers={nearOffer} onMouseOverHandler={onMouseOverHandler} activeId={activeId} />
+              <CardList offers={nearOffer} />
             </div>
           </section>
         </div>

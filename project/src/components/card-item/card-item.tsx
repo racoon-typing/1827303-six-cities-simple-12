@@ -1,21 +1,28 @@
 import { Link } from 'react-router-dom';
 import { ConstructorRoom } from '../../types/offer';
-import './style.css';
+import { hoverCity } from '../../store/action';
+
+// Redux
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
 
 type CitiesCardProps = {
-  activeId: number;
-  itemId: number;
   value: ConstructorRoom;
-  onMouseOverHandler: (id: number) => void;
 };
 
-function CardItem({ value, itemId, onMouseOverHandler, activeId }: CitiesCardProps): JSX.Element {
+function CardItem({ value }: CitiesCardProps): JSX.Element {
   const { isPremium, price, title, type, rating, id, previewImage } = value;
   const starWidth = `${Math.round(rating) / 5 * 100}%`;
 
+  const dispatch = useAppDispatch();
+  // Получает id города на который навели
+  const hoveredCity = useAppSelector((state) => state.hoverCity);
+
   return (
-    <article className={`cities__card place-card ${activeId === itemId ? 'active-card' : ''}`}
-      onMouseOver={() => onMouseOverHandler(itemId)}
+    <article className={`cities__card place-card ${hoveredCity === id ? 'active-card' : ''}`}
+      onMouseOver={() => dispatch(hoverCity({hoveredCity: id}))}
     >
       {isPremium ? (
         <div className="place-card__mark">

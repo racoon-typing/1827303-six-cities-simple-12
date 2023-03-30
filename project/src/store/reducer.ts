@@ -3,12 +3,14 @@ import { Data } from '../mocks/offers';
 
 import {
   changeCity,
-  changeOfferList
+  changeOfferList,
+  hoverCity
 } from './action';
 
 const initialState = {
   city: 'Paris',
   offers: Data,
+  hoverCity: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -23,6 +25,11 @@ const reducer = createReducer(initialState, (builder) => {
 
       const newOffer = Data.filter((оffer) => оffer.city.name === cityName);
       state.offers = newOffer;
+    })
+    .addCase(hoverCity, (state, action) => {
+      const { hoveredCity } = action.payload;
+
+      state.hoverCity = hoveredCity;
     });
 });
 
