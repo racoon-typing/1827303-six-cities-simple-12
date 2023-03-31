@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { changeOption } from '../../store/action';
-
-const options = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
-
 // Redux
 import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
+
+const options = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
 function SortOptions() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +22,6 @@ function SortOptions() {
   };
 
   const filterName = useAppSelector((state) => state.filterName);
-  console.log(filterName);
 
   const openPopup = () => {
     if (isOpen) {
