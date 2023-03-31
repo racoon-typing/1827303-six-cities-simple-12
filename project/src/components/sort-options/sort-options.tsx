@@ -1,20 +1,29 @@
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import { changeOption } from '../../store/action';
 
 const options = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
+// Redux
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
 
 function SortOptions() {
   const [isOpen, setIsOpen] = useState(false);
-  const [sortOffer, setSortOffer] = useState('');
 
-  // const onClickHandler = (item: HTMLElement) => {
-  //   const items = item.innerText;
+  useEffect(() => {
+    dispatch(changeOption({filterName: 'Popular'}));
+  }, []);
 
-  //   setSortOffer(items);
-  //   setIsOpen(false);
-  // };
+  const dispatch = useAppDispatch();
+  const onClickHandler = (option: string) => {
+    dispatch(changeOption({filterName: option}));
+    setIsOpen(false);
+  };
 
+  const filterName = useAppSelector((state) => state.filterName);
+  console.log(filterName);
 
   const openPopup = () => {
     if (isOpen) {
@@ -30,16 +39,22 @@ function SortOptions() {
       <span className="places__sorting-type" tabIndex={0}
         onClick={openPopup}
       >
-        {sortOffer !== '' ? sortOffer : 'Popular'}
+        {filterName}
+        {/* {filterName !== '' ? filterName : 'Popular'} */}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isOpen ? 'places__options--opened' : ''}`}
-        // onClick={(evt) => onClickHandler(evt.target)}
-      >
+      <ul className={`places__options places__options--custom ${isOpen ? 'places__options--opened' : ''}`}>
         {options.map((option, id) => (
-          <li key={`${id * 10}`} className={`places__option ${sortOffer === option ? 'places__option--active' : ''}`} tabIndex={0}>{option}</li>
+          <li
+            onClick={() => onClickHandler(option)}
+            key={`${id * 10}`}
+            className={`places__option ${filterName === option ? 'places__option--active' : ''}`}
+            tabIndex={0}
+          >
+            {option}
+          </li>
         ))}
       </ul>
     </form >
