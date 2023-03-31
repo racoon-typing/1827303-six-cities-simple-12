@@ -1,20 +1,28 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { changeCity } from '../../store/action';
+import { changeOfferList } from '../../store/action';
+import { useAppDispatch } from '../../hooks/index';
+// import { ConstructorRoom } from '../../types/offer';
 
 type NavMainProps = {
   value: string;
-  onClickHandler: (idx: string) => void;
+  activeCity: string;
 };
 
-function NavMain({ value, onClickHandler}: NavMainProps) {
-  function changeCity(evt: React.MouseEvent<HTMLAnchorElement | undefined>) {
-    const target = evt.target;
-    const CityName = ((target as Element).closest('span') as HTMLElement).textContent;
-    onClickHandler(CityName as string);
-  }
+
+function NavMain({ value, activeCity }: NavMainProps) {
+
+  const dispatch = useAppDispatch();
+
+  const onUserClick = (): void => {
+    dispatch(changeCity({ activeCity: value }));
+    dispatch(changeOfferList({ cityName: value }));
+  };
 
   return (
-    <Link to={'/'} className={'locations__item-link tabs__item'} onClick={changeCity} >
+    <Link to={'/'} className={`locations__item-link tabs__item ${activeCity === value ? 'tabs__item--active' : ''}`}
+      onClick={onUserClick}
+    >
       <span>{value}</span>
     </Link>
   );

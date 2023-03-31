@@ -6,13 +6,22 @@ import Map from '../../components/map/map';
 import { ConstructorRoom } from '../../types/offer';
 import { Review } from '../../types/review';
 
+// Redux
+import {
+  // useAppDispatch,
+  useAppSelector
+} from '../../hooks';
+
+
 type RoomScreenProps = {
-  offers: ConstructorRoom[];
   reviews: Review[];
 };
 
-function Room({ offers, reviews }: RoomScreenProps): JSX.Element {
+function Room({ reviews }: RoomScreenProps): JSX.Element {
   const { id } = useParams();
+
+  // Получает предложения
+  const offers = useAppSelector((state) => state.offers);
 
   const currentOffer = offers.find((item) => {
     const itemId = item.id;
@@ -38,7 +47,7 @@ function Room({ offers, reviews }: RoomScreenProps): JSX.Element {
         <section className="property">
           <CurrentOffer offer={currentOffer as ConstructorRoom} reviews={reviews} />
           <section className="property__map map">
-            <Map offers={nearOffer} city={'Amsterdam'} />
+            <Map offers={nearOffer} />
           </section>
         </section>
         <div className="container">

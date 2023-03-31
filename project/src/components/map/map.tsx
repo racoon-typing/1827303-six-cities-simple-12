@@ -1,25 +1,26 @@
-import {useRef, useEffect} from 'react';
+import { useRef, useEffect } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { ConstructorRoom } from '../../types/offer';
-import { URL_MARKER_DEFAULT,
-  // URL_MARKER_CURRENT
-} from '../../consts';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/consts';
+import './style.css';
 
+// Redux
+import {
+  useAppSelector,
+} from '../../hooks';
 
 type MapProps = {
   offers: ConstructorRoom[];
-  city: string;
 };
 
-
-function Map({ offers, city }: MapProps) {
-  // Фильтрует исходный массив для отрисовки карты
-  const newOffers = offers.filter((offer) => offer.city.name === city);
+function Map({ offers }: MapProps) {
+  // Получает id города на который навели
+  const hoveredCity = useAppSelector((state) => state.hoverCity);
 
   // Определяет город в виде массива
-  const offerCity = newOffers.map((offer) => {
+  const offerCity = offers.map((offer) => {
     const obj = {
       name: offer.city.name,
       latitude: offer.city.location.latitude,
@@ -31,9 +32,9 @@ function Map({ offers, city }: MapProps) {
   });
 
   // Создает массив пинов для опредленного города
-  const offerPins = newOffers.map((offer, index) => {
+  const offerPins = offers.map((offer) => {
     const obj = {
-      id: index,
+      id: offer.id,
       lat: offer.location.latitude,
       lng: offer.location.longitude,
     };
@@ -42,11 +43,12 @@ function Map({ offers, city }: MapProps) {
   });
 
   // Берет первый объект из массива
-  const offerCityFirst = offerCity[0];
+  const center = offerCity[0];
 
   // Пины на карте
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offerCityFirst);
+  const map = useMap(mapRef, center);
+
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
@@ -54,30 +56,36 @@ function Map({ offers, city }: MapProps) {
     iconAnchor: [20, 40],
   });
 
-  // const currentCustomIcon = leaflet.icon({
-  //   iconUrl: URL_MARKER_CURRENT,
-  //   iconSize: [40, 40],
-  //   iconAnchor: [20, 40],
-  // });
+  const currentCustomIcon = leaflet.icon({
+    iconUrl: URL_MARKER_CURRENT,
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
 
   useEffect(() => {
     if (map) {
+      map.setView({
+        lat: center.latitude,
+        lng: center.longitude,
+      });
       offerPins.forEach((point) => {
         leaflet
           .marker({
             lat: point.lat,
             lng: point.lng,
           }, {
-            icon: defaultCustomIcon,
+            icon: (point.id === hoveredCity)
+              ? currentCustomIcon
+              : defaultCustomIcon,
           })
           .addTo(map);
       });
     }
-  }, [map, offerPins, defaultCustomIcon]);
+  }, [map, offerPins, currentCustomIcon, defaultCustomIcon, hoveredCity, center]);
 
   return (
     <div
-      style={{width: '100%', height: '603px'}}
+      style={{ width: '100%', height: 'inherit' }}
       ref={mapRef}
     >
     </div>
