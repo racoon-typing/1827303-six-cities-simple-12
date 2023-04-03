@@ -6,6 +6,7 @@ import {
   useAppSelector
 } from '../../hooks';
 
+
 const options = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
 function SortOptions() {
