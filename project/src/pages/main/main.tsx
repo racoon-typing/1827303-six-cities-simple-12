@@ -6,6 +6,7 @@ import { changeOfferList } from '../../store/action';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
 
+
 // Redux
 import {
   useAppDispatch,
@@ -15,15 +16,16 @@ import {
 const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 function Main(): JSX.Element {
-  // Смена города
-  const activeCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-
   // Начальная фильтрация: город Париж
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(changeOfferList({ cityName: 'Paris' }));
   }, []);
+
+  // Смена города
+  const activeCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+
 
   return (
     <>
@@ -48,7 +50,7 @@ function Main(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {activeCity}</b>
               <SortOptions />
               <div className="cities__places-list places__list tabs__content">
                 <CardList offers={offers} />
@@ -56,7 +58,7 @@ function Main(): JSX.Element {
             </section>
             <div className='cities__right-section'>
               <section className='cities__map map'>
-                <Map offers={offers} />
+                {/* <Map offers={offers} /> */}
               </section>
             </div>
           </div>

@@ -4,6 +4,11 @@ export enum AppRoute {
   OfferId = '/offer/:id'
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Comments = '/comments'
+}
+
 export const URL_MARKER_DEFAULT =
   'img/pin.svg';
 
