@@ -69,7 +69,7 @@ const reducer = createReducer(initialState, (builder) => {
         const filterOffer = state.offers.sort((a, b) => filterRating(b.rating, a.rating));
         state.offers = filterOffer;
       } else {
-        const filterOffer = state.offers;
+        const filterOffer = state.offers.sort((a, b) => filterPrice(a.id, b.id));
         state.offers = filterOffer;
       }
 
@@ -77,6 +77,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffers, (state, action) => {
       state.data = action.payload;
+      state.offers = action.payload;
     })
     .addCase(setLoadOffersStatus, (state, action) => {
       state.isOffersLoading = action.payload;

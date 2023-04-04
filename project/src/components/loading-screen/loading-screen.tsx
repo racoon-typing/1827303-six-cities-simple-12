@@ -1,6 +1,10 @@
+import './style.css';
+
 function LoadingScreen() {
   return (
-    <p>Loading ...</p>
+    <div className="loading__container">
+      <p className="loading__text">Loading ...</p>
+    </div>
   );
 }
 
