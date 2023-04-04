@@ -39,7 +39,6 @@ function SortOptions() {
         onClick={openPopup}
       >
         {filterName}
-        {/* {filterName !== '' ? filterName : 'Popular'} */}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
