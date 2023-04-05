@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import CurrentOffer from '../../components/current-offer/current-offer';
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
-import { ConstructorRoom } from '../../types/offer';
+// import { ConstructorRoom } from '../../types/offer';
 import { Review } from '../../types/review';
 import { fetchCurrentOfferAction,
   // fetchNearOffersAction
@@ -48,7 +48,7 @@ function Room({ reviews }: RoomScreenProps): JSX.Element {
         currentOffer ? (
           <main className="page__main page__main--property">
             <section className="property">
-              <CurrentOffer offer={currentOffer as ConstructorRoom} reviews={reviews} />
+              <CurrentOffer offer={currentOffer} reviews={reviews} />
               <section className="property__map map">
                 <Map offers={nearOffer} />
               </section>

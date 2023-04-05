@@ -9,7 +9,7 @@ import {
   changeOption,
   loadOffers,
   loadOffer,
-  loadNearOffers,
+  // loadNearOffers,
   setLoadOffersStatus,
   requireAuthorization,
   setError,
@@ -94,12 +94,12 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffer, (state, action) => {
       state.getOffer = action.payload;
     })
-    .addCase(loadNearOffers, (state, action) => {
-      // const { data, id } = action.payload;
-      // const nearOffers = action.payload.filter((item) => item.id !== state.hoverCity);
+    // .addCase(loadNearOffers, (state, action) => {
+    //   // const { data, id } = action.payload;
+    //   // const nearOffers = action.payload.filter((item) => item.id !== state.hoverCity);
 
-      // state.nearOffers = nearOffers;
-    })
+    //   // state.nearOffers = nearOffers;
+    // })
     .addCase(setLoadOffersStatus, (state, action) => {
       state.isOffersLoading = action.payload;
     })
