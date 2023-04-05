@@ -28,14 +28,14 @@ function Room({ reviews }: RoomScreenProps): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCurrentOfferAction(id));
-    dispatch(fetchNearOffersAction(id));
+    // dispatch(fetchNearOffersAction(id));
   }, [dispatch, id]);
 
   // Получает конкретное предложение
   const currentOffer = useAppSelector((state) => state.getOffer);
 
-
-  // const nearOffer = offers.filter((item) => item.id !== Number(id));
+  const offers = useAppSelector((state) => state.offers);
+  const nearOffer = offers.filter((item) => item.id !== Number(id));
 
   return (
     <>
@@ -48,14 +48,14 @@ function Room({ reviews }: RoomScreenProps): JSX.Element {
             <section className="property">
               <CurrentOffer offer={currentOffer as ConstructorRoom} reviews={reviews} />
               <section className="property__map map">
-                {/* <Map offers={nearOffer} /> */}
+                <Map offers={nearOffer} />
               </section>
             </section>
             <div className="container">
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <div className="near-places__list places__list">
-                  {/* <CardList offers={nearOffer} /> */}
+                  <CardList offers={nearOffer} />
                 </div>
               </section>
             </div>
