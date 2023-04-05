@@ -6,7 +6,8 @@ export enum AppRoute {
 
 export enum APIRoute {
   Offers = '/hotels',
-  Comments = '/comments'
+  Comments = '/comments',
+  Login = '/login',
 }
 
 export const URL_MARKER_DEFAULT =
@@ -14,3 +15,11 @@ export const URL_MARKER_DEFAULT =
 
 export const URL_MARKER_CURRENT =
   'img/pin-active.svg';
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;

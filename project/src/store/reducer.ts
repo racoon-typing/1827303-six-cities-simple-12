@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { ConstructorRoom } from '../types/offer';
-// import { Data } from '../mocks/offers';
+import { AuthorizationStatus } from '../consts/consts';
 
 import {
   changeCity,
@@ -9,6 +9,8 @@ import {
   changeOption,
   loadOffers,
   setLoadOffersStatus,
+  requireAuthorization,
+  setError,
 } from './action';
 
 type InitalState = {
@@ -18,6 +20,8 @@ type InitalState = {
   hoverCity: number;
   filterName: string;
   isOffersLoading: boolean;
+  authorizationStatus: string;
+  error: string | null;
 }
 
 const initialState: InitalState = {
@@ -27,6 +31,8 @@ const initialState: InitalState = {
   hoverCity: 0,
   filterName: '',
   isOffersLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 
@@ -81,6 +87,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoadOffersStatus, (state, action) => {
       state.isOffersLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 
