@@ -96,9 +96,11 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadNearOffers, (state, action) => {
       const { data, id } = action.payload;
-      const nearOffers = data.filter((item) => item.id !== Number(id));
+      console.log(data);
+      console.log(id);
+      // const nearOffers = action.payload.filter((item) => item.id !== state.hoverCity);
 
-      state.nearOffers = nearOffers;
+      // state.nearOffers = nearOffers;
     })
     .addCase(setLoadOffersStatus, (state, action) => {
       state.isOffersLoading = action.payload;
