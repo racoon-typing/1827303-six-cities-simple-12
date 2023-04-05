@@ -8,6 +8,8 @@ import {
   hoverCity,
   changeOption,
   loadOffers,
+  loadOffer,
+  loadNearOffers,
   setLoadOffersStatus,
   requireAuthorization,
   setError,
@@ -16,6 +18,8 @@ import {
 type InitalState = {
   city: string;
   offers: ConstructorRoom[];
+  getOffer: ConstructorRoom | null;
+  nearOffers: ConstructorRoom[];
   data: ConstructorRoom[];
   hoverCity: number;
   filterName: string;
@@ -27,6 +31,8 @@ type InitalState = {
 const initialState: InitalState = {
   city: 'Paris',
   offers: [],
+  getOffer: null,
+  nearOffers: [],
   data: [],
   hoverCity: 0,
   filterName: '',
@@ -84,6 +90,15 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffers, (state, action) => {
       state.data = action.payload;
       state.offers = action.payload;
+    })
+    .addCase(loadOffer, (state, action) => {
+      state.getOffer = action.payload;
+    })
+    .addCase(loadNearOffers, (state, action) => {
+      const { data, id } = action.payload;
+      const nearOffers = data.filter((item) => item.id !== Number(id));
+
+      state.nearOffers = nearOffers;
     })
     .addCase(setLoadOffersStatus, (state, action) => {
       state.isOffersLoading = action.payload;

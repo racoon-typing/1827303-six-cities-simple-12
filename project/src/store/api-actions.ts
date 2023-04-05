@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import { ConstructorRoom } from '../types/offer';
-import { setLoadOffersStatus, loadOffers, requireAuthorization, setError } from './action';
+import { setLoadOffersStatus, loadOffers, loadOffer, loadNearOffers, requireAuthorization, setError } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../consts/consts';
 import { store } from '.';
 
@@ -46,4 +46,31 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   }
+);
+
+
+type NewType = string | undefined;
+
+export const fetchCurrentOfferAction = createAsyncThunk<void, NewType, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/loadOffer',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<ConstructorRoom>(`${APIRoute.Offers}/${id}`);
+    dispatch(loadOffer(data));
+  },
+);
+
+export const fetchNearOffersAction = createAsyncThunk<void, NewType, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/loadNearOffers',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<ConstructorRoom[]>(APIRoute.Offers);
+    dispatch(loadNearOffers(data, id));
+  },
 );

@@ -5,12 +5,17 @@ import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
 import { ConstructorRoom } from '../../types/offer';
 import { Review } from '../../types/review';
+import { fetchCurrentOfferAction, fetchNearOffersAction } from '../../store/api-actions';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
+
+// import { store } from '../../store';
 
 // Redux
 import {
-  // useAppDispatch,
+  useAppDispatch,
   useAppSelector
 } from '../../hooks';
+import { useEffect } from 'react';
 
 
 type RoomScreenProps = {
@@ -20,45 +25,45 @@ type RoomScreenProps = {
 function Room({ reviews }: RoomScreenProps): JSX.Element {
   const { id } = useParams();
 
-  // Получает предложения
-  const offers = useAppSelector((state) => state.offers);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchCurrentOfferAction(id));
+    dispatch(fetchNearOffersAction(id));
+  }, [dispatch, id]);
 
-  const currentOffer = offers.find((item) => {
-    const itemId = item.id;
-    let result;
+  // Получает конкретное предложение
+  const currentOffer = useAppSelector((state) => state.getOffer);
 
-    if (itemId === Number(id)) {
-      result = itemId;
-      return result;
-    }
 
-    return result;
-  });
-
-  const nearOffer = offers.filter((item) => item.id !== Number(id));
+  // const nearOffer = offers.filter((item) => item.id !== Number(id));
 
   return (
     <>
       <Helmet>
         <title>Старница с предложением номера</title>
       </Helmet>
-
-      <main className="page__main page__main--property">
-        <section className="property">
-          <CurrentOffer offer={currentOffer as ConstructorRoom} reviews={reviews} />
-          <section className="property__map map">
-            <Map offers={nearOffer} />
-          </section>
-        </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              <CardList offers={nearOffer} />
+      {
+        currentOffer ? (
+          <main className="page__main page__main--property">
+            <section className="property">
+              <CurrentOffer offer={currentOffer as ConstructorRoom} reviews={reviews} />
+              <section className="property__map map">
+                {/* <Map offers={nearOffer} /> */}
+              </section>
+            </section>
+            <div className="container">
+              <section className="near-places places">
+                <h2 className="near-places__title">Other places in the neighbourhood</h2>
+                <div className="near-places__list places__list">
+                  {/* <CardList offers={nearOffer} /> */}
+                </div>
+              </section>
             </div>
-          </section>
-        </div>
-      </main>
+          </main>
+        ) : (
+          <LoadingScreen />
+        )
+      }
     </>
   );
 }
