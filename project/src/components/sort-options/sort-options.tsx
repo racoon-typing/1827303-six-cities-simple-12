@@ -12,11 +12,11 @@ const options = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rat
 function SortOptions() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(changeOption({filterName: 'Popular'}));
-  }, []);
+  }, [dispatch]);
 
-  const dispatch = useAppDispatch();
   const onClickHandler = (option: string) => {
     dispatch(changeOption({filterName: option}));
     setIsOpen(false);

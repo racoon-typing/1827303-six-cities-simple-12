@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { ConstructorRoom } from '../types/offer';
-// import { Data } from '../mocks/offers';
+import { AuthorizationStatus } from '../consts/consts';
 
 import {
   changeCity,
@@ -8,25 +8,37 @@ import {
   hoverCity,
   changeOption,
   loadOffers,
+  loadOffer,
+  // loadNearOffers,
   setLoadOffersStatus,
+  requireAuthorization,
+  setError,
 } from './action';
 
 type InitalState = {
   city: string;
   offers: ConstructorRoom[];
+  getOffer: ConstructorRoom | null;
+  nearOffers: ConstructorRoom[];
   data: ConstructorRoom[];
   hoverCity: number;
   filterName: string;
   isOffersLoading: boolean;
+  authorizationStatus: string;
+  error: string | null;
 }
 
 const initialState: InitalState = {
   city: 'Paris',
   offers: [],
+  getOffer: null,
+  nearOffers: [],
   data: [],
   hoverCity: 0,
   filterName: '',
   isOffersLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 
@@ -79,8 +91,23 @@ const reducer = createReducer(initialState, (builder) => {
       state.data = action.payload;
       state.offers = action.payload;
     })
+    .addCase(loadOffer, (state, action) => {
+      state.getOffer = action.payload;
+    })
+    // .addCase(loadNearOffers, (state, action) => {
+    //   // const { data, id } = action.payload;
+    //   // const nearOffers = action.payload.filter((item) => item.id !== state.hoverCity);
+
+    //   // state.nearOffers = nearOffers;
+    // })
     .addCase(setLoadOffersStatus, (state, action) => {
       state.isOffersLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 
