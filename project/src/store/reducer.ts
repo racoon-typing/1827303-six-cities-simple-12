@@ -1,22 +1,40 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Data } from '../mocks/offers';
+import { ConstructorRoom } from '../types/offer';
+import { AuthorizationStatus } from '../consts/consts';
 
 import {
   changeCity,
   changeOfferList,
   hoverCity,
   changeOption,
-  // filterCity
+  loadOffers,
+  setLoadOffersStatus,
+  requireAuthorization,
+  setError,
 } from './action';
 
-const initialState = {
+type InitalState = {
+  city: string;
+  offers: ConstructorRoom[];
+  data: ConstructorRoom[];
+  hoverCity: number;
+  filterName: string;
+  isOffersLoading: boolean;
+  authorizationStatus: string;
+  error: string | null;
+}
+
+const initialState: InitalState = {
   city: 'Paris',
-  offers: Data,
+  offers: [],
+  data: [],
   hoverCity: 0,
   filterName: '',
+  isOffersLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
-// const options = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
 function filterPrice(a: number, b: number) {
   return (a - b);
@@ -36,7 +54,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeOfferList, (state, action) => {
       const { cityName } = action.payload;
 
-      const newOffer = Data.filter((оffer) => оffer.city.name === cityName);
+      const newOffer = state.data.filter((оffer) => оffer.city.name === cityName);
       state.offers = newOffer;
     })
     .addCase(hoverCity, (state, action) => {
@@ -57,13 +75,25 @@ const reducer = createReducer(initialState, (builder) => {
         const filterOffer = state.offers.sort((a, b) => filterRating(b.rating, a.rating));
         state.offers = filterOffer;
       } else {
-        const filterOffer = state.offers;
+        const filterOffer = state.offers.sort((a, b) => filterPrice(a.id, b.id));
         state.offers = filterOffer;
       }
 
       state.filterName = filterName;
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.data = action.payload;
+      state.offers = action.payload;
+    })
+    .addCase(setLoadOffersStatus, (state, action) => {
+      state.isOffersLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
-
 
 export { reducer };

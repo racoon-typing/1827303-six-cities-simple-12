@@ -18,7 +18,6 @@ export const clearErrorAction = createAsyncThunk(
 );
 
 
-
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;

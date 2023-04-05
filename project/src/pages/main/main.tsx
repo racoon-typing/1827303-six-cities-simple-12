@@ -5,6 +5,7 @@ import SortOptions from '../../components/sort-options/sort-options';
 import { changeOfferList } from '../../store/action';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
 
 // Redux
 import {
@@ -15,15 +16,18 @@ import {
 const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 function Main(): JSX.Element {
-  // Смена города
-  const activeCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const data = useAppSelector((state) => state.data);
 
   // Начальная фильтрация: город Париж
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(changeOfferList({ cityName: 'Paris' }));
-  }, []);
+  }, [data]);
+
+  // Смена города
+  const activeCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+  const status = useAppSelector((state) => state.isOffersLoading);
 
   return (
     <>
@@ -44,23 +48,31 @@ function Main(): JSX.Element {
             </ul>
           </section>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
-              <SortOptions />
-              <div className="cities__places-list places__list tabs__content">
-                <CardList offers={offers} />
-              </div>
-            </section>
-            <div className='cities__right-section'>
-              <section className='cities__map map'>
-                <Map offers={offers} />
+        {!status ? (
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+                <SortOptions />
+                <div className="cities__places-list places__list tabs__content">
+                  {!status ? (
+                    <CardList offers={offers} />
+                  ) : (
+                    <LoadingScreen />
+                  )}
+                </div>
               </section>
+              <div className='cities__right-section'>
+                <section className='cities__map map'>
+                  <Map offers={offers} />
+                </section>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <LoadingScreen />
+        )}
       </main>
     </>
   );
