@@ -22,7 +22,7 @@ function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(changeOfferList({ cityName: 'Paris' }));
-  }, [data]);
+  }, [dispatch, data]);
 
   // Смена города
   const activeCity = useAppSelector((state) => state.city);

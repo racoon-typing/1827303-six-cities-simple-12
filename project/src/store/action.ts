@@ -4,7 +4,7 @@ import { AuthorizationStatus } from '../consts/consts';
 
 type MyType = {
   data: ConstructorRoom[];
-  id: number;
+  id: string;
 }
 
 export const changeCity = createAction<{activeCity: string}>('main/changeCity');

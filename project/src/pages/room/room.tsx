@@ -5,7 +5,9 @@ import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
 import { ConstructorRoom } from '../../types/offer';
 import { Review } from '../../types/review';
-import { fetchCurrentOfferAction, fetchNearOffersAction } from '../../store/api-actions';
+import { fetchCurrentOfferAction,
+  // fetchNearOffersAction
+} from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 
 // import { store } from '../../store';
