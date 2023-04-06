@@ -1,56 +1,80 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import CurrentOffer from '../../components/current-offer/current-offer';
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
-// import { ConstructorRoom } from '../../types/offer';
-import { Review } from '../../types/review';
-import { fetchCurrentOfferAction,
-  // fetchNearOffersAction
+import {
+  fetchCurrentOfferAction,
+  fetchNearOffersAction,
+  fetchCommentAction
 } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-
-// import { store } from '../../store';
+// import { Review } from '../../types/review';
+// import NotFound from '../not-found/not-found';
 
 // Redux
 import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
-import { useEffect } from 'react';
 
 
-type RoomScreenProps = {
-  reviews: Review[];
-};
+// type RoomScreenProps = {
+//   reviews: Review[];
+// };
 
-function Room({ reviews }: RoomScreenProps): JSX.Element {
+function Room(
+//   {
+//   // reviews
+// }: RoomScreenProps
+): JSX.Element {
   const { id } = useParams();
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCurrentOfferAction(id));
-    // dispatch(fetchNearOffersAction(id));
+    dispatch(fetchNearOffersAction(id));
+    // dispatch(fetchCommentAction(id));
   }, [dispatch, id]);
 
   // Получает конкретное предложение
   const currentOffer = useAppSelector((state) => state.getOffer);
 
-  const offers = useAppSelector((state) => state.offers);
-  const nearOffer = offers.filter((item) => item.id !== Number(id));
+  // Получает предложения неподалеку
+  const nearOffer = useAppSelector((state) => state.nearOffers);
+
+  // Статус загрузки предложений
+  const status = currentOffer && nearOffer;
+
+  const reviews = useAppSelector((state) => state.reviews);
+  // if (Number(id) !== currentOffer?.id) {
+  //   return (
+  //     <NotFound />
+  //   );
+  // }
+
+  // const status = !currentStatus && !nearStatus;
 
   return (
     <>
       <Helmet>
         <title>Старница с предложением номера</title>
       </Helmet>
+
       {
-        currentOffer ? (
+        status ? (
           <main className="page__main page__main--property">
             <section className="property">
               <CurrentOffer offer={currentOffer} reviews={reviews} />
               <section className="property__map map">
-                <Map offers={nearOffer} />
+                {
+                  nearOffer.length === 0 ? (
+                    null
+                  ) : (
+                    <Map offers={nearOffer} />
+                  )
+                }
               </section>
             </section>
             <div className="container">
