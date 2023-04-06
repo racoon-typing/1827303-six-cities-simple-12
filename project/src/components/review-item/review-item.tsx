@@ -5,7 +5,6 @@ type ReviewItemProps = {
 };
 
 function ReviewItem({ review }: ReviewItemProps) {
-  // const {src, name, rating, text, time } = review;
   const { user, rating, comment, date} = review;
   const {name, avatarUrl} = user;
   const starWidth = Math.round(rating) / 5 * 100;

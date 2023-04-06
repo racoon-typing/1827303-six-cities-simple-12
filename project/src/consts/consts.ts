@@ -1,7 +1,8 @@
 export enum AppRoute {
   Root = '/',
   Login = '/login',
-  OfferId = '/offer/:id'
+  OfferId = '/offer/:id',
+  NotFound = '/not-found'
 }
 
 export enum APIRoute {

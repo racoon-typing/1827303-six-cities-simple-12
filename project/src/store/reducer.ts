@@ -104,9 +104,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setLoadOffersStatus, (state, action) => {
       state.isOffersLoading = action.payload;
     })
-    // .addCase(loadComments, (state, action) => {
-    //   state.reviews = action.payload;
-    // })
+    .addCase(loadComments, (state, action) => {
+      state.reviews = action.payload;
+    })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })

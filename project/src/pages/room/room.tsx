@@ -10,8 +10,8 @@ import {
   fetchCommentAction
 } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-// import { Review } from '../../types/review';
 // import NotFound from '../not-found/not-found';
+import { redirectToNotFound } from '../../store/action';
 
 // Redux
 import {
@@ -20,22 +20,14 @@ import {
 } from '../../hooks';
 
 
-// type RoomScreenProps = {
-//   reviews: Review[];
-// };
-
-function Room(
-//   {
-//   // reviews
-// }: RoomScreenProps
-): JSX.Element {
+function Room(): JSX.Element {
   const { id } = useParams();
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCurrentOfferAction(id));
     dispatch(fetchNearOffersAction(id));
-    // dispatch(fetchCommentAction(id));
+    dispatch(fetchCommentAction(id));
   }, [dispatch, id]);
 
   // Получает конкретное предложение
@@ -47,14 +39,15 @@ function Room(
   // Статус загрузки предложений
   const status = currentOffer && nearOffer;
 
-  const reviews = useAppSelector((state) => state.reviews);
-  // if (Number(id) !== currentOffer?.id) {
-  //   return (
-  //     <NotFound />
-  //   );
+  // if (!status) {
+  //   if (currentOffer === null) {
+  //     dispatch(redirectToNotFound('not-found'));
+  //   }
   // }
 
-  // const status = !currentStatus && !nearStatus;
+
+  // Получает комментарии
+  const reviews = useAppSelector((state) => state.reviews);
 
   return (
     <>

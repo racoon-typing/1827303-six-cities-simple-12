@@ -7,14 +7,9 @@ import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import NotFound from '../../pages/not-found/not-found';
 import Layuot from '../../components/layuot/layuot';
-// import { Review } from '../../types/review';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../browser-history/browser-history';
 
-
-// type AppScreenProps = {
-//   reviews: Review[];
-// }
 
 function App(): JSX.Element {
 
@@ -26,6 +21,7 @@ function App(): JSX.Element {
             <Route index element={<Main />} />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.OfferId} element={<Room />} />
+            <Route path={AppRoute.NotFound} element={<NotFound />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
