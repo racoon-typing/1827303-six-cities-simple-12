@@ -13,6 +13,7 @@ export const loadOffers = createAction<ConstructorRoom[]>('data/loadOffers');
 export const loadOffer = createAction<ConstructorRoom>('data/loadOffer');
 export const loadNearOffers = createAction<ConstructorRoom[]>('data/loadNearOffers');
 export const setLoadOffersStatus = createAction<boolean>('data/setLoadOffersStatus');
+export const setLoadCurrentOfferStatus = createAction<boolean>('data/setLoadCurrentOfferStatus');
 export const loadComments = createAction<Review[]>('data/loadComments');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const setError = createAction<string | null>('main/setError');

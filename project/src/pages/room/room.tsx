@@ -11,7 +11,8 @@ import {
 } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 // import NotFound from '../not-found/not-found';
-import { redirectToNotFound } from '../../store/action';
+// import { redirectToNotFound } from '../../store/action';
+// import NotFound from '../not-found/not-found';
 
 // Redux
 import {
@@ -38,10 +39,19 @@ function Room(): JSX.Element {
 
   // Статус загрузки предложений
   const status = currentOffer && nearOffer;
+  console.log(currentOffer);
 
-  // if (!status) {
+  const currentStatus = useAppSelector((state) => state.isCurrentOfferLoading);
+  console.log(currentStatus);
+
+  // if (!currentStatus) {
   //   if (currentOffer === null) {
+  //     console.log('Отработала');
   //     dispatch(redirectToNotFound('not-found'));
+
+  //     return (
+  //       <Navigate to="/not-found" replace={true} />
+  //     );
   //   }
   // }
 

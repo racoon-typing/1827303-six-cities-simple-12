@@ -5,6 +5,7 @@ import { ConstructorRoom } from '../types/offer';
 import { Review } from '../types/review';
 import {
   setLoadOffersStatus,
+  setLoadCurrentOfferStatus,
   loadOffers,
   loadOffer,
   loadNearOffers,
@@ -67,11 +68,9 @@ export const fetchCurrentOfferAction = createAsyncThunk<void, IdType, {
 }>(
   'data/loadOffer',
   async (id, { dispatch, extra: api }) => {
+    dispatch(setLoadCurrentOfferStatus(true));
     const { data } = await api.get<ConstructorRoom>(`${APIRoute.Offers}/${id as string}`);
-    // console.log(data);
-    // if (data === 0) {
-    //   dispatch(redirectToNotFound('not-found'));
-    // }
+    dispatch(setLoadCurrentOfferStatus(false));
     dispatch(loadOffer(data));
   },
 );

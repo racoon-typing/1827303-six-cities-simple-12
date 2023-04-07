@@ -12,6 +12,7 @@ import {
   loadOffer,
   loadNearOffers,
   setLoadOffersStatus,
+  setLoadCurrentOfferStatus, // Конкретный оффер
   loadComments,
   requireAuthorization,
   setError,
@@ -27,6 +28,7 @@ type InitalState = {
   hoverCity: number;
   filterName: string;
   isOffersLoading: boolean;
+  isCurrentOfferLoading: boolean;
   authorizationStatus: string;
   error: string | null;
 }
@@ -41,6 +43,7 @@ const initialState: InitalState = {
   hoverCity: 0,
   filterName: '',
   isOffersLoading: false,
+  isCurrentOfferLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
 };
@@ -103,6 +106,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoadOffersStatus, (state, action) => {
       state.isOffersLoading = action.payload;
+    })
+    .addCase(setLoadCurrentOfferStatus, (state, action) => { // конкретный оффер
+      state.isCurrentOfferLoading = action.payload;
     })
     .addCase(loadComments, (state, action) => {
       state.reviews = action.payload;
