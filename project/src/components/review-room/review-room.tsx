@@ -2,30 +2,44 @@ import Rating from '../rating/rating';
 import { useState } from 'react';
 import { Review } from '../../types/review';
 import ReviewList from '../review-list/review-list';
+import { useAppDispatch } from '../../hooks';
+import { sendCommentAction } from '../../store/api-actions';
+
 
 const ratings = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
 type ReviewRoomProps = {
   reviews: Review[];
+  roomId: string | undefined;
 }
 
-function ReviewRoom({reviews}: ReviewRoomProps) {
+function ReviewRoom({reviews, roomId}: ReviewRoomProps) {
   const [formData, setFormData] = useState({
-    rating: '',
-    review: ''
+    roomId: Number(roomId),
+    rating: 0,
+    comment: ''
   });
 
-  const handleInputChange = (data: HTMLInputElement) => {
-    const {name, value} = data;
-
-    setFormData({...formData, [name]: value});
+  const handleInputChange = (data: number) => {
+    setFormData({...formData, rating: data});
   };
 
   const handleTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {value} = evt.target;
 
-    setFormData({...formData, review: value});
+    setFormData({...formData, comment: value});
   };
+
+  const isDisabled = formData.rating === 0 || formData.comment === '';
+  console.log(formData);
+  console.log(isDisabled);
+
+
+  const dispatch = useAppDispatch();
+  function sendData() {
+    dispatch(sendCommentAction(formData));
+  }
+
 
   return (
     <section className="property__reviews reviews">
@@ -43,7 +57,7 @@ function ReviewRoom({reviews}: ReviewRoomProps) {
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+          <button onClick={sendData} className="reviews__submit form__submit button" type="submit" disabled={isDisabled}>Submit</button>
         </div>
       </form>
     </section>

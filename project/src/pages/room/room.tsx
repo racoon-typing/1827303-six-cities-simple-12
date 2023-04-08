@@ -7,12 +7,11 @@ import Map from '../../components/map/map';
 import {
   fetchCurrentOfferAction,
   fetchNearOffersAction,
-  fetchCommentAction
+  fetchCommentAction,
+  checkAuthAction,
 } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-// import NotFound from '../not-found/not-found';
-// import { redirectToNotFound } from '../../store/action';
-// import NotFound from '../not-found/not-found';
+
 
 // Redux
 import {
@@ -30,6 +29,7 @@ function Room(): JSX.Element {
     dispatch(fetchCurrentOfferAction(id));
     dispatch(fetchNearOffersAction(id));
     dispatch(fetchCommentAction(id));
+    dispatch(checkAuthAction());
   }, [dispatch, id]);
 
   // Получает конкретное предложение
@@ -47,6 +47,7 @@ function Room(): JSX.Element {
   // Получает ошибку
   const error = useAppSelector((state) => state.error);
 
+
   if (error === `Hotel id ${roomId} does not exist`) {
     return (
       <Navigate to="/not-found" />
@@ -63,7 +64,7 @@ function Room(): JSX.Element {
         status ? (
           <main className="page__main page__main--property">
             <section className="property">
-              <CurrentOffer offer={currentOffer} reviews={reviews} />
+              <CurrentOffer offer={currentOffer} reviews={reviews} roomId={id} />
               <section className="property__map map">
                 {
                   nearOffer.length === 0 ? (

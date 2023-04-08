@@ -14,6 +14,7 @@ import {
 } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../consts/consts';
 import { store } from '.';
+import { saveToken } from '../services/token';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -78,8 +79,6 @@ export const fetchNearOffersAction = createAsyncThunk<void, IdType, {
 }>(
   'data/loadNearOffers',
   async (id, { dispatch, extra: api }) => {
-
-    // const response = await api. ;
     const { data } = await api.get<ConstructorRoom[]>(`${APIRoute.Offers}/${id as string}/nearby`);
     dispatch(loadNearOffers(data));
   },
@@ -98,3 +97,53 @@ export const fetchCommentAction = createAsyncThunk<void, IdType, {
 );
 
 
+export type AuthData = {
+  login: string;
+  password: number;
+}
+
+export type UserData = {
+  id: number;
+  email: string;
+  token: string;
+};
+
+export const loginAction = createAsyncThunk<void, AuthData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async ({login: email, password}, {dispatch, extra: api}) => {
+    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(token);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  },
+);
+
+type CommentData = {
+  roomId: number
+  comment: string;
+  rating: number;
+}
+
+type sendCommentData = {
+  comment: string;
+  rating: number;
+}
+
+export const sendCommentAction = createAsyncThunk<void, CommentData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async ({roomId, comment, rating}, {dispatch, extra: api}) => {
+    const data = await api.post<sendCommentData>(`${APIRoute.Comments}/${roomId}`, {comment, rating});
+
+    console.log(data.status);
+
+    // saveToken(token);
+    // dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  },
+);

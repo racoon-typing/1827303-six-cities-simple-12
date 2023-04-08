@@ -1,19 +1,14 @@
 type RatingProps = {
-  onChange: (data: HTMLInputElement) => void;
+  onChange: (data: number) => void;
   value: string;
   id: number;
-  // starId: string;
-  // title: string;
 }
 
-function Rating({onChange, value,
-  id
-  //  starId, title
-}: RatingProps) {
+function Rating({onChange, value, id}: RatingProps) {
 
-  const handleStar = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const data = evt.target;
-    onChange(data);
+  const handleStar = () => {
+    const grade = 5 - id;
+    onChange(grade);
   };
 
   return (
