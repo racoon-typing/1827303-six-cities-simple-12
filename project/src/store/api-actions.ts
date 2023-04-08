@@ -5,14 +5,12 @@ import { ConstructorRoom } from '../types/offer';
 import { Review } from '../types/review';
 import {
   setLoadOffersStatus,
-  setLoadCurrentOfferStatus,
   loadOffers,
   loadOffer,
   loadNearOffers,
   requireAuthorization,
   setError,
   loadComments,
-  redirectToNotFound
 } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../consts/consts';
 import { store } from '.';
@@ -68,9 +66,7 @@ export const fetchCurrentOfferAction = createAsyncThunk<void, IdType, {
 }>(
   'data/loadOffer',
   async (id, { dispatch, extra: api }) => {
-    dispatch(setLoadCurrentOfferStatus(true));
     const { data } = await api.get<ConstructorRoom>(`${APIRoute.Offers}/${id as string}`);
-    dispatch(setLoadCurrentOfferStatus(false));
     dispatch(loadOffer(data));
   },
 );
@@ -82,6 +78,8 @@ export const fetchNearOffersAction = createAsyncThunk<void, IdType, {
 }>(
   'data/loadNearOffers',
   async (id, { dispatch, extra: api }) => {
+
+    // const response = await api. ;
     const { data } = await api.get<ConstructorRoom[]>(`${APIRoute.Offers}/${id as string}/nearby`);
     dispatch(loadNearOffers(data));
   },

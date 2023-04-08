@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import CurrentOffer from '../../components/current-offer/current-offer';
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
@@ -23,6 +23,7 @@ import {
 
 function Room(): JSX.Element {
   const { id } = useParams();
+  const roomId = Number(id) - 1;
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -39,25 +40,18 @@ function Room(): JSX.Element {
 
   // Статус загрузки предложений
   const status = currentOffer && nearOffer;
-  console.log(currentOffer);
-
-  const currentStatus = useAppSelector((state) => state.isCurrentOfferLoading);
-  console.log(currentStatus);
-
-  // if (!currentStatus) {
-  //   if (currentOffer === null) {
-  //     console.log('Отработала');
-  //     dispatch(redirectToNotFound('not-found'));
-
-  //     return (
-  //       <Navigate to="/not-found" replace={true} />
-  //     );
-  //   }
-  // }
-
 
   // Получает комментарии
   const reviews = useAppSelector((state) => state.reviews);
+
+  // Получает ошибку
+  const error = useAppSelector((state) => state.error);
+
+  if (error === `Hotel id ${roomId} does not exist`) {
+    return (
+      <Navigate to="/not-found" />
+    );
+  }
 
   return (
     <>
