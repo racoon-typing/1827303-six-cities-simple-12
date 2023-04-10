@@ -10,9 +10,10 @@ const ratings = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
 type ReviewRoomProps = {
   reviews: Review[];
+  roomId: string | undefined;
 }
 
-function ReviewRoom({ reviews }: ReviewRoomProps) {
+function ReviewRoom({ reviews, roomId }: ReviewRoomProps) {
   const AuthStatus = useAppSelector((state) => state.authorizationStatus);
   const isAuth = AuthStatus === 'AUTH';
 
@@ -34,7 +35,7 @@ function ReviewRoom({ reviews }: ReviewRoomProps) {
 
 
   const mySendData = {
-    offerId: '5',
+    offerId: roomId,
     datas: formData,
   };
 

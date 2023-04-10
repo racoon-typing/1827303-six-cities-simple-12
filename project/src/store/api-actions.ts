@@ -11,7 +11,6 @@ import {
   requireAuthorization,
   setError,
   loadComments,
-  redirectToCurrentOffer,
 } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../consts/consts';
 import { store } from '.';
@@ -142,7 +141,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 // }
 
 type CommentData = {
-  offerId: string;
+  offerId: string | undefined;
   datas: {
     comment: string;
     rating: number;
@@ -162,11 +161,15 @@ export const sendCommentAction = createAsyncThunk<void, CommentData, {
   'user/login',
   async ({ offerId, datas }, { dispatch, extra: api }) => {
     const { comment, rating } = datas;
-    const { data } = await api.post<Review[]>(`${APIRoute.Comments}/${offerId}`, { comment, rating });
+    const { data } = await api.post<Review[]>(`${APIRoute.Comments}/${offerId as string}`, {
+      comment,
+      rating,
+    });
 
-    console.log(data);
-    dispatch(loadComments(data));
-    // dispatch(redirectToCurrentOffer(`${AppRoute}/offer/${offerId}`));
+    console.log('Hello world', data);
+
+    // dispatch(loadComments(data));
+    // dispatch(redirectToCurrentOffer('/offer/5'));
   },
 );
 
