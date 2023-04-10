@@ -31,22 +31,17 @@ function ReviewRoom({ reviews }: ReviewRoomProps) {
   };
 
   const isDisabled = formData.rating === 0 || formData.comment === '';
-  console.log(formData);
 
 
   const mySendData = {
-    offerId: 1,
+    offerId: '5',
     datas: formData,
   };
-  console.log(mySendData);
-
 
   const dispatch = useAppDispatch();
   function sendData() {
-    // dispatch(sendCommentAction(formData));
     dispatch(sendCommentAction(mySendData));
   }
-
 
   return (
     <section className="property__reviews reviews" >

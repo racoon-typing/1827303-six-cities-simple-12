@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {ConstructorRoom} from '../types/offer';
-import { AuthorizationStatus } from '../consts/consts';
+import { AppRoute, AuthorizationStatus } from '../consts/consts';
 import { Review } from '../types/review';
 
 
@@ -16,4 +16,4 @@ export const setLoadOffersStatus = createAction<boolean>('data/setLoadOffersStat
 export const loadComments = createAction<Review[]>('data/loadComments');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const setError = createAction<string | null>('main/setError');
-export const redirectToNotFound = createAction<string>('room/redirectToNotFound');
+export const redirectToCurrentOffer = createAction<string>('room/redirectToCurrentOffer');
