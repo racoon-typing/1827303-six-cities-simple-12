@@ -1,56 +1,77 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import CurrentOffer from '../../components/current-offer/current-offer';
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
-// import { ConstructorRoom } from '../../types/offer';
-import { Review } from '../../types/review';
-import { fetchCurrentOfferAction,
-  // fetchNearOffersAction
+import {
+  fetchCurrentOfferAction,
+  fetchNearOffersAction,
+  fetchCommentAction,
+  checkAuthAction,
 } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 
-// import { store } from '../../store';
 
 // Redux
 import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
-import { useEffect } from 'react';
 
 
-type RoomScreenProps = {
-  reviews: Review[];
-};
-
-function Room({ reviews }: RoomScreenProps): JSX.Element {
+function Room(): JSX.Element {
   const { id } = useParams();
+  const roomId = Number(id) - 1;
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCurrentOfferAction(id));
-    // dispatch(fetchNearOffersAction(id));
+    dispatch(fetchNearOffersAction(id));
+    dispatch(fetchCommentAction(id));
+    dispatch(checkAuthAction());
   }, [dispatch, id]);
 
   // Получает конкретное предложение
   const currentOffer = useAppSelector((state) => state.getOffer);
 
-  const offers = useAppSelector((state) => state.offers);
-  const nearOffer = offers.filter((item) => item.id !== Number(id));
+  // Получает предложения неподалеку
+  const nearOffer = useAppSelector((state) => state.nearOffers);
+
+  // Статус загрузки предложений
+  const status = currentOffer && nearOffer;
+
+  // Получает комментарии
+  const reviews = useAppSelector((state) => state.reviews);
+
+  // Получает ошибку
+  const error = useAppSelector((state) => state.error);
+
+  if (error === `Hotel id ${roomId} does not exist`) {
+    return (
+      <Navigate to="/not-found" />
+    );
+  }
 
   return (
     <>
       <Helmet>
         <title>Старница с предложением номера</title>
       </Helmet>
+
       {
-        currentOffer ? (
+        status ? (
           <main className="page__main page__main--property">
             <section className="property">
-              <CurrentOffer offer={currentOffer} reviews={reviews} />
+              <CurrentOffer offer={currentOffer} reviews={reviews} roomId={id} />
               <section className="property__map map">
-                <Map offers={nearOffer} />
+                {
+                  nearOffer.length === 0 ? (
+                    null
+                  ) : (
+                    <Map offers={nearOffer} />
+                  )
+                }
               </section>
             </section>
             <div className="container">

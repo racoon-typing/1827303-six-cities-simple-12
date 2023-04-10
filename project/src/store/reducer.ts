@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { ConstructorRoom } from '../types/offer';
+import { Review } from '../types/review';
 import { AuthorizationStatus } from '../consts/consts';
 
 import {
@@ -9,8 +10,9 @@ import {
   changeOption,
   loadOffers,
   loadOffer,
-  // loadNearOffers,
+  loadNearOffers,
   setLoadOffersStatus,
+  loadComments,
   requireAuthorization,
   setError,
 } from './action';
@@ -21,6 +23,7 @@ type InitalState = {
   getOffer: ConstructorRoom | null;
   nearOffers: ConstructorRoom[];
   data: ConstructorRoom[];
+  reviews: Review[];
   hoverCity: number;
   filterName: string;
   isOffersLoading: boolean;
@@ -34,6 +37,7 @@ const initialState: InitalState = {
   getOffer: null,
   nearOffers: [],
   data: [],
+  reviews: [],
   hoverCity: 0,
   filterName: '',
   isOffersLoading: false,
@@ -94,14 +98,14 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffer, (state, action) => {
       state.getOffer = action.payload;
     })
-    // .addCase(loadNearOffers, (state, action) => {
-    //   // const { data, id } = action.payload;
-    //   // const nearOffers = action.payload.filter((item) => item.id !== state.hoverCity);
-
-    //   // state.nearOffers = nearOffers;
-    // })
+    .addCase(loadNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
+    })
     .addCase(setLoadOffersStatus, (state, action) => {
       state.isOffersLoading = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.reviews = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

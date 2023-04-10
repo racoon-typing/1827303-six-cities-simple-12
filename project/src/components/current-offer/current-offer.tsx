@@ -5,9 +5,10 @@ import { Review } from '../../types/review';
 type CurrentOfferScreenProps = {
   offer: ConstructorRoom;
   reviews: Review[];
+  roomId: string | undefined;
 };
 
-function CurrentOffer({ offer, reviews }: CurrentOfferScreenProps): JSX.Element {
+function CurrentOffer({ offer, reviews, roomId }: CurrentOfferScreenProps): JSX.Element {
   const { images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
   const { avatarUrl, name: hostName, isPro } = host;
   const starWidth = `${Math.round(rating) / 5 * 100}%`;
@@ -93,7 +94,7 @@ function CurrentOffer({ offer, reviews }: CurrentOfferScreenProps): JSX.Element 
                 </p> */}
             </div>
           </div>
-          <ReviewRoom reviews={reviews} />
+          <ReviewRoom reviews={reviews} roomId={roomId} />
         </div>
       </div>
     </>
