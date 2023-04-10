@@ -94,7 +94,7 @@ function CurrentOffer({ offer, reviews, roomId }: CurrentOfferScreenProps): JSX.
                 </p> */}
             </div>
           </div>
-          <ReviewRoom reviews={reviews} roomId={roomId} />
+          <ReviewRoom reviews={reviews} />
         </div>
       </div>
     </>

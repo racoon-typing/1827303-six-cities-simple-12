@@ -10,17 +10,15 @@ const ratings = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
 type ReviewRoomProps = {
   reviews: Review[];
-  roomId: string | undefined;
 }
 
-function ReviewRoom({ reviews, roomId }: ReviewRoomProps) {
+function ReviewRoom({ reviews }: ReviewRoomProps) {
   const AuthStatus = useAppSelector((state) => state.authorizationStatus);
   const isAuth = AuthStatus === 'AUTH';
 
   const [formData, setFormData] = useState({
-    roomId: Number(roomId),
+    comment: '',
     rating: 0,
-    comment: ''
   });
 
   const handleInputChange = (data: number) => {
@@ -29,17 +27,24 @@ function ReviewRoom({ reviews, roomId }: ReviewRoomProps) {
 
   const handleTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = evt.target;
-
     setFormData({ ...formData, comment: value });
   };
 
   const isDisabled = formData.rating === 0 || formData.comment === '';
-  // console.log(formData);
-  // console.log(isDisabled);
+  console.log(formData);
+
+
+  const mySendData = {
+    offerId: 1,
+    datas: formData,
+  };
+  console.log(mySendData);
+
 
   const dispatch = useAppDispatch();
   function sendData() {
-    dispatch(sendCommentAction(formData));
+    // dispatch(sendCommentAction(formData));
+    dispatch(sendCommentAction(mySendData));
   }
 
 
@@ -61,7 +66,14 @@ function ReviewRoom({ reviews, roomId }: ReviewRoomProps) {
               <p className="reviews__help">
                 To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
               </p>
-              <button onClick={sendData} className="reviews__submit form__submit button" type="submit" disabled={isDisabled}>Submit</button>
+              <button
+                onClick={sendData}
+                className="reviews__submit form__submit button"
+                type="submit"
+                disabled={isDisabled}
+              >
+                Submit
+              </button>
             </div>
           </form>
         </>

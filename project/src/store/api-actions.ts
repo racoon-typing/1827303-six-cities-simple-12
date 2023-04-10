@@ -114,8 +114,8 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+  async ({ login: email, password }, { dispatch, extra: api }) => {
+    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
   },
@@ -127,7 +127,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
@@ -135,29 +135,35 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 );
 
 
+// type CommentData = {
+//   comment: string;
+//   rating: number;
+// }
+
 type CommentData = {
-  roomId: number;
-  comment: string;
-  rating: number;
+  offerId: number;
+  datas: {
+    comment: string;
+    rating: number;
+  };
 }
 
-type UserComment = {
-  comment: string;
-  rating: number;
-  token: string;
-}
+// type UserComment = {
+//   comment: string;
+//   rating: number;
+// }
 
-// export const sendCommentAction = createAsyncThunk<void, CommentData, {
-//   dispatch: AppDispatch;
-//   state: State;
-//   extra: AxiosInstance;
-// }>(
-//   'user/login',
-//   async ({roomId, comment, rating}, {extra: api}) => {
-//     const {data: {token}} = await api.post<UserComment>(`${APIRoute.Comments}/${roomId}`, {comment, rating});
-//     saveToken(token);
-//     console.log(token);
+export const sendCommentAction = createAsyncThunk<void, CommentData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async ({ offerId, datas }, {dispatch, extra: api }) => {
+    const { comment, rating } = datas;
+    const {data} = await api.post<Review[]>(`${APIRoute.Comments}/${offerId}`, { comment, rating });
+    console.log(data);
+    dispatch(loadComments(data));
+  },
+);
 
-//     // dispatch(requireAuthorization(AuthorizationStatus.Auth));
-//   },
-// );
