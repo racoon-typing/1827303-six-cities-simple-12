@@ -2,9 +2,10 @@ type RatingProps = {
   onChange: (data: number) => void;
   value: string;
   id: number;
+  checkedInput: number;
 }
 
-function Rating({onChange, value, id}: RatingProps) {
+function Rating({onChange, value, id, checkedInput}: RatingProps) {
 
   const handleStar = () => {
     const grade = 5 - id;

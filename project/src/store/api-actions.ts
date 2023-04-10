@@ -135,11 +135,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 );
 
 
-// type CommentData = {
-//   comment: string;
-//   rating: number;
-// }
-
 type CommentData = {
   offerId: string | undefined;
   datas: {
@@ -147,11 +142,6 @@ type CommentData = {
     rating: number;
   };
 }
-
-// type UserComment = {
-//   comment: string;
-//   rating: number;
-// }
 
 export const sendCommentAction = createAsyncThunk<void, CommentData, {
   dispatch: AppDispatch;
@@ -166,10 +156,7 @@ export const sendCommentAction = createAsyncThunk<void, CommentData, {
       rating,
     });
 
-    console.log('Hello world', data);
-
-    // dispatch(loadComments(data));
-    // dispatch(redirectToCurrentOffer('/offer/5'));
+    dispatch(loadComments(data));
   },
 );
 
