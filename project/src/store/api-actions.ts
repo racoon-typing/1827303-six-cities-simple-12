@@ -14,7 +14,7 @@ import {
 } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../consts/consts';
 import { store } from '.';
-import { saveToken } from '../services/token';
+import { dropToken, saveToken } from '../services/token';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -99,7 +99,7 @@ export const fetchCommentAction = createAsyncThunk<void, IdType, {
 
 export type AuthData = {
   login: string;
-  password: number;
+  password: string;
 }
 
 export type UserData = {
@@ -121,29 +121,43 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   },
 );
 
-type CommentData = {
-  roomId: number
-  comment: string;
-  rating: number;
-}
-
-type sendCommentData = {
-  comment: string;
-  rating: number;
-}
-
-export const sendCommentAction = createAsyncThunk<void, CommentData, {
+export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/login',
-  async ({roomId, comment, rating}, {dispatch, extra: api}) => {
-    const data = await api.post<sendCommentData>(`${APIRoute.Comments}/${roomId}`, {comment, rating});
-
-    console.log(data.status);
-
-    // saveToken(token);
-    // dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  'user/logout',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.delete(APIRoute.Logout);
+    dropToken();
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );
+
+
+type CommentData = {
+  roomId: number;
+  comment: string;
+  rating: number;
+}
+
+type UserComment = {
+  comment: string;
+  rating: number;
+  token: string;
+}
+
+// export const sendCommentAction = createAsyncThunk<void, CommentData, {
+//   dispatch: AppDispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }>(
+//   'user/login',
+//   async ({roomId, comment, rating}, {extra: api}) => {
+//     const {data: {token}} = await api.post<UserComment>(`${APIRoute.Comments}/${roomId}`, {comment, rating});
+//     saveToken(token);
+//     console.log(token);
+
+//     // dispatch(requireAuthorization(AuthorizationStatus.Auth));
+//   },
+// );

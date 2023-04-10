@@ -47,7 +47,6 @@ function Room(): JSX.Element {
   // Получает ошибку
   const error = useAppSelector((state) => state.error);
 
-
   if (error === `Hotel id ${roomId} does not exist`) {
     return (
       <Navigate to="/not-found" />
