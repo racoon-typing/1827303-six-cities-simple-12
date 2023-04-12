@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { changeOption } from '../../store/action';
 // Redux
 import {
@@ -59,4 +59,4 @@ function SortOptions() {
   );
 }
 
-export default SortOptions;
+export default memo(SortOptions);
