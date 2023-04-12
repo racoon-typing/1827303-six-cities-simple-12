@@ -9,5 +9,6 @@ function Logo(): JSX.Element {
   );
 }
 
+
 export default memo(Logo);
 
