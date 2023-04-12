@@ -5,13 +5,13 @@ import { changeOfferList } from '../../store/action';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
+import CityList from '../../components/city-list/city-list';
 
 // Redux
 import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
-import CityList from '../../components/city-list/city-list';
 
 function Main(): JSX.Element {
   const data = useAppSelector((state) => state.data);
