@@ -27,7 +27,7 @@ type InitalState = {
   hoverCity: number;
   filterName: string;
   isOffersLoading: boolean;
-  authorizationStatus: string;
+  // authorizationStatus: string;
   error: string | null;
 }
 
@@ -41,7 +41,7 @@ const initialState: InitalState = {
   hoverCity: 0,
   filterName: '',
   isOffersLoading: false,
-  authorizationStatus: AuthorizationStatus.Unknown,
+  // authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
 };
 
@@ -56,22 +56,22 @@ function filterRating(a: number, b: number) {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCity, (state, action) => {
-      const { activeCity } = action.payload;
+    // .addCase(changeCity, (state, action) => {
+    //   const { activeCity } = action.payload;
 
-      state.city = activeCity;
-    })
+    //   state.city = activeCity;
+    // })
     .addCase(changeOfferList, (state, action) => {
       const { cityName } = action.payload;
 
       const newOffer = state.data.filter((оffer) => оffer.city.name === cityName);
       state.offers = newOffer;
     })
-    .addCase(hoverCity, (state, action) => {
-      const { hoveredCity } = action.payload;
+    // .addCase(hoverCity, (state, action) => {
+    //   const { hoveredCity } = action.payload;
 
-      state.hoverCity = hoveredCity;
-    })
+    //   state.hoverCity = hoveredCity;
+    // })
     .addCase(changeOption, (state, action) => {
       const { filterName } = action.payload;
 
@@ -107,9 +107,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadComments, (state, action) => {
       state.reviews = action.payload;
     })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
-    })
+    // .addCase(requireAuthorization, (state, action) => {
+    //   state.authorizationStatus = action.payload;
+    // })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
     });
