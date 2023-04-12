@@ -1,17 +1,9 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../store/api-actions';
+import { HeaderNav } from '../header-nav/header-nav';
 
 
 function Layuot(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const NoAuth = authStatus === 'NO_AUTH';
-
-  const dispatch = useAppDispatch();
-  function logOut() {
-    dispatch(logoutAction());
-  }
 
   return (
     <body className="page page--gray page--main">
@@ -25,31 +17,7 @@ function Layuot(): JSX.Element {
             <div className="header__left">
               <Logo />
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    {NoAuth ? (
-                      null
-                    ) : (
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    )}
-                  </div>
-                </li>
-                <li className="header__nav-item">
-                  {NoAuth ? (
-                    <Link className="header__nav-link" to="/login">
-                      <span className="header__signout">Sign in</span>
-                    </Link>
-                  ) : (
-                    <div className="header__nav-link" onClick={logOut}>
-                      <span className="header__signout">Sign out</span>
-                    </div>
-                  )}
-                </li>
-              </ul>
-            </nav>
+            <HeaderNav/>
           </div>
         </div>
       </header>
