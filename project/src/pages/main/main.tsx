@@ -1,6 +1,5 @@
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
-import NavMain from '../../components/nav-main/nav-main';
 import SortOptions from '../../components/sort-options/sort-options';
 import { changeOfferList } from '../../store/action';
 import { Helmet } from 'react-helmet-async';
@@ -12,8 +11,7 @@ import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
-
-const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+import CityList from '../../components/city-list/city-list';
 
 function Main(): JSX.Element {
   const data = useAppSelector((state) => state.data);
@@ -39,13 +37,7 @@ function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {Cities.map((city, id) => (
-                <li className="locations__item" key={`${id * 10}-city`}>
-                  <NavMain value={city} activeCity={activeCity} />
-                </li>
-              ))}
-            </ul>
+            <CityList activeCity={activeCity} />
           </section>
         </div>
         {!status ? (
