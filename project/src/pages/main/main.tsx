@@ -10,7 +10,7 @@ import CityList from '../../components/city-list/city-list';
 
 import { getData, getOffers, getOffersLoadingStatus } from '../../store/data-process/selectors';
 import { getCity } from '../../store/main-process/selectors';
-import { changeOfferList } from '../../store/data-process/data-process';
+import { changeOfferList, changeOption } from '../../store/data-process/data-process';
 
 
 // Redux

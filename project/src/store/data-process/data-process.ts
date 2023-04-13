@@ -20,7 +20,7 @@ const initialState: DataProcess = {
   reviews: [],
   isOffersLoading: false,
   filterName: '',
-  error: null,
+  error: '',
 };
 
 export const dataProcess = createSlice({
@@ -51,6 +51,10 @@ export const dataProcess = createSlice({
 
       const newOffer = state.data.filter((оffer) => оffer.city.name === cityName);
       state.offers = newOffer;
+    },
+    setError: (state, action: PayloadAction<{err: string | null}>) => {
+      const {err} = action.payload;
+      state.error = err;
     }
   },
   extraReducers(builder) {
@@ -76,4 +80,4 @@ export const dataProcess = createSlice({
 });
 
 
-export const { changeOption, changeOfferList } = dataProcess.actions;
+export const { changeOption, changeOfferList, setError } = dataProcess.actions;

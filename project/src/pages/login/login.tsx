@@ -4,9 +4,12 @@ import { AuthData, loginAction } from '../../store/api-actions';
 import { FormEvent, useRef } from 'react';
 import { Navigate } from 'react-router-dom';
 
+import { getCity } from '../../store/main-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+
 function Login() {
-  const activeCity = useAppSelector((state) => state.city);
-  const AuthStatus = useAppSelector((state) => state.authorizationStatus);
+  const activeCity = useAppSelector(getCity);
+  const AuthStatus = useAppSelector(getAuthorizationStatus);
   const isAuth = AuthStatus === 'AUTH';
 
   const loginRef = useRef<HTMLInputElement | null>(null);

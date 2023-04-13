@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/index';
 import { memo, useCallback } from 'react';
 import { changeCity } from '../../store/main-process/main-process';
-import { changeOfferList } from '../../store/data-process/data-process';
+import { changeOfferList, changeOption } from '../../store/data-process/data-process';
 
 type NavMainProps = {
   value: string;
@@ -19,6 +19,7 @@ function NavMain({ value, activeCity }: NavMainProps) {
     (): void => {
       dispatch(changeCity({ activeCity: value }));
       dispatch(changeOfferList({ cityName: value }));
+      dispatch(changeOption({filterName: 'Popular'}));
     }, [value, dispatch]
   );
 

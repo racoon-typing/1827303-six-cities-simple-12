@@ -10,3 +10,4 @@ export const getNearOffers = (state: State): ConstructorRoom[] => state[NameSpac
 export const getReviews = (state: State): Review[] => state[NameSpace.Data].reviews;
 export const getOffersLoadingStatus = (state: State): boolean => state[NameSpace.Data].isOffersLoading;
 export const getFilterName = (state: State): string => state[NameSpace.Data].filterName;
+export const getError = (state: State): string | null => state[NameSpace.Data].error;

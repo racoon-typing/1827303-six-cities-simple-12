@@ -3,13 +3,15 @@ import ReviewList from '../review-list/review-list';
 import { useAppSelector } from '../../hooks';
 import ReviewForm from '../review-form/review-from';
 
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+
 type ReviewRoomProps = {
   reviews: Review[];
   roomId: string | undefined;
 }
 
 function ReviewRoom({ reviews, roomId }: ReviewRoomProps): JSX.Element {
-  const AuthStatus = useAppSelector((state) => state.authorizationStatus);
+  const AuthStatus = useAppSelector(getAuthorizationStatus);
   const isAuth = AuthStatus === 'AUTH';
 
   return (

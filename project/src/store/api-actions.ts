@@ -16,15 +16,16 @@ import { APIRoute, AppRoute,
   // AuthorizationStatus,
   TIMEOUT_SHOW_ERROR
 } from '../consts/consts';
-// import { store } from '.';
+import { store } from '.';
 import { dropToken, saveToken } from '../services/token';
+import { setError } from './data-process/data-process';
 
 
 export const clearErrorAction = createAsyncThunk(
   'main/clearError',
   () => {
     setTimeout(
-      () => store.dispatch(setError(null)),
+      () => store.dispatch(setError({err: null})),
       TIMEOUT_SHOW_ERROR
     );
   },

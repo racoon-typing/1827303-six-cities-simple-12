@@ -3,9 +3,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
 
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+
 
 export function HeaderNav(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const NoAuth = authStatus === 'NO_AUTH';
 
   const dispatch = useAppDispatch();

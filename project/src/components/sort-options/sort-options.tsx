@@ -1,6 +1,4 @@
 import { memo, useEffect, useState } from 'react';
-// import { changeOption } from '../../store/action';
-
 import { changeOption } from '../../store/data-process/data-process';
 import { getFilterName } from '../../store/data-process/selectors';
 
