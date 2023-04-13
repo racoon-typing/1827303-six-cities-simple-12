@@ -11,12 +11,12 @@ export const mainProcess = createSlice({
   name: NameSpace.Main,
   initialState,
   reducers: {
-    changeCity: (state, action: PayloadAction<{activeCity: string}>) => {
+    changeCity: (state, action: PayloadAction<{ activeCity: string }>) => {
       const { activeCity } = action.payload;
 
       state.city = activeCity;
     },
-    hoverCity: (state, action: PayloadAction<{hoveredCity: number}>) => {
+    hoverCity: (state, action: PayloadAction<{ hoveredCity: number }>) => {
       const { hoveredCity } = action.payload;
 
       state.hoverCity = hoveredCity;
@@ -24,4 +24,4 @@ export const mainProcess = createSlice({
   }
 });
 
-export const {changeCity, hoverCity } = mainProcess.actions;
+export const { changeCity, hoverCity } = mainProcess.actions;

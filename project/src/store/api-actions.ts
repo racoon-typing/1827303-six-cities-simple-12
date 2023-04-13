@@ -3,19 +3,20 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { ConstructorRoom } from '../types/offer';
 import { Review } from '../types/review';
-import {
-  // setLoadOffersStatus,
-  // loadOffers,
-  // loadOffer,
-  // loadNearOffers,
-  // requireAuthorization,
-  setError,
-  loadComments,
-} from './action';
+// import {
+// setLoadOffersStatus,
+// loadOffers,
+// loadOffer,
+// loadNearOffers,
+// requireAuthorization,
+//   setError,
+//   loadComments,
+// } from './action';
 import { APIRoute, AppRoute,
   // AuthorizationStatus,
-  TIMEOUT_SHOW_ERROR } from '../consts/consts';
-import { store } from '.';
+  TIMEOUT_SHOW_ERROR
+} from '../consts/consts';
+// import { store } from '.';
 import { dropToken, saveToken } from '../services/token';
 
 
@@ -147,22 +148,25 @@ type CommentData = {
   };
 }
 
-export const sendCommentAction = createAsyncThunk<void, CommentData, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'user/login',
-  async ({ offerId, datas }, { dispatch, extra: api }) => {
-    const { comment, rating } = datas;
-    const { data } = await api.post<Review[]>(`${APIRoute.Comments}/${offerId as string}`, {
-      comment,
-      rating,
-    });
+// ========== Доделать отправку !!! =======
 
-    dispatch(loadComments(data));
-  },
-);
+// export const sendCommentAction = createAsyncThunk<void, CommentData, {
+//   dispatch: AppDispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }>(
+//   'user/login',
+//   async ({ offerId, datas }, { dispatch, extra: api }) => {
+//     const { comment, rating } = datas;
+//     const { data } = await api.post<Review[]>(`${APIRoute.Comments}/${offerId as string}`, {
+//       comment,
+//       rating,
+//     });
+
+//     dispatch(loadComments(data));
+//   },
+// );
+
 
 
 // User: готов

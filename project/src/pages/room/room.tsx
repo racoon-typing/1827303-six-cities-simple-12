@@ -18,11 +18,11 @@ import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
+import { getNearOffers, getOffer, getReviews } from '../../store/data-process/selectors';
 
 
 function Room(): JSX.Element {
   const { id } = useParams();
-  const roomId = Number(id) - 1;
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -33,25 +33,26 @@ function Room(): JSX.Element {
   }, [dispatch, id]);
 
   // Получает конкретное предложение
-  const currentOffer = useAppSelector((state) => state.getOffer);
+  const currentOffer = useAppSelector(getOffer);
 
   // Получает предложения неподалеку
-  const nearOffer = useAppSelector((state) => state.nearOffers);
+  const nearOffer = useAppSelector(getNearOffers);
 
   // Статус загрузки предложений
   const status = currentOffer && nearOffer;
 
   // Получает комментарии
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector(getReviews);
 
-  // Получает ошибку
-  const error = useAppSelector((state) => state.error);
+  // ========= !!! Получает ошибку !!! =========
+  // const error = useAppSelector((state) => state.error);
 
-  if (error === `Hotel id ${roomId} does not exist`) {
-    return (
-      <Navigate to="/not-found" />
-    );
-  }
+  // const roomId = Number(id) - 1;
+  // if (error === `Hotel id ${roomId} does not exist`) {
+  //   return (
+  //     <Navigate to="/not-found" />
+  //   );
+  // }
 
   return (
     <>

@@ -19,9 +19,9 @@ function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Root} element={<Layuot />}>
             <Route index element={<Main />} />
-            <Route path={AppRoute.Login} element={<Login />} />
+            {/* <Route path={AppRoute.Login} element={<Login />} /> */}
             <Route path={AppRoute.OfferId} element={<Room />} />
-            <Route path={AppRoute.NotFound} element={<NotFound />} />
+            {/* <Route path={AppRoute.NotFound} element={<NotFound />} /> */}
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
