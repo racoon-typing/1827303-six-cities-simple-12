@@ -1,3 +1,7 @@
+const make = '';
+
+export default make;
+
 // import { createReducer } from '@reduxjs/toolkit';
 // import { ConstructorRoom } from '../types/offer';
 // import { Review } from '../types/review';

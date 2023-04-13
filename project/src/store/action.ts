@@ -1,3 +1,6 @@
+const made = '';
+
+export default made;
 // import {createAction} from '@reduxjs/toolkit';
 // import {ConstructorRoom} from '../types/offer';
 // import { AuthorizationStatus } from '../consts/consts';

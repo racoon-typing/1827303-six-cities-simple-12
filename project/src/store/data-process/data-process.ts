@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../consts/consts';
 import { DataProcess } from '../../types/state';
-import { fetchCommentAction, fetchCurrentOfferAction, fetchNearOffersAction, fetchOffersAction } from '../api-actions';
+import { fetchCommentAction, fetchCurrentOfferAction, fetchNearOffersAction, fetchOffersAction, sendCommentAction } from '../api-actions';
 
 
 function filterPrice(a: number, b: number) {
@@ -20,7 +20,7 @@ const initialState: DataProcess = {
   reviews: [],
   isOffersLoading: false,
   filterName: '',
-  error: '',
+  error: null,
 };
 
 export const dataProcess = createSlice({
@@ -52,9 +52,9 @@ export const dataProcess = createSlice({
       const newOffer = state.data.filter((оffer) => оffer.city.name === cityName);
       state.offers = newOffer;
     },
-    setError: (state, action: PayloadAction<{err: string | null}>) => {
-      const {err} = action.payload;
-      state.error = err;
+    setError: (state, action: PayloadAction<string | null>) => {
+      // const {err} = action.payload;
+      state.error = action.payload;
     }
   },
   extraReducers(builder) {
@@ -74,6 +74,9 @@ export const dataProcess = createSlice({
         state.nearOffers = action.payload;
       })
       .addCase(fetchCommentAction.fulfilled, (state, action) => {
+        state.reviews = action.payload;
+      })
+      .addCase(sendCommentAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       });
   }

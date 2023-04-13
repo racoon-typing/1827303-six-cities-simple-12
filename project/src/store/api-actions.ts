@@ -25,7 +25,7 @@ export const clearErrorAction = createAsyncThunk(
   'main/clearError',
   () => {
     setTimeout(
-      () => store.dispatch(setError({err: null})),
+      () => store.dispatch(setError(null)),
       TIMEOUT_SHOW_ERROR
     );
   },
@@ -149,25 +149,24 @@ type CommentData = {
   };
 }
 
-// ========== Доделать отправку !!! =======
 
-// export const sendCommentAction = createAsyncThunk<void, CommentData, {
-//   dispatch: AppDispatch;
-//   state: State;
-//   extra: AxiosInstance;
-// }>(
-//   'user/login',
-//   async ({ offerId, datas }, { dispatch, extra: api }) => {
-//     const { comment, rating } = datas;
-//     const { data } = await api.post<Review[]>(`${APIRoute.Comments}/${offerId as string}`, {
-//       comment,
-//       rating,
-//     });
+export const sendCommentAction = createAsyncThunk<Review[], CommentData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/sendComment',
+  async ({ offerId, datas }, { dispatch, extra: api }) => {
+    const { comment, rating } = datas;
+    const { data } = await api.post<Review[]>(`${APIRoute.Comments}/${offerId as string}`, {
+      comment,
+      rating,
+    });
 
-//     dispatch(loadComments(data));
-//   },
-// );
-
+    return data;
+    // dispatch(loadComments(data));
+  },
+);
 
 
 // User: готов
