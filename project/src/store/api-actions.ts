@@ -18,18 +18,18 @@ import { APIRoute, AppRoute,
 } from '../consts/consts';
 import { store } from '.';
 import { dropToken, saveToken } from '../services/token';
-import { setError } from './data-process/data-process';
+// import { setError } from './data-process/data-process';
 
 
-export const clearErrorAction = createAsyncThunk(
-  'main/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR
-    );
-  },
-);
+// export const clearErrorAction = createAsyncThunk(
+//   'main/clearError',
+//   () => {
+//     setTimeout(
+//       () => store.dispatch(setError(null)),
+//       TIMEOUT_SHOW_ERROR
+//     );
+//   },
+// );
 
 
 // Дата: готов

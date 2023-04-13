@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
 
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { logoutAction } from '../../store/api-actions';
 
 
 export function HeaderNav(): JSX.Element {

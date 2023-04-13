@@ -8,7 +8,6 @@ import {
   fetchCurrentOfferAction,
   fetchNearOffersAction,
   fetchCommentAction,
-  checkAuthAction,
 } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 
@@ -30,7 +29,6 @@ function Room(): JSX.Element {
     dispatch(fetchCurrentOfferAction(id));
     dispatch(fetchNearOffersAction(id));
     dispatch(fetchCommentAction(id));
-    dispatch(checkAuthAction());
   }, [dispatch, id]);
 
   // Получает конкретное предложение

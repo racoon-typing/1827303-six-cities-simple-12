@@ -52,10 +52,10 @@ export const dataProcess = createSlice({
       const newOffer = state.data.filter((оffer) => оffer.city.name === cityName);
       state.offers = newOffer;
     },
-    setError: (state, action: PayloadAction<string | null>) => {
-      // const {err} = action.payload;
-      state.error = action.payload;
-    }
+    // setError: (state, action: PayloadAction<string | null>) => {
+    //   // const {err} = action.payload;
+    //   state.error = action.payload;
+    // }
   },
   extraReducers(builder) {
     builder
@@ -83,4 +83,6 @@ export const dataProcess = createSlice({
 });
 
 
-export const { changeOption, changeOfferList, setError } = dataProcess.actions;
+export const { changeOption, changeOfferList,
+  // setError
+} = dataProcess.actions;

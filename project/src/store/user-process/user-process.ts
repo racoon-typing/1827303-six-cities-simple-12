@@ -25,7 +25,7 @@ export const userProcess = createSlice({
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
-      .addCase(logoutAction.rejected, (state) => {
+      .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       });
   }

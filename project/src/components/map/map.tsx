@@ -19,9 +19,10 @@ type MapProps = {
 
 function Map({ offers }: MapProps) {
   // Получает id города на который навели
+  console.log(offers);
   const hoveredCity = useAppSelector(getOfferId);
 
-  // Определяет город в виде массива
+  // Определяет город в виде объекта
   const offerCity = offers.map((offer) => {
     const obj = {
       name: offer.city.name,
