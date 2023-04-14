@@ -11,3 +11,4 @@ export const getReviews = (state: State): Review[] => state[NameSpace.Data].revi
 export const getOffersLoadingStatus = (state: State): boolean => state[NameSpace.Data].isOffersLoading;
 export const getFilterName = (state: State): string => state[NameSpace.Data].filterName;
 export const getError = (state: State): string | null => state[NameSpace.Data].error;
+export const getErrorStatus = (state: State): boolean => state[NameSpace.Data].hasError;

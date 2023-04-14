@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-// import { sendCommentAction } from '../../store/api-actions';
 import Rating from '../rating/rating';
-
 import { sendCommentAction } from '../../store/api-actions';
 
 const ratings = ['perfect', 'good', 'not bad', 'badly', 'terribly'];

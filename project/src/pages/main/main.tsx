@@ -1,13 +1,10 @@
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
 import SortOptions from '../../components/sort-options/sort-options';
-// import { changeOfferList } from '../../store/action';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import CityList from '../../components/city-list/city-list';
-
-
 import { getData, getOffers, getOffersLoadingStatus } from '../../store/data-process/selectors';
 import { getCity } from '../../store/main-process/selectors';
 import { changeOfferList } from '../../store/data-process/data-process';
@@ -21,19 +18,6 @@ import {
 
 
 function Main(): JSX.Element {
-  // const data = useAppSelector((state) => state.data);
-
-  // Начальная фильтрация: город Париж
-  // const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   dispatch(changeOfferList({ cityName: 'Paris' }));
-  // }, [dispatch, data]);
-
-  // // Смена города
-  // const activeCity = useAppSelector((state) => state.city);
-  // const offers = useAppSelector((state) => state.offers);
-  // const status = useAppSelector((state) => state.isOffersLoading);
-
   const data = useAppSelector(getData);
 
   const dispatch = useAppDispatch();

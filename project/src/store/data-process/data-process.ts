@@ -21,6 +21,7 @@ const initialState: DataProcess = {
   isOffersLoading: false,
   filterName: '',
   error: null,
+  hasError: false,
 };
 
 export const dataProcess = createSlice({
@@ -53,7 +54,6 @@ export const dataProcess = createSlice({
       state.offers = newOffer;
     },
     setError: (state, action: PayloadAction<string | null>) => {
-      // const {err} = action.payload;
       state.error = action.payload;
     }
   },
@@ -61,11 +61,17 @@ export const dataProcess = createSlice({
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.isOffersLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.data = action.payload;
         state.offers = action.payload;
         state.isOffersLoading = false;
+        state.hasError = false;
+      })
+      .addCase(fetchOffersAction.rejected, (state) => {
+        state.isOffersLoading = false;
+        state.hasError = true;
       })
       .addCase(fetchCurrentOfferAction.fulfilled, (state, action) => {
         state.getOffer = action.payload;

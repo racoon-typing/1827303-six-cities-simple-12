@@ -10,7 +10,6 @@ import {
   fetchCommentAction,
 } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-
 import { getError, getNearOffers, getOffer, getReviews } from '../../store/data-process/selectors';
 
 
@@ -44,14 +43,14 @@ function Room(): JSX.Element {
   const reviews = useAppSelector(getReviews);
 
   // ========= !!! Получает ошибку !!! =========
-  const error = useAppSelector(getError);
+  // const error = useAppSelector(getError);
 
-  const roomId = Number(id) - 1;
-  if (error === `Hotel id ${roomId} does not exist`) {
-    return (
-      <Navigate to="/not-found" />
-    );
-  }
+  // const roomId = Number(id) - 1;
+  // if (error === `Hotel id ${roomId} does not exist`) {
+  //   return (
+  //     <Navigate to="/not-found" />
+  //   );
+  // }
 
   return (
     <>

@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-// import { changeCity } from '../../store/action';
-// import { changeOfferList } from '../../store/action';
 import { useAppDispatch } from '../../hooks/index';
 import { memo, useCallback } from 'react';
 import { changeCity } from '../../store/main-process/main-process';

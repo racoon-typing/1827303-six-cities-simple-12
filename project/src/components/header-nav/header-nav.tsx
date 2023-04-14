@@ -46,9 +46,4 @@ export function HeaderNav(): JSX.Element {
 
 export default memo(HeaderNav);
 
-// export default memo(HeaderNav, (prevProps, nextProps) => {
-//   const compare = prevProps.NoAuth === nextProps.NoAuth;
-//   return compare;
-// });
-
 

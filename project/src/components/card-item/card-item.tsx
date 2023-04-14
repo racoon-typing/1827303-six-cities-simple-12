@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ConstructorRoom } from '../../types/offer';
-// import { hoverCity } from '../../store/action';
-
 import { getOfferId } from '../../store/main-process/selectors';
 import { hoverCity } from '../../store/main-process/main-process';
 

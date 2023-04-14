@@ -5,7 +5,6 @@ import useMap from '../../hooks/useMap';
 import { ConstructorRoom } from '../../types/offer';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/consts';
 import './style.css';
-
 import { getOfferId } from '../../store/main-process/selectors';
 
 // Redux
@@ -19,7 +18,6 @@ type MapProps = {
 
 function Map({ offers }: MapProps) {
   // Получает id города на который навели
-  console.log(offers);
   const hoveredCity = useAppSelector(getOfferId);
 
   // Определяет город в виде объекта
