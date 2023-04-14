@@ -49,7 +49,6 @@ function Room(): JSX.Element {
   // Получает ошибку
   const error = useAppSelector(getErrorLoadingOffer);
 
-  // const roomId = Number(id) - 1;
   if (error) {
     return (
       <NotFound />
