@@ -1,16 +1,20 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import CurrentOffer from '../../components/current-offer/current-offer';
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
+import NotFound from '../not-found/not-found';
 import {
   fetchCurrentOfferAction,
   fetchNearOffersAction,
   fetchCommentAction,
 } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-import { getError, getNearOffers, getOffer, getReviews } from '../../store/data-process/selectors';
+import {
+  getErrorLoadingOffer,
+  getNearOffers, getOffer, getReviews
+} from '../../store/data-process/selectors';
 
 
 // Redux
@@ -42,15 +46,15 @@ function Room(): JSX.Element {
   // Получает комментарии
   const reviews = useAppSelector(getReviews);
 
-  // ========= !!! Получает ошибку !!! =========
-  // const error = useAppSelector(getError);
+  // Получает ошибку
+  const error = useAppSelector(getErrorLoadingOffer);
 
   // const roomId = Number(id) - 1;
-  // if (error === `Hotel id ${roomId} does not exist`) {
-  //   return (
-  //     <Navigate to="/not-found" />
-  //   );
-  // }
+  if (error) {
+    return (
+      <NotFound />
+    );
+  }
 
   return (
     <>

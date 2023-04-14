@@ -25,6 +25,6 @@ export type DataProcess = {
   reviews: Review[];
   isOffersLoading: boolean;
   filterName: string;
-  error: string | null;
+  errorLoadingOffer: boolean;
   hasError: boolean;
 }

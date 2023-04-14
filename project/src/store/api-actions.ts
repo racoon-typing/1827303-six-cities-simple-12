@@ -3,21 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { ConstructorRoom } from '../types/offer';
 import { Review } from '../types/review';
-import { APIRoute, AppRoute, TIMEOUT_SHOW_ERROR } from '../consts/consts';
-import { store } from '.';
+import { APIRoute, AppRoute } from '../consts/consts';
 import { dropToken, saveToken } from '../services/token';
-import { setError } from './data-process/data-process';
-
-
-export const clearErrorAction = createAsyncThunk(
-  'data/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR
-    );
-  },
-);
 
 
 // Дата: готова
