@@ -30,4 +30,4 @@ function NavMain({ value, activeCity }: NavMainProps) {
   );
 }
 
-export default memo(NavMain);
+export default memo(NavMain, (prevProps, nextProps) => prevProps.activeCity === nextProps.activeCity);

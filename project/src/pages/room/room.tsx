@@ -26,6 +26,7 @@ import {
 
 function Room(): JSX.Element {
   const { id } = useParams();
+  console.log(id);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -39,6 +40,8 @@ function Room(): JSX.Element {
 
   // Получает предложения неподалеку
   const nearOffer = useAppSelector(getNearOffers);
+  console.log(nearOffer);
+
 
   // Статус загрузки предложений
   const status = currentOffer && nearOffer;
