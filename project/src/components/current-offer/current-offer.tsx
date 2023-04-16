@@ -1,6 +1,7 @@
 import ReviewRoom from '../review-room/review-room';
 import { ConstructorRoom } from '../../types/offer';
 import { Review } from '../../types/review';
+import OfferGallery from '../offer-gallery/offer-gallery';
 
 type CurrentOfferScreenProps = {
   offer: ConstructorRoom;
@@ -16,13 +17,16 @@ function CurrentOffer({ offer, reviews, roomId }: CurrentOfferScreenProps): JSX.
   return (
     <>
       <div className="property__gallery-container container">
-        <div className="property__gallery">
+        {/* <div className="property__gallery">
           {
             images.map((image, id) => (
-              <img key={`${id * 10}`} className="property__image" src={image} alt="Studio-1" />
+              <div key={`${id * 10}`} className="property__image-wrapper">
+                <img className="property__image" src={image} alt="Studio-1" />
+              </div>
             ))
           }
-        </div>
+          */}
+        <OfferGallery images={images}/>
       </div>
       <div className="property__container container">
         <div className="property__wrapper">
@@ -89,9 +93,6 @@ function CurrentOffer({ offer, reviews, roomId }: CurrentOfferScreenProps): JSX.
               <p className="property__text">
                 {description}
               </p>
-              {/* <p className="property__text">
-                  An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                </p> */}
             </div>
           </div>
           <ReviewRoom reviews={reviews} roomId={roomId} />

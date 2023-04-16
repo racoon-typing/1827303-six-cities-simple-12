@@ -2,11 +2,14 @@ import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthData, loginAction } from '../../store/api-actions';
 import { FormEvent, useRef } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+
+import { getCity } from '../../store/main-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function Login() {
-  const activeCity = useAppSelector((state) => state.city);
-  const AuthStatus = useAppSelector((state) => state.authorizationStatus);
+  const activeCity = useAppSelector(getCity);
+  const AuthStatus = useAppSelector(getAuthorizationStatus);
   const isAuth = AuthStatus === 'AUTH';
 
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -61,9 +64,9 @@ function Login() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/">
+              <Link className="locations__item-link" to="/">
                 <span>{activeCity}</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

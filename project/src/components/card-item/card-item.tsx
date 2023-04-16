@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ConstructorRoom } from '../../types/offer';
-import { hoverCity } from '../../store/action';
+import { getOfferId } from '../../store/main-process/selectors';
+import { hoverCity } from '../../store/main-process/main-process';
 
 // Redux
 import {
@@ -18,7 +19,7 @@ function CardItem({ value }: CitiesCardProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   // Получает id города на который навели
-  const hoveredCity = useAppSelector((state) => state.hoverCity);
+  const hoveredCity = useAppSelector(getOfferId);
 
   return (
     <article className={`cities__card place-card ${hoveredCity === id ? 'active-card' : ''}`}

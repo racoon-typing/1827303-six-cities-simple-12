@@ -1,23 +1,25 @@
 import { Link } from 'react-router-dom';
-import { changeCity } from '../../store/action';
-import { changeOfferList } from '../../store/action';
 import { useAppDispatch } from '../../hooks/index';
-// import { ConstructorRoom } from '../../types/offer';
+import { memo, useCallback } from 'react';
+import { changeCity } from '../../store/main-process/main-process';
+import { changeOfferList, changeOption } from '../../store/data-process/data-process';
 
 type NavMainProps = {
   value: string;
   activeCity: string;
 };
 
-
 function NavMain({ value, activeCity }: NavMainProps) {
 
   const dispatch = useAppDispatch();
 
-  const onUserClick = (): void => {
-    dispatch(changeCity({ activeCity: value }));
-    dispatch(changeOfferList({ cityName: value }));
-  };
+  const onUserClick = useCallback(
+    (): void => {
+      dispatch(changeCity({ activeCity: value }));
+      dispatch(changeOfferList({ cityName: value }));
+      dispatch(changeOption({filterName: 'Popular'}));
+    }, [value, dispatch]
+  );
 
   return (
     <Link to={'/'} className={`locations__item-link tabs__item ${activeCity === value ? 'tabs__item--active' : ''}`}
@@ -28,4 +30,4 @@ function NavMain({ value, activeCity }: NavMainProps) {
   );
 }
 
-export default NavMain;
+export default memo(NavMain, (prevProps, nextProps) => prevProps.activeCity === nextProps.activeCity);
