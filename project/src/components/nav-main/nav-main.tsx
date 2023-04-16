@@ -10,7 +10,6 @@ type NavMainProps = {
 };
 
 function NavMain({ value, activeCity }: NavMainProps) {
-
   const dispatch = useAppDispatch();
 
   const onUserClick = useCallback(
