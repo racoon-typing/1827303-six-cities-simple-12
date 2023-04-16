@@ -12,3 +12,4 @@ export const getOffersLoadingStatus = (state: State): boolean => state[NameSpace
 export const getFilterName = (state: State): string => state[NameSpace.Data].filterName;
 export const getErrorLoadingOffer = (state: State): boolean => state[NameSpace.Data].errorLoadingOffer;
 export const getErrorStatus = (state: State): boolean => state[NameSpace.Data].hasError;
+export const getNearOfferLoadingStatus = (state: State): boolean => state[NameSpace.Data].isNearOfferLoading;

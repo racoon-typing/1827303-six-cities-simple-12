@@ -26,5 +26,6 @@ export type DataProcess = {
   isOffersLoading: boolean;
   filterName: string;
   errorLoadingOffer: boolean;
+  isNearOfferLoading: boolean;
   hasError: boolean;
 }

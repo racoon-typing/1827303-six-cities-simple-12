@@ -13,6 +13,7 @@ import {
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import {
   getErrorLoadingOffer,
+  getNearOfferLoadingStatus,
   getNearOffers, getOffer, getReviews
 } from '../../store/data-process/selectors';
 
@@ -26,7 +27,6 @@ import {
 
 function Room(): JSX.Element {
   const { id } = useParams();
-  console.log(id);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -38,10 +38,11 @@ function Room(): JSX.Element {
   // Получает конкретное предложение
   const currentOffer = useAppSelector(getOffer);
 
+  // Получает статус загрузки предложений неподалеку
+  const nearOfferLoadingStatus = useAppSelector(getNearOfferLoadingStatus);
+
   // Получает предложения неподалеку
   const nearOffer = useAppSelector(getNearOffers);
-  console.log(nearOffer);
-
 
   // Статус загрузки предложений
   const status = currentOffer && nearOffer;
@@ -70,20 +71,14 @@ function Room(): JSX.Element {
             <section className="property">
               <CurrentOffer offer={currentOffer} reviews={reviews} roomId={id} />
               <section className="property__map map">
-                {
-                  nearOffer.length === 0 ? (
-                    null
-                  ) : (
-                    <Map offers={nearOffer} />
-                  )
-                }
+                {!nearOfferLoadingStatus && nearOffer.length !== 0 ? <Map offers={nearOffer} /> : null}
               </section>
             </section>
             <div className="container">
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <div className="near-places__list places__list">
-                  <CardList offers={nearOffer} />
+                  {!nearOfferLoadingStatus ? <CardList offers={nearOffer} /> : null}
                 </div>
               </section>
             </div>

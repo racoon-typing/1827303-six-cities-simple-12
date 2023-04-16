@@ -21,6 +21,7 @@ const initialState: DataProcess = {
   isOffersLoading: false,
   filterName: '',
   errorLoadingOffer: false,
+  isNearOfferLoading: false,
   hasError: false,
 };
 
@@ -53,9 +54,6 @@ export const dataProcess = createSlice({
       const newOffer = state.data.filter((оffer) => оffer.city.name === cityName);
       state.offers = newOffer;
     },
-    // setError: (state, action: PayloadAction<string | null>) => {
-    //   state.error = action.payload;
-    // }
   },
   extraReducers(builder) {
     builder
@@ -83,8 +81,15 @@ export const dataProcess = createSlice({
       .addCase(fetchCurrentOfferAction.rejected, (state) => {
         state.errorLoadingOffer = true;
       })
+      .addCase(fetchNearOffersAction.pending, (state) => {
+        state.isNearOfferLoading = true;
+      })
       .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
         state.nearOffers = action.payload;
+        state.isNearOfferLoading = false;
+      })
+      .addCase(fetchNearOffersAction.rejected, (state) => {
+        state.isNearOfferLoading = false;
       })
       .addCase(fetchCommentAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
