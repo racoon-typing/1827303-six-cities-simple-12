@@ -5,7 +5,7 @@ type OfferCardsProps = {
   offers: ConstructorRoom[];
 };
 
-function CardList({ offers }: OfferCardsProps): JSX.Element {
+function CardList({ offers}: OfferCardsProps): JSX.Element {
 
   return (
     <>

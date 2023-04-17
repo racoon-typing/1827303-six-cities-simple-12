@@ -15,6 +15,8 @@ import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
+import MainEmpty from '../../components/main-empty/main-empty';
+import { getErrorStatus } from '../../store/data-process/selectors';
 
 
 function Main(): JSX.Element {
@@ -30,6 +32,21 @@ function Main(): JSX.Element {
   const activeCity = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
   const status = useAppSelector(getOffersLoadingStatus);
+  const erorrLoading = useAppSelector(getErrorStatus);
+
+  if (offers.length === 0 && erorrLoading) {
+    return (
+      <main className="page__main page__main--index">
+        <h1 className="visually-hidden">Cities</h1>
+        <div className="tabs">
+          <section className="locations container">
+            <CityList activeCity={activeCity} />
+          </section>
+        </div>
+        <MainEmpty activeCity={activeCity} />
+      </main>
+    );
+  }
 
   return (
     <>

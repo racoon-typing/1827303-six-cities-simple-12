@@ -1,29 +1,30 @@
 import { Link } from 'react-router-dom';
 import { ConstructorRoom } from '../../types/offer';
-import { getOfferId } from '../../store/main-process/selectors';
 import { hoverCity } from '../../store/main-process/main-process';
 
 // Redux
 import {
   useAppDispatch,
-  useAppSelector
 } from '../../hooks';
 
 type CitiesCardProps = {
   value: ConstructorRoom;
 };
 
-function CardItem({ value }: CitiesCardProps): JSX.Element {
+function CardItem({ value}: CitiesCardProps): JSX.Element {
   const { isPremium, price, title, type, rating, id, previewImage } = value;
   const starWidth = `${Math.round(rating) / 5 * 100}%`;
 
   const dispatch = useAppDispatch();
-  // Получает id города на который навели
-  const hoveredCity = useAppSelector(getOfferId);
+
+  const handleTopScroll = () => {
+    window.scrollTo(0, 0);
+  };
 
   return (
-    <article className={`cities__card place-card ${hoveredCity === id ? 'active-card' : ''}`}
+    <article className='cities__card place-card'
       onMouseOver={() => dispatch(hoverCity({hoveredCity: id}))}
+      onClick={handleTopScroll}
     >
       {isPremium ? (
         <div className="place-card__mark">
