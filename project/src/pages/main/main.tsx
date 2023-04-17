@@ -15,6 +15,8 @@ import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
+import MainEmpty from '../../components/main-empty/main-empty';
+import { getErrorStatus } from '../../store/data-process/selectors';
 
 
 function Main(): JSX.Element {
@@ -30,6 +32,21 @@ function Main(): JSX.Element {
   const activeCity = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
   const status = useAppSelector(getOffersLoadingStatus);
+  const erorrLoading = useAppSelector(getErrorStatus);
+
+  if (offers.length === 0 && erorrLoading) {
+    return (
+      <main className="page__main page__main--index">
+        <h1 className="visually-hidden">Cities</h1>
+        <div className="tabs">
+          <section className="locations container">
+            <CityList activeCity={activeCity} />
+          </section>
+        </div>
+        <MainEmpty activeCity={activeCity} />
+      </main>
+    );
+  }
 
   return (
     <>
@@ -69,18 +86,6 @@ function Main(): JSX.Element {
         ) : (
           <LoadingScreen />
         )}
-
-{/* <div class="cities">
-          <div class="cities__places-container cities__places-container--empty container">
-            <section class="cities__no-places">
-              <div class="cities__status-wrapper tabs__content">
-                <b class="cities__status">No places to stay available</b>
-                <p class="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
-              </div>
-            </section>
-            <div class="cities__right-section"></div>
-          </div>
-        </div> */}
       </main>
     </>
   );
