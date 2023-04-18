@@ -2,8 +2,7 @@ import { useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import Rating from '../rating/rating';
 import { sendCommentAction } from '../../store/api-actions';
-
-const ratings = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
+import { RATINGS } from '../../consts/consts';
 
 type ReviewFormProps = {
   roomId: string | undefined;
@@ -62,7 +61,7 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {ratings.map((rating, id) => (
+        {RATINGS.map((rating, id) => (
           <Rating onChange={handleInputChange} key={`${id * 10}`} valueName={rating} id={id} />
         ))}
       </div>

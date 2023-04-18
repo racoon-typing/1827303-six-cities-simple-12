@@ -7,30 +7,25 @@ type ReviewListProps = {
 
 function ReviewList({ reviews }: ReviewListProps) {
 
-  let maxReview = reviews;
-  if (reviews.length > 10) {
-    maxReview = reviews.slice(0, 10);
+  // Получает массив отзывов не больше 10 элементов
+  const isMax = reviews.length >= 10 ? 10 : reviews.length;
+  const maxReview = reviews.slice(0, isMax);
+
+  // Функция сортировки комментриев по новизне
+  function sortComment(date1: string, date2: string) {
+    const dateFirst = new Date(date1).valueOf();
+    const dateSecond = new Date(date2).valueOf();
+
+    return (dateSecond - dateFirst);
   }
 
-
-  // function sortComment(date1: string, date2: string) {
-  //   const dateFirst = new Date(date1).getTime();
-  //   const dateSecond = new Date(date2).getTime();
-
-  //   return dateFirst - dateSecond;
-  // }
+  // Сортированный массив по новизне
+  const sortReview = maxReview.sort((a: Review, b: Review) => sortComment(a.date, b.date));
 
   return (
     <ul className="reviews__list">
-      {/* {
-        maxReview.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1).map((review, id) => (
-          <li key={`${id * 10}`} className="reviews__item">
-            <ReviewItem review={review} />
-          </li>
-        ))
-      } */}
       {
-        maxReview.map((review, id) => (
+        sortReview.map((review, id) => (
           <li key={`${id * 10}`} className="reviews__item">
             <ReviewItem review={review} />
           </li>
