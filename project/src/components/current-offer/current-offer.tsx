@@ -17,15 +17,6 @@ function CurrentOffer({ offer, reviews, roomId }: CurrentOfferScreenProps): JSX.
   return (
     <>
       <div className="property__gallery-container container">
-        {/* <div className="property__gallery">
-          {
-            images.map((image, id) => (
-              <div key={`${id * 10}`} className="property__image-wrapper">
-                <img className="property__image" src={image} alt="Studio-1" />
-              </div>
-            ))
-          }
-          */}
         <OfferGallery images={images}/>
       </div>
       <div className="property__container container">
@@ -79,7 +70,7 @@ function CurrentOffer({ offer, reviews, roomId }: CurrentOfferScreenProps): JSX.
           <div className="property__host">
             <h2 className="property__host-title">Meet the host</h2>
             <div className="property__host-user user">
-              <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+              <div className={`property__avatar-wrapper ${isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
                 <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar" />
               </div>
               <span className="property__user-name">

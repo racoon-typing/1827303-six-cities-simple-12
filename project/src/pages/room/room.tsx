@@ -71,7 +71,7 @@ function Room(): JSX.Element {
             <section className="property">
               <CurrentOffer offer={currentOffer} reviews={reviews} roomId={id} />
               <section className="property__map map">
-                {!nearOfferLoadingStatus && nearOffer.length !== 0 ? <Map offers={nearOffer} /> : null}
+                {!nearOfferLoadingStatus && nearOffer.length !== 0 ? <Map offers={nearOffer} currentOffer={currentOffer} /> : null}
               </section>
             </section>
             <div className="container">

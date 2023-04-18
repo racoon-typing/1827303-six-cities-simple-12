@@ -17,22 +17,29 @@ import {
 } from '../../hooks';
 import MainEmpty from '../../components/main-empty/main-empty';
 import { getErrorStatus } from '../../store/data-process/selectors';
+import { hoverCity } from '../../store/main-process/main-process';
 
 
 function Main(): JSX.Element {
   const data = useAppSelector(getData);
 
   const dispatch = useAppDispatch();
+
+  // Фильтрация предложений по городу Париж
   useEffect(() => {
     dispatch(changeOfferList({ cityName: 'Paris' }));
   }, [dispatch, data]);
-
 
   // Смена города
   const activeCity = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
   const status = useAppSelector(getOffersLoadingStatus);
   const erorrLoading = useAppSelector(getErrorStatus);
+
+  // Функция смены ID наведенного города
+  function onMouseOverHandler(id: number) {
+    dispatch(hoverCity({ hoveredCity: id }));
+  }
 
   if (offers.length === 0 && erorrLoading) {
     return (
@@ -70,7 +77,7 @@ function Main(): JSX.Element {
                 <SortOptions />
                 <div className="cities__places-list places__list tabs__content">
                   {!status ? (
-                    <CardList offers={offers} />
+                    <CardList offers={offers} onMouseOverHandler={onMouseOverHandler} />
                   ) : (
                     <LoadingScreen />
                   )}

@@ -1,21 +1,14 @@
 import { Link } from 'react-router-dom';
 import { ConstructorRoom } from '../../types/offer';
-import { hoverCity } from '../../store/main-process/main-process';
-
-// Redux
-import {
-  useAppDispatch,
-} from '../../hooks';
 
 type CitiesCardProps = {
   value: ConstructorRoom;
+  onMouseOverHandler?: (id: number) => void;
 };
 
-function CardItem({ value}: CitiesCardProps): JSX.Element {
+function CardItem({ value, onMouseOverHandler }: CitiesCardProps): JSX.Element {
   const { isPremium, price, title, type, rating, id, previewImage } = value;
   const starWidth = `${Math.round(rating) / 5 * 100}%`;
-
-  const dispatch = useAppDispatch();
 
   const handleTopScroll = () => {
     window.scrollTo(0, 0);
@@ -23,7 +16,7 @@ function CardItem({ value}: CitiesCardProps): JSX.Element {
 
   return (
     <article className='cities__card place-card'
-      onMouseOver={() => dispatch(hoverCity({hoveredCity: id}))}
+      onMouseOver={() => onMouseOverHandler?.(id)}
       onClick={handleTopScroll}
     >
       {isPremium ? (

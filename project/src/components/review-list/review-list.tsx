@@ -6,9 +6,15 @@ type ReviewListProps = {
 };
 
 function ReviewList({ reviews }: ReviewListProps) {
+
+  let maxReview = reviews;
+  if (reviews.length > 10) {
+    maxReview = reviews.slice(0, 10);
+  }
+
   return (
     <ul className="reviews__list">
-      {reviews.map((review, id) => (
+      {maxReview.map((review, id) => (
         <li key={`${id * 10}`} className="reviews__item">
           <ReviewItem review={review} />
         </li>
