@@ -12,23 +12,30 @@ function ReviewList({ reviews }: ReviewListProps) {
     maxReview = reviews.slice(0, 10);
   }
 
-  // console.log(reviews);
-  // console.log(reviews[0].date);
-  // console.log(typeof reviews[0].date);
-  // console.log(new Date(reviews[0].date));
 
-  // const myDate = new Date(reviews[0].date);
-  // console.log(myDate.parse);
+  // function sortComment(date1: string, date2: string) {
+  //   const dateFirst = new Date(date1).getTime();
+  //   const dateSecond = new Date(date2).getTime();
 
+  //   return dateFirst - dateSecond;
+  // }
 
-  // sort((a, b) => a.date - b.date)
   return (
     <ul className="reviews__list">
-      {maxReview.map((review, id) => (
-        <li key={`${id * 10}`} className="reviews__item">
-          <ReviewItem review={review} />
-        </li>
-      ))}
+      {/* {
+        maxReview.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1).map((review, id) => (
+          <li key={`${id * 10}`} className="reviews__item">
+            <ReviewItem review={review} />
+          </li>
+        ))
+      } */}
+      {
+        maxReview.map((review, id) => (
+          <li key={`${id * 10}`} className="reviews__item">
+            <ReviewItem review={review} />
+          </li>
+        ))
+      }
     </ul>
   );
 }

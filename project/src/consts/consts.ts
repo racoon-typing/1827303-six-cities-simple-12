@@ -33,3 +33,6 @@ export enum NameSpace {
   Data = 'DATA',
   User = 'USER',
 }
+
+export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+

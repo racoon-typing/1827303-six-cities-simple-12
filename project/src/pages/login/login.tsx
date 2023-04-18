@@ -3,12 +3,22 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthData, loginAction } from '../../store/api-actions';
 import { FormEvent, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-
-import { getCity } from '../../store/main-process/selectors';
+import { Cities } from '../../consts/consts';
+// import { getCity } from '../../store/main-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { changeCity } from '../../store/main-process/main-process';
+import { changeOfferList } from '../../store/data-process/data-process';
+
 
 function Login() {
-  const activeCity = useAppSelector(getCity);
+  const randomCity = Cities[Math.floor(Math.random() * 5)];
+
+  function changeFilter() {
+    console.log(randomCity);
+    dispatch(changeCity({activeCity: randomCity}));
+    dispatch(changeOfferList({ cityName: randomCity }));
+  }
+
   const AuthStatus = useAppSelector(getAuthorizationStatus);
   const isAuth = AuthStatus === 'AUTH';
 
@@ -57,15 +67,15 @@ function Login() {
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required />
+                <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" minLength={2} required />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
-                <span>{activeCity}</span>
+              <Link className="locations__item-link" to="/" onClick={changeFilter}>
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>

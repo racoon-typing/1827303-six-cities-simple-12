@@ -10,6 +10,8 @@ type ReviewFormProps = {
 }
 
 export function ReviewForm({roomId}: ReviewFormProps): JSX.Element {
+  // const [ratingState, setRatingState] = useState([false, false, false, false, false]);
+
   const [formData, setFormData] = useState({
     comment: '',
     rating: 0,
@@ -17,7 +19,10 @@ export function ReviewForm({roomId}: ReviewFormProps): JSX.Element {
 
   const handleInputChange = (data: number) => {
     setFormData({ ...formData, rating: data });
+    // setRatingState([...ratingState.fill(false, 0, ratingState.length)]);
+    // setRatingState([...ratingState.fill(true, 0, data)]);
   };
+
 
   const handleTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = evt.target;
@@ -36,7 +41,10 @@ export function ReviewForm({roomId}: ReviewFormProps): JSX.Element {
     evt.preventDefault();
     dispatch(sendCommentAction(mySendData));
 
-    setFormData({...formData, comment: ''});
+    setFormData({
+      comment: '',
+      rating: 0
+    });
   }
 
   return (
@@ -48,7 +56,9 @@ export function ReviewForm({roomId}: ReviewFormProps): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratings.map((rating, id) => (
-          <Rating onChange={handleInputChange} key={`${id * 10}`} value={rating} id={id} />
+          <Rating onChange={handleInputChange} key={`${id * 10}`} valueName={rating}
+            // rating={ratingState}
+          id={id} />
         ))}
       </div>
       <textarea
@@ -57,6 +67,8 @@ export function ReviewForm({roomId}: ReviewFormProps): JSX.Element {
         value={formData.comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleTextareaChange}
+        minLength={50}
+        maxLength={300}
       >
       </textarea>
       <div className="reviews__button-wrapper">

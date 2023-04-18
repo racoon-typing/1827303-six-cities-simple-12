@@ -21,18 +21,19 @@ import { hoverCity } from '../../store/main-process/main-process';
 
 
 function Main(): JSX.Element {
-  const data = useAppSelector(getData);
+  // const data = useAppSelector(getData);
 
   const dispatch = useAppDispatch();
 
   // Фильтрация предложений по городу Париж
   useEffect(() => {
     dispatch(changeOfferList({ cityName: 'Paris' }));
-  }, [dispatch, data]);
+  }, [dispatch]);
 
   // Смена города
   const activeCity = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
+  console.log(offers);
   const status = useAppSelector(getOffersLoadingStatus);
   const erorrLoading = useAppSelector(getErrorStatus);
 
