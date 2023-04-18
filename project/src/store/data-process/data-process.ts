@@ -23,6 +23,7 @@ const initialState: DataProcess = {
   errorLoadingOffer: false,
   isNearOfferLoading: false,
   hasError: false,
+  errorLoadingReviews: false,
 };
 
 export const dataProcess = createSlice({
@@ -95,8 +96,15 @@ export const dataProcess = createSlice({
       .addCase(fetchCommentAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
+      .addCase(sendCommentAction.pending, (state) => {
+        state.errorLoadingReviews = false;
+      })
       .addCase(sendCommentAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
+        state.errorLoadingReviews = false;
+      })
+      .addCase(sendCommentAction.rejected, (state) => {
+        state.errorLoadingReviews = true;
       });
   }
 });

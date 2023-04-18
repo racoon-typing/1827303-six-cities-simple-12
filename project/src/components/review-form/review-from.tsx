@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Rating from '../rating/rating';
 import { sendCommentAction } from '../../store/api-actions';
 import { RATINGS } from '../../consts/consts';
+import { getErrorStatusReviews } from '../../store/data-process/selectors';
+import './review-form.css';
 
 type ReviewFormProps = {
   roomId: string | undefined;
@@ -52,6 +54,8 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
     formRef.current?.reset();
   }
 
+  const erorrStatus = useAppSelector(getErrorStatusReviews);
+
   return (
     <form
       className="reviews__form form"
@@ -86,6 +90,11 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
           Submit
         </button>
       </div>
+      {erorrStatus ? (
+        <p className='revew__error-send'>
+          Ошибка при отправке комментария. Повторите попытку.
+        </p>
+      ) : null}
     </form>
   );
 }
