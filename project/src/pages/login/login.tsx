@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthData, loginAction } from '../../store/api-actions';
 import { FormEvent, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { Cities } from '../../consts/consts';
+import { CITIES } from '../../consts/consts';
 // import { getCity } from '../../store/main-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { changeCity } from '../../store/main-process/main-process';
@@ -11,10 +11,9 @@ import { changeOfferList } from '../../store/data-process/data-process';
 
 
 function Login() {
-  const randomCity = Cities[Math.floor(Math.random() * 5)];
+  const randomCity = CITIES[Math.floor(Math.random() * 6)];
 
   function changeFilter() {
-    console.log(randomCity);
     dispatch(changeCity({activeCity: randomCity}));
     dispatch(changeOfferList({ cityName: randomCity }));
   }

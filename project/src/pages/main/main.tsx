@@ -2,12 +2,10 @@ import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
 import SortOptions from '../../components/sort-options/sort-options';
 import { Helmet } from 'react-helmet-async';
-import { useEffect } from 'react';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import CityList from '../../components/city-list/city-list';
-import { getData, getOffers, getOffersLoadingStatus } from '../../store/data-process/selectors';
+import { getOffers, getOffersLoadingStatus } from '../../store/data-process/selectors';
 import { getCity } from '../../store/main-process/selectors';
-import { changeOfferList } from '../../store/data-process/data-process';
 
 
 // Redux
@@ -21,20 +19,15 @@ import { hoverCity } from '../../store/main-process/main-process';
 
 
 function Main(): JSX.Element {
-  // const data = useAppSelector(getData);
-
   const dispatch = useAppDispatch();
-
-  // Фильтрация предложений по городу Париж
-  useEffect(() => {
-    dispatch(changeOfferList({ cityName: 'Paris' }));
-  }, [dispatch]);
 
   // Смена города
   const activeCity = useAppSelector(getCity);
+  // Получает список предложений
   const offers = useAppSelector(getOffers);
-  console.log(offers);
+  // Статус загрузки предложений
   const status = useAppSelector(getOffersLoadingStatus);
+  // Получает ошибку при загрузке
   const erorrLoading = useAppSelector(getErrorStatus);
 
   // Функция смены ID наведенного города

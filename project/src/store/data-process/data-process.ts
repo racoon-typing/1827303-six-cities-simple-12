@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../consts/consts';
 import { DataProcess } from '../../types/state';
 import { fetchCommentAction, fetchCurrentOfferAction, fetchNearOffersAction, fetchOffersAction, sendCommentAction } from '../api-actions';
-
+import { DEFAULT_CITY } from '../../consts/consts';
 
 function filterPrice(a: number, b: number) {
   return (a - b);
@@ -63,7 +63,8 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.data = action.payload;
-        state.offers = action.payload;
+        const fisrtFilterOffer = state.data.filter((оffer) => оffer.city.name === DEFAULT_CITY);
+        state.offers = fisrtFilterOffer;
         state.isOffersLoading = false;
         state.hasError = false;
       })

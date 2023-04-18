@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import Rating from '../rating/rating';
 import { sendCommentAction } from '../../store/api-actions';
@@ -9,42 +9,48 @@ type ReviewFormProps = {
   roomId: string | undefined;
 }
 
-export function ReviewForm({roomId}: ReviewFormProps): JSX.Element {
-  // const [ratingState, setRatingState] = useState([false, false, false, false, false]);
+export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [formData, setFormData] = useState({
     comment: '',
     rating: 0,
   });
 
+  // Получает изменения рейтинга
   const handleInputChange = (data: number) => {
     setFormData({ ...formData, rating: data });
-    // setRatingState([...ratingState.fill(false, 0, ratingState.length)]);
-    // setRatingState([...ratingState.fill(true, 0, data)]);
   };
 
-
+  // Получает изменения комментария
   const handleTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = evt.target;
     setFormData({ ...formData, comment: value });
   };
 
-  const isDisabled = formData.rating === 0 || formData.comment === '';
+  // Условие для блокирования кнопки
+  const isDisabled = formData.rating === 0 || formData.comment === '' || formData.comment.length < 50 || formData.comment.length > 300;
 
+  // Объект для отправки на сервер
   const mySendData = {
     offerId: roomId,
     datas: formData,
   };
 
   const dispatch = useAppDispatch();
+
+  // Функция отправки данных на сервер
   function sendData(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     evt.preventDefault();
+
     dispatch(sendCommentAction(mySendData));
 
     setFormData({
       comment: '',
       rating: 0
     });
+
+    formRef.current?.reset();
   }
 
   return (
@@ -52,13 +58,12 @@ export function ReviewForm({roomId}: ReviewFormProps): JSX.Element {
       className="reviews__form form"
       action="#"
       method="post"
+      ref={formRef}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratings.map((rating, id) => (
-          <Rating onChange={handleInputChange} key={`${id * 10}`} valueName={rating}
-            // rating={ratingState}
-          id={id} />
+          <Rating onChange={handleInputChange} key={`${id * 10}`} valueName={rating} id={id} />
         ))}
       </div>
       <textarea
@@ -67,8 +72,6 @@ export function ReviewForm({roomId}: ReviewFormProps): JSX.Element {
         value={formData.comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleTextareaChange}
-        minLength={50}
-        maxLength={300}
       >
       </textarea>
       <div className="reviews__button-wrapper">

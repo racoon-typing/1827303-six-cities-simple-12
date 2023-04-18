@@ -1,13 +1,13 @@
 import { memo, useMemo } from 'react';
 import NavMain from '../nav-main/nav-main';
-import { Cities } from '../../consts/consts';
+import { CITIES } from '../../consts/consts';
 
 type CityListProps = {
   activeCity: string;
 }
 
 function CityList({activeCity}: CityListProps):JSX.Element {
-  const memoCity = useMemo((): string[] => Cities, []);
+  const memoCity = useMemo((): string[] => CITIES, []);
 
   return (
     <ul className="locations__list tabs__list">
