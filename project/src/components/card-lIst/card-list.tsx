@@ -3,9 +3,11 @@ import { ConstructorRoom } from '../../types/offer';
 
 type OfferCardsProps = {
   offers: ConstructorRoom[];
+  onMouseOverHandler?: (id: number) => void;
+
 };
 
-function CardList({ offers}: OfferCardsProps): JSX.Element {
+function CardList({ offers, onMouseOverHandler }: OfferCardsProps): JSX.Element {
 
   return (
     <>
@@ -13,6 +15,7 @@ function CardList({ offers}: OfferCardsProps): JSX.Element {
         <CardItem
           key={`${offer.id}`}
           value={offer}
+          onMouseOverHandler={onMouseOverHandler}
         />
       )
       )}

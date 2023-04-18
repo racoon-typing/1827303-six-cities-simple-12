@@ -14,11 +14,12 @@ import {
 
 type MapProps = {
   offers: ConstructorRoom[];
+  currentOffer?: ConstructorRoom;
 };
 
-function Map({ offers }: MapProps) {
+function Map({ offers, currentOffer }: MapProps) {
   // Получает id города на который навели
-  const hoveredCity = useAppSelector(getOfferId);
+  let hoveredCity = useAppSelector(getOfferId);
 
   // Определяет город в виде объекта
   const offerCity = offers.map((offer) => {
@@ -33,7 +34,7 @@ function Map({ offers }: MapProps) {
   });
 
   // Создает массив пинов для опредленного города
-  const offerPins = offers.map((offer) => {
+  let offerPins = offers.map((offer) => {
     const obj = {
       id: offer.id,
       lat: offer.location.latitude,
@@ -42,6 +43,17 @@ function Map({ offers }: MapProps) {
 
     return obj;
   });
+
+  // Если открыта страница Room, то получаем 4 пина на карте и выделяем оранжевым один
+  if (currentOffer) {
+    offerPins = [...offerPins, {
+      id: currentOffer.id,
+      lat: currentOffer.location.latitude,
+      lng: currentOffer.location.longitude,
+    }];
+
+    hoveredCity = currentOffer.id;
+  }
 
   // Берет первый объект из массива
   const center = offerCity[0];

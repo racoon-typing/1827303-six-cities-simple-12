@@ -28,4 +28,5 @@ export type DataProcess = {
   errorLoadingOffer: boolean;
   isNearOfferLoading: boolean;
   hasError: boolean;
+  errorLoadingReviews: boolean;
 }

@@ -1,10 +1,10 @@
 type RatingProps = {
   onChange: (data: number) => void;
-  value: string;
+  valueName: string;
   id: number;
 }
 
-function Rating({onChange, value, id}: RatingProps) {
+function Rating({onChange, valueName, id}: RatingProps) {
 
   const handleStar = () => {
     const grade = 5 - id;
@@ -13,10 +13,10 @@ function Rating({onChange, value, id}: RatingProps) {
 
   return (
     <>
-      <input className="form__rating-input visually-hidden" name="rating" value={value} id={`${id}-stars`} type="radio"
+      <input className="form__rating-input visually-hidden" name="rating" value={valueName} id={`${id}-stars`} type="radio"
         onChange={handleStar}
       />
-      <label htmlFor={`${id}-stars`} className="reviews__rating-label form__rating-label" title={value}>
+      <label htmlFor={`${id}-stars`} className="reviews__rating-label form__rating-label" title={valueName}>
         <svg className="form__star-image" width="37" height="33">
           <use xlinkHref="#icon-star"></use>
         </svg>

@@ -34,9 +34,9 @@ export function HeaderNav(): JSX.Element {
               <span className="header__signout">Sign in</span>
             </Link>
           ) : (
-            <div className="header__nav-link" onClick={logOut}>
+            <Link className="header__nav-link" to="/" onClick={logOut}>
               <span className="header__signout">Sign out</span>
-            </div>
+            </Link>
           )}
         </li>
       </ul>

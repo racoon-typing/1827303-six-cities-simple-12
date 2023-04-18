@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Review } from '../../types/review';
 
 type ReviewItemProps = {
@@ -5,9 +6,20 @@ type ReviewItemProps = {
 };
 
 function ReviewItem({ review }: ReviewItemProps) {
-  const { user, rating, comment, date} = review;
-  const {name, avatarUrl} = user;
+  const { user, rating, comment, date } = review;
+  const { name, avatarUrl } = user;
   const starWidth = Math.round(rating) / 5 * 100;
+
+  // Получаем дату в нужном формате
+  const getDateComment = useCallback(() => {
+    const nameMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const dateComment = new Date(date);
+    const month = dateComment.getMonth();
+    const year = dateComment.getFullYear();
+
+    const formatDate = `${nameMonth[month]} ${year}`;
+    return formatDate;
+  }, [date]);
 
   return (
     <>
@@ -29,7 +41,7 @@ function ReviewItem({ review }: ReviewItemProps) {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{getDateComment()}</time>
       </div>
     </>
   );

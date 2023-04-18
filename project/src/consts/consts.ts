@@ -33,3 +33,9 @@ export enum NameSpace {
   Data = 'DATA',
   User = 'USER',
 }
+
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const DEFAULT_CITY = 'Paris';
+
+export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
