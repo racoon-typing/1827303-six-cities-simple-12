@@ -14,3 +14,4 @@ export const getErrorLoadingOffer = (state: State): boolean => state[NameSpace.D
 export const getErrorStatus = (state: State): boolean => state[NameSpace.Data].hasError;
 export const getNearOfferLoadingStatus = (state: State): boolean => state[NameSpace.Data].isNearOfferLoading;
 export const getErrorStatusReviews = (state: State): boolean => state[NameSpace.Data].errorLoadingReviews;
+export const getisDisabledStatusForm = (state: State): boolean => state[NameSpace.Data].isDisabledForm;

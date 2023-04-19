@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import Rating from '../rating/rating';
 import { sendCommentAction } from '../../store/api-actions';
 import { RATINGS } from '../../consts/consts';
-import { getErrorStatusReviews } from '../../store/data-process/selectors';
+import { getErrorStatusReviews, getisDisabledStatusForm } from '../../store/data-process/selectors';
 import './review-form.css';
 
 type ReviewFormProps = {
@@ -28,6 +28,9 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
     const { value } = evt.target;
     setFormData({ ...formData, comment: value });
   };
+
+  // Флаг для блокирования формы во время отправки комментария
+  const isDisabledForm = useAppSelector(getisDisabledStatusForm);
 
   // Условие для блокирования кнопки
   const isDisabled = formData.rating === 0 || formData.comment === '' || formData.comment.length < 50 || formData.comment.length > 300;
@@ -66,7 +69,7 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {RATINGS.map((rating, id) => (
-          <Rating onChange={handleInputChange} key={`${id * 10}`} valueName={rating} id={id} />
+          <Rating onChange={handleInputChange} key={`${id * 10}`} valueName={rating} isDisabled={isDisabledForm} id={id} />
         ))}
       </div>
       <textarea
@@ -75,6 +78,7 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
         value={formData.comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleTextareaChange}
+        disabled={isDisabledForm}
       >
       </textarea>
       <div className="reviews__button-wrapper">
