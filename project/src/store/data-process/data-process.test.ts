@@ -1,6 +1,6 @@
 import { dataProcess } from './data-process';
 import {
-  // changeOption,
+  changeOption,
   changeOfferList } from './data-process';
 import { makeFakeOfferList } from '../../utils/mocks';
 
@@ -24,7 +24,7 @@ describe('Reducer: dataProcess', () => {
       });
   });
 
-  it('filter offers by select City', () => {
+  it('filter offers by select city', () => {
     const state = {
       offers: [],
       getOffer: null,
@@ -50,6 +50,42 @@ describe('Reducer: dataProcess', () => {
         reviews: [],
         isOffersLoading: false,
         filterName: '',
+        errorLoadingOffer: false,
+        isNearOfferLoading: false,
+        hasError: false,
+        errorLoadingReviews: false,
+      });
+  });
+
+  it('filter offers by select sort-option', () => {
+    const state = {
+      offers: mockOfferList,
+      getOffer: null,
+      nearOffers: [],
+      data: [],
+      reviews: [],
+      isOffersLoading: false,
+      filterName: '',
+      errorLoadingOffer: false,
+      isNearOfferLoading: false,
+      hasError: false,
+      errorLoadingReviews: false,
+    };
+
+    function filterPrice(a: number, b: number) {
+      return (a - b);
+    }
+    const filterOfferse = mockOfferList.sort((оffer1, offer2) => filterPrice(оffer1.price, offer2.price));
+
+    expect(dataProcess.reducer(state, changeOption({filterName: 'Price: low to high'})))
+      .toEqual({
+        offers: filterOfferse,
+        getOffer: null,
+        nearOffers: [],
+        data: [],
+        reviews: [],
+        isOffersLoading: false,
+        filterName: 'Price: low to high',
         errorLoadingOffer: false,
         isNearOfferLoading: false,
         hasError: false,
