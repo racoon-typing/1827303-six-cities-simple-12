@@ -30,7 +30,7 @@ export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
-    changeOption: (state, action: PayloadAction<{filterName: string}>) => {
+    changeOption: (state, action: PayloadAction<{ filterName: string }>) => {
       const { filterName } = action.payload;
 
       if (filterName === 'Price: low to high') {
@@ -49,7 +49,7 @@ export const dataProcess = createSlice({
 
       state.filterName = filterName;
     },
-    changeOfferList: (state, action: PayloadAction<{cityName: string}>) => {
+    changeOfferList: (state, action: PayloadAction<{ cityName: string }>) => {
       const { cityName } = action.payload;
 
       const newOffer = state.data.filter((оffer) => оffer.city.name === cityName);
@@ -110,4 +110,4 @@ export const dataProcess = createSlice({
 });
 
 
-export const { changeOption, changeOfferList} = dataProcess.actions;
+export const { changeOption, changeOfferList } = dataProcess.actions;
