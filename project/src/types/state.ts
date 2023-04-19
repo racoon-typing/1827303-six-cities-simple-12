@@ -29,4 +29,5 @@ export type DataProcess = {
   isNearOfferLoading: boolean;
   hasError: boolean;
   errorLoadingReviews: boolean;
+  isDisabledForm: boolean;
 }
