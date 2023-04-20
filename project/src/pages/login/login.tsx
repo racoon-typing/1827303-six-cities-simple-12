@@ -17,8 +17,8 @@ function Login() {
     dispatch(changeOfferList({ cityName: randomCity }));
   }
 
-  const AuthStatus = useAppSelector(getAuthorizationStatus);
-  const isAuth = AuthStatus === 'AUTH';
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const isAuth = authStatus === 'AUTH';
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
