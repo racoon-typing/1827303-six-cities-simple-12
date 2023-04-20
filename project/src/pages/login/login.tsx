@@ -13,7 +13,7 @@ function Login() {
   const randomCity = CITIES[Math.floor(Math.random() * 6)];
 
   function changeFilter() {
-    dispatch(changeCity({activeCity: randomCity}));
+    dispatch(changeCity({ activeCity: randomCity }));
     dispatch(changeOfferList({ cityName: randomCity }));
   }
 

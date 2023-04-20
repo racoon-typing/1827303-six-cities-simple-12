@@ -16,6 +16,9 @@ export function HeaderNav(): JSX.Element {
   }
 
   const noAuth = authStatus === 'NO_AUTH';
+  console.log(authStatus);
+  console.log(email);
+  console.log(avatarUrl);
 
   return (
     <nav className="header__nav">
@@ -23,13 +26,16 @@ export function HeaderNav(): JSX.Element {
         <li className="header__nav-item user">
           <div className="header__nav-profile">
             <div className="header__avatar-wrapper user__avatar-wrapper">
-              {avatarUrl && !noAuth ? (<img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />) : null}
+              {/* {avatarUrl && !noAuth ? (<img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />) : null} */}
+              <img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />
             </div>
-            {noAuth ? (
+            <span className="header__user-name user__name">{email}</span>
+
+            {/* {noAuth ? (
               null
             ) : (
               <span className="header__user-name user__name">{email}</span>
-            )}
+            )} */}
           </div>
         </li>
         <li className="header__nav-item">

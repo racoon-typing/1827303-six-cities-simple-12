@@ -24,6 +24,7 @@ export const userProcess = createSlice({
       .addCase(loginAction.fulfilled, (state, action) => {
         const userInfo = action.payload;
         const {userEmail, avatarUrl} = userInfo;
+        console.log(userInfo);
 
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.email = userEmail;
@@ -34,6 +35,8 @@ export const userProcess = createSlice({
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.email = '';
+        state.avatarUrl = '';
       });
   }
 });
