@@ -5,7 +5,6 @@ import { ConstructorRoom } from '../types/offer';
 import { Review } from '../types/review';
 import { APIRoute, AppRoute } from '../consts/consts';
 import { dropToken, saveToken } from '../services/token';
-import { database } from 'faker';
 
 
 export const fetchOffersAction = createAsyncThunk<ConstructorRoom[], undefined, {

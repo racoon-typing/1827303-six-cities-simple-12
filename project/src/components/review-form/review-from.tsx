@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Rating from '../rating/rating';
 import { sendCommentAction } from '../../store/api-actions';
@@ -33,7 +33,10 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
   const isDisabledForm = useAppSelector(getisDisabledStatusForm);
 
   // Условие для блокирования кнопки
-  const isDisabled = formData.rating === 0 || formData.comment === '' || formData.comment.length < 50 || formData.comment.length > 300;
+  const isDisabledMemo = useMemo(() => {
+    const isDisabled = formData.rating === 0 || formData.comment === '' || formData.comment.length < 50 || formData.comment.length > 300;
+    return isDisabled;
+  }, [formData]);
 
   // Объект для отправки на сервер
   const mySendData = {
@@ -89,7 +92,7 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
           onClick={(evt) => sendData(evt)}
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isDisabled}
+          disabled={isDisabledMemo}
         >
           Submit
         </button>

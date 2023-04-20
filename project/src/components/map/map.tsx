@@ -22,7 +22,7 @@ function Map({ offers, currentOffer }: MapProps) {
   let hoveredCity = useAppSelector(getOfferId);
 
   // Определяет город в виде объекта
-  const offerCity = offers.map((offer) => {
+  const offerCities = offers.map((offer) => {
     const obj = {
       name: offer.city.name,
       latitude: offer.city.location.latitude,
@@ -56,7 +56,7 @@ function Map({ offers, currentOffer }: MapProps) {
   }
 
   // Берет первый объект из массива
-  const center = offerCity[0];
+  const center = offerCities[0];
 
   // Пины на карте
   const mapRef = useRef(null);
