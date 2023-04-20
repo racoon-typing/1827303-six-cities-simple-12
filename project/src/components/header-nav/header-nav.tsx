@@ -1,30 +1,34 @@
 import { memo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
-
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getAuthorizationStatus, getUserAvatarUrl, getUserEmail } from '../../store/user-process/selectors';
 import { logoutAction } from '../../store/api-actions';
 
 
 export function HeaderNav(): JSX.Element {
   const authStatus = useAppSelector(getAuthorizationStatus);
-  const NoAuth = authStatus === 'NO_AUTH';
+  const email = useAppSelector(getUserEmail);
+  const avatarUrl = useAppSelector(getUserAvatarUrl);
 
   const dispatch = useAppDispatch();
   function logOut() {
     dispatch(logoutAction());
   }
 
+  const NoAuth = authStatus === 'NO_AUTH';
+
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
           <div className="header__nav-profile">
-            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+            <div className="header__avatar-wrapper user__avatar-wrapper">
+              {avatarUrl && !NoAuth ? (<img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />) : null}
+            </div>
             {NoAuth ? (
               null
             ) : (
-              <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+              <span className="header__user-name user__name">{email}</span>
             )}
           </div>
         </li>

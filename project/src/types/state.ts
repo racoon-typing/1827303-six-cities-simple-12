@@ -10,6 +10,8 @@ export type AppDispatch = typeof store.dispatch;
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
+  email: string;
+  avatarUrl: string;
 }
 
 export type MainProcess = {

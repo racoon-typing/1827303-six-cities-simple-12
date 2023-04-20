@@ -35,6 +35,11 @@ function Main(): JSX.Element {
     dispatch(hoverCity({ hoveredCity: id }));
   }
 
+  // Функция обнуления ID при уходе курсора с элемента
+  function onMouseOutHandler() {
+    dispatch(hoverCity({ hoveredCity: 0 }));
+  }
+
   if (offers.length === 0 && erorrLoading) {
     return (
       <main className="page__main page__main--index">
@@ -71,7 +76,9 @@ function Main(): JSX.Element {
                 <SortOptions />
                 <div className="cities__places-list places__list tabs__content">
                   {!status ? (
-                    <CardList offers={offers} onMouseOverHandler={onMouseOverHandler} />
+                    <CardList offers={offers} onMouseOverHandler={onMouseOverHandler}
+                      onMouseOutHandler={onMouseOutHandler}
+                    />
                   ) : (
                     <LoadingScreen />
                   )}

@@ -5,9 +5,9 @@ import { ConstructorRoom } from '../types/offer';
 import { Review } from '../types/review';
 import { APIRoute, AppRoute } from '../consts/consts';
 import { dropToken, saveToken } from '../services/token';
+import { database } from 'faker';
 
 
-// Дата: готова
 export const fetchOffersAction = createAsyncThunk<ConstructorRoom[], undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -48,7 +48,6 @@ export const fetchNearOffersAction = createAsyncThunk<ConstructorRoom[], IdType,
 );
 
 
-// Комментарии: готова
 export const fetchCommentAction = createAsyncThunk<Review[], IdType, {
   dispatch: AppDispatch;
   state: State;
@@ -88,7 +87,6 @@ export const sendCommentAction = createAsyncThunk<Review[], CommentData, {
 );
 
 
-// User: готова
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -110,17 +108,26 @@ export type UserData = {
   id: number;
   email: string;
   token: string;
+  avatarUrl: string;
 };
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export type UserInfo = {
+  userEmail: string;
+  avatarUrl: string;
+};
+
+
+export const loginAction = createAsyncThunk<UserInfo, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
+    const { data: { token, email: userEmail, avatarUrl } } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(token);
+
+    return {userEmail, avatarUrl};
   },
 );
 
