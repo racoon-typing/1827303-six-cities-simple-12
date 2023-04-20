@@ -4,9 +4,10 @@ import { ConstructorRoom } from '../../types/offer';
 type CitiesCardProps = {
   value: ConstructorRoom;
   onMouseOverHandler?: (id: number) => void;
+  onMouseOutHandler?: () => void;
 };
 
-function CardItem({ value, onMouseOverHandler }: CitiesCardProps): JSX.Element {
+function CardItem({ value, onMouseOverHandler, onMouseOutHandler }: CitiesCardProps): JSX.Element {
   const { isPremium, price, title, type, rating, id, previewImage } = value;
   const starWidth = `${Math.round(rating) / 5 * 100}%`;
 
@@ -17,6 +18,7 @@ function CardItem({ value, onMouseOverHandler }: CitiesCardProps): JSX.Element {
   return (
     <article className='cities__card place-card'
       onMouseOver={() => onMouseOverHandler?.(id)}
+      onMouseOut={onMouseOutHandler}
       onClick={handleTopScroll}
     >
       {isPremium ? (

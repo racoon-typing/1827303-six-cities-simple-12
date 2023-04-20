@@ -17,7 +17,7 @@ function CurrentOffer({ offer, reviews, roomId }: CurrentOfferScreenProps): JSX.
   return (
     <>
       <div className="property__gallery-container container">
-        <OfferGallery images={images}/>
+        <OfferGallery images={images} />
       </div>
       <div className="property__container container">
         <div className="property__wrapper">

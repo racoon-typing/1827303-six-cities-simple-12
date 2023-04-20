@@ -5,12 +5,12 @@ import CurrentOffer from '../../components/current-offer/current-offer';
 import CardList from '../../components/card-lIst/card-list';
 import Map from '../../components/map/map';
 import NotFound from '../not-found/not-found';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
 import {
   fetchCurrentOfferAction,
   fetchNearOffersAction,
   fetchCommentAction,
 } from '../../store/api-actions';
-import LoadingScreen from '../../components/loading-screen/loading-screen';
 import {
   getErrorLoadingOffer,
   getNearOfferLoadingStatus,
@@ -69,7 +69,11 @@ function Room(): JSX.Element {
         status ? (
           <main className="page__main page__main--property">
             <section className="property">
-              <CurrentOffer offer={currentOffer} reviews={reviews} roomId={id} />
+              {currentOffer ? (
+                <CurrentOffer offer={currentOffer} reviews={reviews} roomId={id} />
+              ) : (
+                <LoadingScreen />
+              )}
               <section className="property__map map">
                 {!nearOfferLoadingStatus && nearOffer.length !== 0 ? <Map offers={nearOffer} currentOffer={currentOffer} /> : null}
               </section>
