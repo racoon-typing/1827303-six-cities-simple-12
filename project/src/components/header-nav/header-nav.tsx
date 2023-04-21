@@ -9,11 +9,14 @@ import { UserData, getUserData } from '../../services/user-data';
 export function HeaderNav(): JSX.Element {
   const authStatus = useAppSelector(getAuthorizationStatus);
 
+  // Получает логин и аватарку поьзователя
   const userData = getUserData();
-  const savedUser = JSON.parse(userData) as UserData;
-  const {avatarUrl, email} = savedUser;
-  console.log(avatarUrl);
-  console.log(email);
+
+  let userInfo;
+  if (userData) {
+    const savedUserInfo = JSON.parse(userData) as UserData;
+    userInfo = savedUserInfo;
+  }
 
   const dispatch = useAppDispatch();
   function logOut() {
@@ -28,9 +31,11 @@ export function HeaderNav(): JSX.Element {
         <li className="header__nav-item user">
           <div className="header__nav-profile">
             <div className="header__avatar-wrapper user__avatar-wrapper">
-              <img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />
+              {userInfo?.avatarUrl ? (
+                <img style={{ borderRadius: '50%' }} src={userInfo?.avatarUrl} alt="Avatar" />
+              ) : null}
             </div>
-            <span className="header__user-name user__name">{email}</span>
+            <span className="header__user-name user__name">{userInfo?.email}</span>
           </div>
         </li>
         <li className="header__nav-item">

@@ -1,19 +1,10 @@
 const USER_DATA_KEY_NAME = 'user-data';
 
-// export type UserData = {
-//   avatarUrl: string;
-//   email: string;
-//   id: number;
-//   isPro: boolean;
-//   name: string;
-//   token: string;
-// };
 export type UserData = {
   avatarUrl: string;
   email: string;
   id: number;
 };
-
 
 export const getUserData = (): string => {
   const userData = localStorage.getItem(USER_DATA_KEY_NAME);
