@@ -1,14 +1,12 @@
 import { memo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
-import { getAuthorizationStatus, getUserAvatarUrl, getUserEmail } from '../../store/user-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { logoutAction } from '../../store/api-actions';
 
 
 export function HeaderNav(): JSX.Element {
   const authStatus = useAppSelector(getAuthorizationStatus);
-  const email = useAppSelector(getUserEmail);
-  const avatarUrl = useAppSelector(getUserAvatarUrl);
 
   const dispatch = useAppDispatch();
   function logOut() {
@@ -16,9 +14,6 @@ export function HeaderNav(): JSX.Element {
   }
 
   const noAuth = authStatus === 'NO_AUTH';
-  console.log(authStatus);
-  console.log(email);
-  console.log(avatarUrl);
 
   return (
     <nav className="header__nav">
@@ -27,9 +22,10 @@ export function HeaderNav(): JSX.Element {
           <div className="header__nav-profile">
             <div className="header__avatar-wrapper user__avatar-wrapper">
               {/* {avatarUrl && !noAuth ? (<img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />) : null} */}
-              <img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />
+              {/* <img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" /> */}
+              <img style={{borderRadius: '50%'}} src='hfkd' alt="Avatar" />
             </div>
-            <span className="header__user-name user__name">{email}</span>
+            <span className="header__user-name user__name">email</span>
 
             {/* {noAuth ? (
               null
