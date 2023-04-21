@@ -3,10 +3,17 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { logoutAction } from '../../store/api-actions';
+import { UserData, getUserData } from '../../services/user-data';
 
 
 export function HeaderNav(): JSX.Element {
   const authStatus = useAppSelector(getAuthorizationStatus);
+
+  const userData = getUserData();
+  const savedUser = JSON.parse(userData) as UserData;
+  const {avatarUrl, email} = savedUser;
+  console.log(avatarUrl);
+  console.log(email);
 
   const dispatch = useAppDispatch();
   function logOut() {
@@ -21,17 +28,9 @@ export function HeaderNav(): JSX.Element {
         <li className="header__nav-item user">
           <div className="header__nav-profile">
             <div className="header__avatar-wrapper user__avatar-wrapper">
-              {/* {avatarUrl && !noAuth ? (<img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />) : null} */}
-              {/* <img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" /> */}
-              <img style={{borderRadius: '50%'}} src='hfkd' alt="Avatar" />
+              <img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />
             </div>
-            <span className="header__user-name user__name">email</span>
-
-            {/* {noAuth ? (
-              null
-            ) : (
-              <span className="header__user-name user__name">{email}</span>
-            )} */}
+            <span className="header__user-name user__name">{email}</span>
           </div>
         </li>
         <li className="header__nav-item">
