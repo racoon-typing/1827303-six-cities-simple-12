@@ -39,3 +39,10 @@ export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', '
 export const DEFAULT_CITY = 'Paris';
 
 export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
+
+export const MAX_TEXT_COMMENT = 300;
+
+export const MIN_TEXT_COMMENT = 50;
+
+export const MAX_GRADE = 5;
+
