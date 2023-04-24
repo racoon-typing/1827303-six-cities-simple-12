@@ -1,7 +1,5 @@
 import { dataProcess } from './data-process';
-import {
-  changeOption,
-  changeOfferList } from './data-process';
+import {changeOption, changeOfferList } from './data-process';
 import { makeFakeOfferList } from '../../utils/mocks';
 
 const mockOfferList = makeFakeOfferList();
