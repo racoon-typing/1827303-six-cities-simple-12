@@ -5,9 +5,9 @@ import { ConstructorRoom } from '../types/offer';
 import { Review } from '../types/review';
 import { APIRoute, AppRoute } from '../consts/consts';
 import { dropToken, saveToken } from '../services/token';
+import { dropUserData, saveUserData } from '../services/user-data';
 
 
-// Дата: готова
 export const fetchOffersAction = createAsyncThunk<ConstructorRoom[], undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -48,7 +48,6 @@ export const fetchNearOffersAction = createAsyncThunk<ConstructorRoom[], IdType,
 );
 
 
-// Комментарии: готова
 export const fetchCommentAction = createAsyncThunk<Review[], IdType, {
   dispatch: AppDispatch;
   state: State;
@@ -88,7 +87,6 @@ export const sendCommentAction = createAsyncThunk<Review[], CommentData, {
 );
 
 
-// User: готова
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -110,7 +108,14 @@ export type UserData = {
   id: number;
   email: string;
   token: string;
+  avatarUrl: string;
 };
+
+export type UserInfo = {
+  userEmail: string;
+  avatarUrl: string;
+};
+
 
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
@@ -119,8 +124,13 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
-    saveToken(token);
+    const { data: dataUser } = await api.post<UserData>(APIRoute.Login, { email, password });
+    saveToken(dataUser.token);
+    saveUserData({
+      avatarUrl: dataUser.avatarUrl,
+      email: dataUser.email,
+      id: dataUser.id,
+    });
   },
 );
 
@@ -133,6 +143,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
+    dropUserData();
   },
 );
 

@@ -1,7 +1,7 @@
 import { Review } from '../../types/review';
 import ReviewList from '../review-list/review-list';
 import { useAppSelector } from '../../hooks';
-import ReviewForm from '../review-form/review-from';
+import ReviewForm from '../review-form/review-form';
 
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
@@ -11,8 +11,8 @@ type ReviewRoomProps = {
 }
 
 function ReviewRoom({ reviews, roomId }: ReviewRoomProps): JSX.Element {
-  const AuthStatus = useAppSelector(getAuthorizationStatus);
-  const isAuth = AuthStatus === 'AUTH';
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const isAuth = authStatus === 'AUTH';
 
   return (
     <section className="property__reviews reviews" >
