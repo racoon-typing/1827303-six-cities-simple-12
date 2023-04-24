@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -7,20 +7,34 @@ import { UserData, getUserData } from '../../services/user-data';
 
 
 export function HeaderNav(): JSX.Element {
+  const [userInfo, setUserInfo] = useState({
+    avatarUrl: '',
+    email: '',
+    id: 0,
+  });
+
   const authStatus = useAppSelector(getAuthorizationStatus);
 
   // Получает логин и аватарку поьзователя
   const userData = getUserData();
 
-  let userInfo;
-  if (userData) {
-    const savedUserInfo = JSON.parse(userData) as UserData;
-    userInfo = savedUserInfo;
-  }
+  useEffect(() => {
+    if (userData) {
+      const savedUserInfo = JSON.parse(userData) as UserData;
+      setUserInfo(savedUserInfo);
+    }
+  }, [userData]);
 
+  // Сброс данных пользователя
   const dispatch = useAppDispatch();
   function logOut() {
     dispatch(logoutAction());
+
+    setUserInfo({
+      avatarUrl: '',
+      email: '',
+      id: 0,
+    });
   }
 
   const noAuth = authStatus === 'NO_AUTH';
