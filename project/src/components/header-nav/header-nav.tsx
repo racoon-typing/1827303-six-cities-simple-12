@@ -1,35 +1,59 @@
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
-
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { logoutAction } from '../../store/api-actions';
+import { UserData, getUserData } from '../../services/user-data';
 
 
 export function HeaderNav(): JSX.Element {
-  const authStatus = useAppSelector(getAuthorizationStatus);
-  const NoAuth = authStatus === 'NO_AUTH';
+  const [userInfo, setUserInfo] = useState({
+    avatarUrl: '',
+    email: '',
+    id: 0,
+  });
 
+  const authStatus = useAppSelector(getAuthorizationStatus);
+
+  // Получает логин и аватарку поьзователя
+  const userData = getUserData();
+
+  useEffect(() => {
+    if (userData) {
+      const savedUserInfo = JSON.parse(userData) as UserData;
+      setUserInfo(savedUserInfo);
+    }
+  }, [userData]);
+
+  // Сброс данных пользователя
   const dispatch = useAppDispatch();
   function logOut() {
     dispatch(logoutAction());
+
+    setUserInfo({
+      avatarUrl: '',
+      email: '',
+      id: 0,
+    });
   }
+
+  const noAuth = authStatus === 'NO_AUTH';
 
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
           <div className="header__nav-profile">
-            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-            {NoAuth ? (
-              null
-            ) : (
-              <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-            )}
+            <div className="header__avatar-wrapper user__avatar-wrapper">
+              {userInfo?.avatarUrl ? (
+                <img style={{ borderRadius: '50%' }} src={userInfo?.avatarUrl} alt="Avatar" />
+              ) : null}
+            </div>
+            <span className="header__user-name user__name">{userInfo?.email}</span>
           </div>
         </li>
         <li className="header__nav-item">
-          {NoAuth ? (
+          {noAuth ? (
             <Link className="header__nav-link" to="/login">
               <span className="header__signout">Sign in</span>
             </Link>

@@ -24,6 +24,7 @@ const initialState: DataProcess = {
   isNearOfferLoading: false,
   hasError: false,
   errorLoadingReviews: false,
+  isDisabledForm: false,
 };
 
 export const dataProcess = createSlice({
@@ -98,13 +99,16 @@ export const dataProcess = createSlice({
       })
       .addCase(sendCommentAction.pending, (state) => {
         state.errorLoadingReviews = false;
+        state.isDisabledForm = true;
       })
       .addCase(sendCommentAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
         state.errorLoadingReviews = false;
+        state.isDisabledForm = false;
       })
       .addCase(sendCommentAction.rejected, (state) => {
         state.errorLoadingReviews = true;
+        state.isDisabledForm = false;
       });
   }
 });
