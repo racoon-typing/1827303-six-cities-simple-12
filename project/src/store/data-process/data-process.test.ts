@@ -19,6 +19,7 @@ describe('Reducer: dataProcess', () => {
         isNearOfferLoading: false,
         hasError: false,
         errorLoadingReviews: false,
+        isDisabledForm: false,
       });
   });
 
@@ -35,6 +36,7 @@ describe('Reducer: dataProcess', () => {
       isNearOfferLoading: false,
       hasError: false,
       errorLoadingReviews: false,
+      isDisabledForm: false,
     };
     const cityFilter = mockOfferList[0].city.name;
     const filterOffers = mockOfferList.filter((оffer) => оffer.city.name === cityFilter);
@@ -52,6 +54,7 @@ describe('Reducer: dataProcess', () => {
         isNearOfferLoading: false,
         hasError: false,
         errorLoadingReviews: false,
+        isDisabledForm: false,
       });
   });
 
@@ -68,12 +71,14 @@ describe('Reducer: dataProcess', () => {
       isNearOfferLoading: false,
       hasError: false,
       errorLoadingReviews: false,
+      isDisabledForm: false,
     };
 
     function filterPrice(a: number, b: number) {
       return (a - b);
     }
-    const filterOfferse = mockOfferList.sort((оffer1, offer2) => filterPrice(оffer1.price, offer2.price));
+
+    const filterOfferse = mockOfferList.slice().sort((оffer1, offer2) => filterPrice(оffer1.price, offer2.price));
 
     expect(dataProcess.reducer(state, changeOption({filterName: 'Price: low to high'})))
       .toEqual({
@@ -88,6 +93,7 @@ describe('Reducer: dataProcess', () => {
         isNearOfferLoading: false,
         hasError: false,
         errorLoadingReviews: false,
+        isDisabledForm: false,
       });
   });
 });
