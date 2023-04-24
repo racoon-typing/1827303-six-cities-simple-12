@@ -1,18 +1,40 @@
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
-import { getAuthorizationStatus, getUserAvatarUrl, getUserEmail } from '../../store/user-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { logoutAction } from '../../store/api-actions';
+import { UserData, getUserData } from '../../services/user-data';
 
 
 export function HeaderNav(): JSX.Element {
-  const authStatus = useAppSelector(getAuthorizationStatus);
-  const email = useAppSelector(getUserEmail);
-  const avatarUrl = useAppSelector(getUserAvatarUrl);
+  const [userInfo, setUserInfo] = useState({
+    avatarUrl: '',
+    email: '',
+    id: 0,
+  });
 
+  const authStatus = useAppSelector(getAuthorizationStatus);
+
+  // Получает логин и аватарку поьзователя
+  const userData = getUserData();
+
+  useEffect(() => {
+    if (userData) {
+      const savedUserInfo = JSON.parse(userData) as UserData;
+      setUserInfo(savedUserInfo);
+    }
+  }, [userData]);
+
+  // Сброс данных пользователя
   const dispatch = useAppDispatch();
   function logOut() {
     dispatch(logoutAction());
+
+    setUserInfo({
+      avatarUrl: '',
+      email: '',
+      id: 0,
+    });
   }
 
   const noAuth = authStatus === 'NO_AUTH';
@@ -23,13 +45,11 @@ export function HeaderNav(): JSX.Element {
         <li className="header__nav-item user">
           <div className="header__nav-profile">
             <div className="header__avatar-wrapper user__avatar-wrapper">
-              {avatarUrl && !noAuth ? (<img style={{borderRadius: '50%'}} src={`${avatarUrl}`} alt="Avatar" />) : null}
+              {userInfo?.avatarUrl ? (
+                <img style={{ borderRadius: '50%' }} src={userInfo?.avatarUrl} alt="Avatar" />
+              ) : null}
             </div>
-            {noAuth ? (
-              null
-            ) : (
-              <span className="header__user-name user__name">{email}</span>
-            )}
+            <span className="header__user-name user__name">{userInfo?.email}</span>
           </div>
         </li>
         <li className="header__nav-item">

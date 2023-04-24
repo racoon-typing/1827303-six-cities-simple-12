@@ -5,6 +5,7 @@ import { ConstructorRoom } from '../types/offer';
 import { Review } from '../types/review';
 import { APIRoute, AppRoute } from '../consts/consts';
 import { dropToken, saveToken } from '../services/token';
+import { dropUserData, saveUserData } from '../services/user-data';
 
 
 export const fetchOffersAction = createAsyncThunk<ConstructorRoom[], undefined, {
@@ -116,17 +117,20 @@ export type UserInfo = {
 };
 
 
-export const loginAction = createAsyncThunk<UserInfo, AuthData, {
+export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: { token, email: userEmail, avatarUrl } } = await api.post<UserData>(APIRoute.Login, { email, password });
-    saveToken(token);
-
-    return {userEmail, avatarUrl};
+    const { data: dataUser } = await api.post<UserData>(APIRoute.Login, { email, password });
+    saveToken(dataUser.token);
+    saveUserData({
+      avatarUrl: dataUser.avatarUrl,
+      email: dataUser.email,
+      id: dataUser.id,
+    });
   },
 );
 
@@ -139,6 +143,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
+    dropUserData();
   },
 );
 

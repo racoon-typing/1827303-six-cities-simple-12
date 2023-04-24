@@ -18,7 +18,6 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'img/pin-active.svg';
 
-
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -26,7 +25,6 @@ export enum AuthorizationStatus {
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
-
 
 export enum NameSpace {
   Main = 'MAIN',
@@ -39,3 +37,10 @@ export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', '
 export const DEFAULT_CITY = 'Paris';
 
 export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
+
+export const MAX_TEXT_COMMENT = 300;
+
+export const MIN_TEXT_COMMENT = 50;
+
+export const MAX_GRADE = 5;
+
