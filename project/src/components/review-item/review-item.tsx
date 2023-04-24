@@ -12,12 +12,12 @@ function ReviewItem({ review }: ReviewItemProps) {
 
   // Получаем дату в нужном формате
   const getDateComment = useCallback(() => {
-    const nameMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const dateComment = new Date(date);
     const month = dateComment.getMonth();
     const year = dateComment.getFullYear();
 
-    const formatDate = `${nameMonth[month]} ${year}`;
+    const formatDate = `${monthNames[month]} ${year}`;
     return formatDate;
   }, [date]);
 

@@ -22,13 +22,13 @@ function ReviewList({ reviews }: ReviewListProps) {
 
   // Получает массив отзывов не больше 10 элементов
   const isMax = reviews.length >= 10 ? 10 : reviews.length;
-  const maxReview = sortReviews.slice(0, isMax);
+  const maxReviews = sortReviews.slice(0, isMax);
 
 
   return (
     <ul className="reviews__list">
       {
-        maxReview.map((review, id) => (
+        maxReviews.map((review, id) => (
           <li key={`${id * 10}`} className="reviews__item">
             <ReviewItem review={review} />
           </li>
