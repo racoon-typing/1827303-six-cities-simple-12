@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Rating from '../rating/rating';
 import { sendCommentAction } from '../../store/api-actions';
-import { RATINGS } from '../../consts/consts';
+import { RATINGS, MAX_GRADE, MAX_TEXT_COMMENT, MIN_TEXT_COMMENT } from '../../consts/consts';
 import { getErrorStatusReviews, getisDisabledStatusForm } from '../../store/data-process/selectors';
 import './review-form.css';
 
@@ -32,8 +32,14 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
   // Флаг для блокирования формы во время отправки комментария
   const isDisabledForm = useAppSelector(getisDisabledStatusForm);
 
+  // Ошибка при загрузке коммента
+  const erorrStatus = useAppSelector(getErrorStatusReviews);
+
   // Условие для блокирования кнопки
-  const isDisabled = formData.rating === 0 || formData.comment === '' || formData.comment.length < 50 || formData.comment.length > 300;
+  const isDisabledMemo = useMemo(() => {
+    const isDisabled = formData.rating === 0 || formData.comment === '' || formData.comment.length < MIN_TEXT_COMMENT || formData.comment.length > MAX_TEXT_COMMENT;
+    return isDisabled;
+  }, [formData]);
 
   // Объект для отправки на сервер
   const mySendData = {
@@ -55,9 +61,16 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
     });
 
     formRef.current?.reset();
+
+    if (formData.rating) {
+      const grade = MAX_GRADE - formData.rating;
+      const ratingElement = document.getElementById(`${grade}-stars`);
+      if (ratingElement) {
+        (ratingElement as HTMLInputElement).checked = false;
+      }
+    }
   }
 
-  const erorrStatus = useAppSelector(getErrorStatusReviews);
 
   return (
     <form
@@ -89,7 +102,7 @@ export function ReviewForm({ roomId }: ReviewFormProps): JSX.Element {
           onClick={(evt) => sendData(evt)}
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isDisabled}
+          disabled={isDisabledMemo}
         >
           Submit
         </button>
